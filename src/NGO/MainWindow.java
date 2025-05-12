@@ -14,9 +14,11 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import oru.inf.InfDB;
+import oru.inf.InfException;
 //HEJPONTUS
 
 public class MainWindow extends JFrame implements LoginListener {
@@ -25,9 +27,17 @@ public class MainWindow extends JFrame implements LoginListener {
 	InfDB idb;
 	String userId;
 
-	public MainWindow(InfDB idb) {
-		this.idb = idb;
+	public MainWindow() {
+		
+		try {
+			idb = new InfDB("SDGSweden", "3306", "dbAdmin2024", "dbAdmin2024PW");
 
+		} catch (InfException e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Failed to connect to database");
+			return;
+		}
+		
 		//Window
 		setSize(600, 400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
