@@ -1,5 +1,10 @@
 package NGO.UI;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import oru.inf.InfDB;
+import oru.inf.InfException;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,8 +19,18 @@ public class GeneralWindow extends javax.swing.JFrame {
     /**
      * Creates new form GeneralWindow
      */
+    private InfDB idb;
+    
+   
     public GeneralWindow() {
         initComponents();
+        try{
+            idb = new InfDB("SDGSweden", "3306", "dbAdmin2024", "dbAdmin2024PW");
+            txtVisaAllaProj.setVisible(false);
+        }catch(InfException e){
+            System.out.println(e);
+        }
+        
     }
 
     /**
@@ -32,6 +47,8 @@ public class GeneralWindow extends javax.swing.JFrame {
         btnAllaProj = new javax.swing.JButton();
         btnGlobalGoals = new javax.swing.JButton();
         btnUppgifter = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtVisaAllaProj = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,43 +62,57 @@ public class GeneralWindow extends javax.swing.JFrame {
         });
 
         btnAllaProj.setText("Alla Projekt");
+        btnAllaProj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllaProjActionPerformed(evt);
+            }
+        });
 
         btnGlobalGoals.setText("Hållbarhetsmål");
 
         btnUppgifter.setText("Mina Uppgifter");
+
+        txtVisaAllaProj.setColumns(20);
+        txtVisaAllaProj.setRows(5);
+        jScrollPane1.setViewportView(txtVisaAllaProj);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(320, 320, 320)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(btnMinaProj)
-                        .addGap(62, 62, 62)
-                        .addComponent(btnAllaProj)
-                        .addGap(102, 102, 102)
-                        .addComponent(btnGlobalGoals)
-                        .addGap(81, 81, 81)
-                        .addComponent(btnUppgifter)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMinaProj)
+                            .addComponent(btnAllaProj)
+                            .addComponent(btnGlobalGoals)
+                            .addComponent(btnUppgifter, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(jLabel1)
-                .addGap(111, 111, 111)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMinaProj)
-                    .addComponent(btnAllaProj)
-                    .addComponent(btnGlobalGoals)
-                    .addComponent(btnUppgifter))
-                .addContainerGap(364, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel1)
+                        .addGap(52, 52, 52)
+                        .addComponent(btnMinaProj)
+                        .addGap(46, 46, 46)
+                        .addComponent(btnAllaProj)
+                        .addGap(45, 45, 45)
+                        .addComponent(btnGlobalGoals)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnUppgifter))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(185, Short.MAX_VALUE))
         );
 
         pack();
@@ -90,6 +121,37 @@ public class GeneralWindow extends javax.swing.JFrame {
     private void btnMinaProjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMinaProjActionPerformed
+
+    private void btnAllaProjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllaProjActionPerformed
+        try{
+            //String activeID;
+            //String antalRader = idb.fetchSingle("select count(*) from projekt");
+            //int antRad = Integer.parseInt(antalRader);
+            txtVisaAllaProj.setVisible(true);
+            String id = "10";
+            String sqlFraga = "select * from projekt where projektchef = '" + id + "'";
+            ArrayList<HashMap<String, String>> allProjects = idb.fetchRows(sqlFraga);
+            StringBuilder resultat = new StringBuilder();
+            for (HashMap<String, String> rad : allProjects) {
+                resultat.append("ID: ").append(rad.get("pid"))
+                        .append(", Namn: ").append(rad.get("projektnamn"))
+                        .append(" , Beskrivning: ").append(rad.get("beskrivning"))
+                        .append(" , Startdatum: ").append(rad.get("startdatum"))
+                        .append(" , Slutdatum: ").append(rad.get("slutdatum"))
+                        .append(" , Kostnad: ").append(rad.get("kostnad"))
+                        .append(" , Status: ").append(rad.get("status"))
+                        .append(" , Prioritet: ").append(rad.get("prioritet"))
+                        .append(" , Projektchef: ").append(rad.get("projektchef"))
+                        .append(" , Land: ").append(rad.get("land"))
+                        .append("\n ");
+            }
+            txtVisaAllaProj.setText(resultat.toString() ); 
+        }catch(InfException e){
+            System.out.println(e);
+        }
+    
+        
+    }//GEN-LAST:event_btnAllaProjActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,5 +194,7 @@ public class GeneralWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnMinaProj;
     private javax.swing.JButton btnUppgifter;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtVisaAllaProj;
     // End of variables declaration//GEN-END:variables
 }

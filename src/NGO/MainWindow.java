@@ -72,6 +72,7 @@ public class MainWindow extends JFrame implements LoginListener {
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.gridy = 0;
 			panel.add(new JLabel("Project id"));
+                        
 			int i = 1;
 
 			for (String project : projects) {
