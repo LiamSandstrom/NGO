@@ -39,7 +39,7 @@ public class MainWindow extends JFrame implements LoginListener {
 		}
 		
 		//Window
-		setSize(600, 400);
+		setSize(1000, 700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		setTitle("MainFrame");
