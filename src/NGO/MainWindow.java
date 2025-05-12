@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import oru.inf.InfDB;
+//HEJPONTUS
 
 public class MainWindow extends JFrame implements LoginListener {
 
