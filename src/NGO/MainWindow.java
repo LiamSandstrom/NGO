@@ -22,6 +22,7 @@ public class MainWindow extends JFrame implements LoginListener {
 
 	private JPanel currentPanel;
 	InfDB idb;
+	String userId;
 
 	public MainWindow(InfDB idb) {
 		this.idb = idb;
@@ -41,6 +42,7 @@ public class MainWindow extends JFrame implements LoginListener {
 
 	@Override
 	public void onLoginSucess(String id) {
+		userId = id;
 		remove(currentPanel);
 		repaint();
 
@@ -53,12 +55,12 @@ public class MainWindow extends JFrame implements LoginListener {
 
 	private void getProjects() {
 		try {
-			ArrayList<String> projects = idb.fetchColumn("select pid from ans_proj where aid = 1");
+			ArrayList<String> projects = idb.fetchColumn("select pid from ans_proj where aid = " + userId);
 			JPanel panel = new JPanel();
 			panel.setLayout(new GridBagLayout());
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.gridy = 0;
-			panel.add(new JLabel("Projects"));
+			panel.add(new JLabel("Project id"));
 			int i = 1;
 
 			for (String project : projects) {
