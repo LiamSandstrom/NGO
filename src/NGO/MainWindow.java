@@ -1,7 +1,7 @@
 package NGO;
 
 import NGO.UI.AdminUI;
-import NGO.UI.GeneralWindow;
+import NGO.UI.GenWin;
 import NGO.UI.LoginWindow;
 import NGO.listeners.LoginListener;
 import java.awt.AWTEventMulticaster;
@@ -65,12 +65,14 @@ public class MainWindow extends JFrame implements LoginListener {
 		switch (user.getRole()) {
 			case User.Role.ADMIN:
 				user = new Admin(idb, id);
-				currentPanel = new AdminUI((Admin) user);
+				//currentPanel = new AdminUI((Admin) user);
+                                currentPanel = new GenWin(user);
+                                currentPanel.setVisible(true);
 				add(currentPanel);
 				break;
 
 			case User.Role.HANDLAGGARE:
-				JFrame temp = new GeneralWindow(user);
+				JPanel temp = new GenWin(user);
 				temp.setVisible(true);
 				break;
 			default:
