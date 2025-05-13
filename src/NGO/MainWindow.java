@@ -70,7 +70,7 @@ public class MainWindow extends JFrame implements LoginListener {
 				break;
 
 			case User.Role.HANDLAGGARE:
-				JFrame temp = new GeneralWindow();
+				JFrame temp = new GeneralWindow(user);
 				temp.setVisible(true);
 				break;
 			default:
