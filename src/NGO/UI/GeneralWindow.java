@@ -27,6 +27,7 @@ public class GeneralWindow extends javax.swing.JFrame {
         try{
             idb = new InfDB("SDGSweden", "3306", "dbAdmin2024", "dbAdmin2024PW");
             txtVisaAllaProj.setVisible(false);
+            btnSpara.setVisible(false);
         }catch(InfException e){
             System.out.println(e);
         }
@@ -49,6 +50,13 @@ public class GeneralWindow extends javax.swing.JFrame {
         btnUppgifter = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtVisaAllaProj = new javax.swing.JTextArea();
+        txtFornamn = new javax.swing.JTextField();
+        txtEfternamn = new javax.swing.JTextField();
+        txtAdress = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtPhone = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        btnSpara = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,35 +79,71 @@ public class GeneralWindow extends javax.swing.JFrame {
         btnGlobalGoals.setText("Hållbarhetsmål");
 
         btnUppgifter.setText("Mina Uppgifter");
+        btnUppgifter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUppgifterActionPerformed(evt);
+            }
+        });
 
         txtVisaAllaProj.setColumns(20);
         txtVisaAllaProj.setRows(5);
         jScrollPane1.setViewportView(txtVisaAllaProj);
+
+        txtFornamn.setText("jTextField1");
+
+        txtEfternamn.setText("jTextField1");
+
+        txtAdress.setText("jTextField1");
+
+        txtEmail.setText("jTextField1");
+
+        txtPhone.setText("jTextField1");
+
+        txtPassword.setText("jTextField1");
+
+        btnSpara.setText("Spara ändringar");
+        btnSpara.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSparaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnMinaProj)
-                            .addComponent(btnAllaProj)
-                            .addComponent(btnGlobalGoals)
-                            .addComponent(btnUppgifter, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnMinaProj)
+                                .addComponent(btnAllaProj)
+                                .addComponent(btnGlobalGoals)
+                                .addComponent(btnUppgifter, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnSpara)
+                        .addGap(33, 33, 33)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtFornamn)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                    .addComponent(txtEfternamn)
+                    .addComponent(txtAdress)
+                    .addComponent(txtEmail)
+                    .addComponent(txtPhone, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtPassword))
+                .addContainerGap(646, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
                         .addComponent(jLabel1)
                         .addGap(52, 52, 52)
                         .addComponent(btnMinaProj)
@@ -109,24 +153,29 @@ public class GeneralWindow extends javax.swing.JFrame {
                         .addComponent(btnGlobalGoals)
                         .addGap(44, 44, 44)
                         .addComponent(btnUppgifter))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(185, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSpara))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMinaProjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMinaProjActionPerformed
-
-    private void btnAllaProjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllaProjActionPerformed
         try{
-            //String activeID;
-            //String antalRader = idb.fetchSingle("select count(*) from projekt");
-            //int antRad = Integer.parseInt(antalRader);
             txtVisaAllaProj.setVisible(true);
             String id = "10";
             String sqlFraga = "select * from projekt where projektchef = '" + id + "'";
@@ -149,9 +198,51 @@ public class GeneralWindow extends javax.swing.JFrame {
         }catch(InfException e){
             System.out.println(e);
         }
-    
-        
+    }//GEN-LAST:event_btnMinaProjActionPerformed
+
+    private void btnAllaProjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllaProjActionPerformed
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnAllaProjActionPerformed
+
+    private void btnUppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUppgifterActionPerformed
+        try{
+            txtVisaAllaProj.setVisible(false);
+            String id = "10";
+            txtFornamn.setText(idb.fetchSingle("select fornamn from anstalld where aid = '" + id + "'"));
+            txtEfternamn.setText(idb.fetchSingle("select efternamn from anstalld where aid = '" + id + "'"));
+            txtAdress.setText(idb.fetchSingle("select adress from anstalld where aid = '" + id + "'"));
+            txtEmail.setText(idb.fetchSingle("select epost from anstalld where aid = '" + id + "'"));
+            txtPhone.setText(idb.fetchSingle("select telefon from anstalld where aid = '" + id + "'"));
+            txtPassword.setText(idb.fetchSingle("select losenord from anstalld where aid = '" + id + "'"));
+            btnSpara.setVisible(true);
+            
+        }catch(InfException e){
+            System.out.println(e);
+        }
+        
+    }//GEN-LAST:event_btnUppgifterActionPerformed
+
+    private void btnSparaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaActionPerformed
+        try {
+            String id = "10"; 
+            String nyFornamn = txtFornamn.getText();
+            String nyEfternamn = txtEfternamn.getText();
+            String nyAdress = txtAdress.getText();
+            String nyEpost = txtEmail.getText();
+            String nyPhone = txtPhone.getText();
+            String nyPassword = txtPassword.getText();
+            
+            idb.update("UPDATE anstalld SET fornamn = '" + nyFornamn + 
+                    "', efternamn = '" + nyEfternamn + "', adress = '" + nyAdress + 
+                   "', epost = '" + nyEpost + "', telefon = '" + nyPhone + 
+                    "', losenord = '" + nyPassword + "' WHERE aid = '" + id + "'");
+            
+        }catch(InfException e){
+            System.out.println(e);
+        }
+        
+        
+    }//GEN-LAST:event_btnSparaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,9 +283,16 @@ public class GeneralWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnAllaProj;
     private javax.swing.JButton btnGlobalGoals;
     private javax.swing.JButton btnMinaProj;
+    private javax.swing.JButton btnSpara;
     private javax.swing.JButton btnUppgifter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txtAdress;
+    private javax.swing.JTextField txtEfternamn;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFornamn;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtPhone;
     private javax.swing.JTextArea txtVisaAllaProj;
     // End of variables declaration//GEN-END:variables
 }
