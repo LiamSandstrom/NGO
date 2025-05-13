@@ -4,6 +4,10 @@
  */
 package NGO.UI;
 import NGO.User;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import oru.inf.InfException;
 
 /**
  *
@@ -18,8 +22,16 @@ public class GenWin extends javax.swing.JPanel {
     public GenWin(User user) {
         this.user = user;
         initComponents();
+        setTitle();
     }
 
+    private void setTitle(){
+        try{
+            jLabel1.setText("Welcome " + user.getName());
+        }catch(InfException e){
+            JOptionPane.showMessageDialog(null,"fs");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,6 +47,7 @@ public class GenWin extends javax.swing.JPanel {
         btnGlobalGoals = new javax.swing.JButton();
         btnUppgifter = new javax.swing.JButton();
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("jLabel1");
 
         btnMinaProj.setText("Mina projekt");
@@ -75,7 +88,7 @@ public class GenWin extends javax.swing.JPanel {
                     .addComponent(btnAllaProj)
                     .addComponent(btnGlobalGoals)
                     .addComponent(btnUppgifter))
-                .addContainerGap(372, Short.MAX_VALUE))
+                .addContainerGap(363, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -26,7 +26,7 @@ import oru.inf.InfException;
 public class MainWindow extends JFrame implements LoginListener {
 
 	private JPanel currentPanel;
-	InfDB idb;
+	private InfDB idb;
 	User user;
 
 	public MainWindow() {

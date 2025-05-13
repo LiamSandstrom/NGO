@@ -2,7 +2,9 @@ package NGO;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
+import oru.inf.InfException;
 
 public class User {
 
@@ -21,7 +23,18 @@ public class User {
 		fetchRole();
 
 	}
-
+        
+        public String getName() throws InfException{
+            String namn = "";
+            try{
+                String firstName = idb.fetchSingle("SELECT fornamn FROM anstalld where aid = " + id + ";");
+                String lastName = idb.fetchSingle("SELECT efternamn FROM anstalld where aid = " + id + ";");
+                namn = firstName + " " + lastName;
+            }catch(InfException e){
+                JOptionPane.showMessageDialog(null, "Could not fetch namn where id is " + id );
+            }
+            return namn;
+        }
 	public Role getRole() {
 		return role;
 	}
