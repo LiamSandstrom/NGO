@@ -25,10 +25,9 @@ public class MainWindow extends JFrame implements LoginListener {
 
 	private JPanel currentPanel;
 	InfDB idb;
-	String userId;
+	User user;
 
 	public MainWindow() {
-		
 		try {
 			idb = new InfDB("SDGSweden", "3306", "dbAdmin2024", "dbAdmin2024PW");
 
@@ -37,7 +36,7 @@ public class MainWindow extends JFrame implements LoginListener {
 			JOptionPane.showMessageDialog(null, "Failed to connect to database");
 			return;
 		}
-		
+
 		//Window
 		setSize(1000, 700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -53,35 +52,16 @@ public class MainWindow extends JFrame implements LoginListener {
 
 	@Override
 	public void onLoginSucess(String id) {
-		userId = id;
+		user = new User(idb, id);
 		remove(currentPanel);
 		repaint();
 
 		System.out.println("SUCESS");
 
-		getProjects();
+		System.out.println("Projects(id): " + user.getProjects());
+		System.out.println("Avdelning: " + user.getAvdelning());
 		revalidate();
 		repaint();
-	}
-
-	private void getProjects() {
-		try {
-			ArrayList<String> projects = idb.fetchColumn("select pid from ans_proj where aid = " + userId);
-			JPanel panel = new JPanel();
-			panel.setLayout(new GridBagLayout());
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.gridy = 0;
-			panel.add(new JLabel("Project id"));
-			int i = 1;
-
-			for (String project : projects) {
-				gbc.gridy = i;
-				panel.add(new JLabel(project), gbc);
-			}
-			add(panel);
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
 	}
 
 	public void removeWindow(JPanel panel) {
