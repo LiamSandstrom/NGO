@@ -59,12 +59,13 @@ public class MainWindow extends JFrame implements LoginListener {
 		repaint();
 
 		System.out.println("SUCESS");
-
 		System.out.println("Projects(id): " + user.getProjects());
 		System.out.println("Avdelning: " + user.getAvdelning());
+
 		switch (user.getRole()) {
 			case User.Role.ADMIN:
-				currentPanel = new AdminUI(user);
+				user = new Admin(idb, id);
+				currentPanel = new AdminUI((Admin) user);
 				add(currentPanel);
 				break;
 
