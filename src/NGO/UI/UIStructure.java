@@ -48,8 +48,11 @@ public class UIStructure extends JPanel {
         gbc.gridy = index;
         gbc.gridx = 0;
         gbc.weighty = 0;
-        if(System.getProperty("os.name").toLowerCase().contains("win")){
+        if(System.getProperty("os.name").toLowerCase().contains("win")){//Centrera för windows
             gbc.insets = new Insets(5, 0, 0, 14);
+        }
+        else{
+            gbc.insets = new Insets(5, 0, 0, 0);
         }
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.WEST;
