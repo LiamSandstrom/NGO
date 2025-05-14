@@ -35,6 +35,7 @@ public class User {
             }
             return namn;
         }
+        
 	public Role getRole() {
 		return role;
 	}

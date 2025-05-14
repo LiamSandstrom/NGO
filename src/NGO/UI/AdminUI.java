@@ -16,7 +16,7 @@ public class AdminUI extends JPanel {
 		this.admin = admin;
 
 		setLayout(new GridBagLayout());
-		add(new JLabel("Admin panel"));
+		add(new GenWin());
 		setVisible(true);
 	}
 }

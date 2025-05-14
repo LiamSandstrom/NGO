@@ -4,10 +4,18 @@
  */
 package NGO.UI;
 import NGO.User;
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import oru.inf.InfDB;
 import oru.inf.InfException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -18,18 +26,49 @@ public class GenWin extends javax.swing.JPanel {
     /**
      * Creates new form B
      */
+    private InfDB idb;
+    private ArrayList<HashMap<String,String>> allProj;
     User user;
-    public GenWin(User user) {
-        this.user = user;
+    public GenWin(InfDB idb, User user) {
+        
         initComponents();
-        setTitle();
-    }
+        
+        allProj = new ArrayList();
+        this.user = user;
+        this.idb = idb;
 
+        setTitle();
+        //printAllProjects();
+        System.out.println("Inne i konstruktorn"); //Det som står i denna konstruktor sker inte
+    }
+    
+    public GenWin(){
+        initComponents();
+    }
+    
     private void setTitle(){
         try{
             jLabel1.setText("Welcome " + user.getName());
         }catch(InfException e){
             JOptionPane.showMessageDialog(null,"fs");
+        }
+    }
+    
+    public void printAllProjects(){
+        System.out.println("fffqwfqwfqew¨pgknqer+bgqerjb    ehfbpåHGBPGH B  WPÖIHJGBWEÖIUVB");
+        try{
+            allProj = idb.fetchRows("SELECT * FROM projekt"); //ArrayListan
+            for(int i = 0; i < allProj.size(); i++){
+                HashMap<String, String> current = allProj.get(i);
+                for(String key : current.keySet()){
+                    String value = current.get(key);
+                    System.out.println(add(new JLabel(value)));
+                }
+                
+            }
+            System.out.println("FAAAAAAAAAAAAAAAAAAN");
+        }catch(InfException e){
+            System.out.println("Vaaaaarföööööööööööörrrrr");
         }
     }
     /**
@@ -51,8 +90,18 @@ public class GenWin extends javax.swing.JPanel {
         jLabel1.setText("jLabel1");
 
         btnMinaProj.setText("Mina projekt");
+        btnMinaProj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinaProjActionPerformed(evt);
+            }
+        });
 
         btnAllaProj.setText("Alla projekt");
+        btnAllaProj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllaProjActionPerformed(evt);
+            }
+        });
 
         btnGlobalGoals.setText("Hållbarhetsmål");
 
@@ -62,35 +111,52 @@ public class GenWin extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(362, 362, 362)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(142, Short.MAX_VALUE)
-                .addComponent(btnMinaProj)
-                .addGap(38, 38, 38)
-                .addComponent(btnAllaProj)
-                .addGap(41, 41, 41)
-                .addComponent(btnGlobalGoals)
-                .addGap(51, 51, 51)
-                .addComponent(btnUppgifter)
-                .addGap(122, 122, 122))
+                .addContainerGap(237, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(220, 220, 220)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnMinaProj)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnAllaProj)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnGlobalGoals)
+                        .addGap(51, 51, 51)
+                        .addComponent(btnUppgifter)))
+                .addGap(224, 224, 224))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
+                .addGap(95, 95, 95)
                 .addComponent(jLabel1)
-                .addGap(107, 107, 107)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnMinaProj)
                     .addComponent(btnAllaProj)
                     .addComponent(btnGlobalGoals)
                     .addComponent(btnUppgifter))
-                .addContainerGap(363, Short.MAX_VALUE))
+                .addContainerGap(529, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnMinaProjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinaProjActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMinaProjActionPerformed
+
+    private void btnAllaProjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllaProjActionPerformed
+        // TODO add your handling code here:
+        ProjectWindow newPanel = new ProjectWindow(idb);
+        newPanel.setVisible(true);
+        
+        JFrame myWin = (JFrame) SwingUtilities.getWindowAncestor(this); //Hämtar JFramen denna panel är attached till, castar från typ Window till JFrame
+        myWin.add(newPanel); //Lägger till den nya panelen till vårt fönster
+        myWin.remove(this); //Tar bort oss själva
+        myWin.repaint(); //Säger åt fönstret att måla om UI:n
+        myWin.revalidate();
+    }//GEN-LAST:event_btnAllaProjActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

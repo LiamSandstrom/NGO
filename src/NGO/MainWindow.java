@@ -65,15 +65,16 @@ public class MainWindow extends JFrame implements LoginListener {
 		switch (user.getRole()) {
 			case User.Role.ADMIN:
 				user = new Admin(idb, id);
-				//currentPanel = new AdminUI((Admin) user);
-                                currentPanel = new GenWin(user);
+				currentPanel = new AdminUI((Admin) user);
+                                //currentPanel = new GenWin(user);
                                 currentPanel.setVisible(true);
 				add(currentPanel);
 				break;
 
 			case User.Role.HANDLAGGARE:
-				JPanel temp = new GenWin(user);
+				JPanel temp = new GenWin(idb, user);
 				temp.setVisible(true);
+                                add(temp);
 				break;
 			default:
 				System.out.println("NO ROLE");
