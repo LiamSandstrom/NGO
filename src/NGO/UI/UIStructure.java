@@ -48,7 +48,9 @@ public class UIStructure extends JPanel {
         gbc.gridy = index;
         gbc.gridx = 0;
         gbc.weighty = 0;
-        gbc.insets = new Insets(5, 0, 0, 14);
+        if(System.getProperty("os.name").toLowerCase().contains("win")){
+            gbc.insets = new Insets(5, 0, 0, 14);
+        }
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.WEST;
         toolbarPanel.add(b, gbc);
