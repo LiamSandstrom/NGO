@@ -43,6 +43,7 @@ public class GeneralWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnMinaProj = new javax.swing.JButton();
         btnAllaProj = new javax.swing.JButton();
@@ -50,15 +51,30 @@ public class GeneralWindow extends javax.swing.JFrame {
         btnUppgifter = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtVisaAllaProj = new javax.swing.JTextArea();
+        pnlUppgifter = new javax.swing.JPanel();
+        btnSpara = new javax.swing.JButton();
         txtFornamn = new javax.swing.JTextField();
         txtEfternamn = new javax.swing.JTextField();
         txtAdress = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtPhone = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
-        btnSpara = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        setResizable(false);
 
         jLabel1.setText("Välkommen du");
 
@@ -89,18 +105,6 @@ public class GeneralWindow extends javax.swing.JFrame {
         txtVisaAllaProj.setRows(5);
         jScrollPane1.setViewportView(txtVisaAllaProj);
 
-        txtFornamn.setText("jTextField1");
-
-        txtEfternamn.setText("jTextField1");
-
-        txtAdress.setText("jTextField1");
-
-        txtEmail.setText("jTextField1");
-
-        txtPhone.setText("jTextField1");
-
-        txtPassword.setText("jTextField1");
-
         btnSpara.setText("Spara ändringar");
         btnSpara.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,42 +112,89 @@ public class GeneralWindow extends javax.swing.JFrame {
             }
         });
 
+        txtFornamn.setText("jTextField1");
+
+        txtEfternamn.setText("jTextField1");
+
+        txtAdress.setText("jTextField1");
+        txtAdress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAdressActionPerformed(evt);
+            }
+        });
+
+        txtEmail.setText("jTextField1");
+
+        txtPhone.setText("jTextField1");
+
+        txtPassword.setText("jTextField1");
+
+        javax.swing.GroupLayout pnlUppgifterLayout = new javax.swing.GroupLayout(pnlUppgifter);
+        pnlUppgifter.setLayout(pnlUppgifterLayout);
+        pnlUppgifterLayout.setHorizontalGroup(
+            pnlUppgifterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUppgifterLayout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addGroup(pnlUppgifterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUppgifterLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSpara))
+                    .addGroup(pnlUppgifterLayout.createSequentialGroup()
+                        .addGroup(pnlUppgifterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtFornamn, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                            .addComponent(txtEfternamn)
+                            .addComponent(txtAdress)
+                            .addComponent(txtEmail)
+                            .addComponent(txtPhone)
+                            .addComponent(txtPassword))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(214, 214, 214))
+        );
+        pnlUppgifterLayout.setVerticalGroup(
+            pnlUppgifterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUppgifterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnSpara)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(118, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnMinaProj)
-                                .addComponent(btnAllaProj)
-                                .addComponent(btnGlobalGoals)
-                                .addComponent(btnUppgifter, javax.swing.GroupLayout.Alignment.TRAILING)))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnSpara)
-                        .addGap(33, 33, 33)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtFornamn)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
-                    .addComponent(txtEfternamn)
-                    .addComponent(txtAdress)
-                    .addComponent(txtEmail)
-                    .addComponent(txtPhone, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtPassword))
-                .addContainerGap(646, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnMinaProj)
+                        .addComponent(btnAllaProj)
+                        .addComponent(btnGlobalGoals)
+                        .addComponent(btnUppgifter, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlUppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
                         .addComponent(jLabel1)
                         .addGap(52, 52, 52)
                         .addComponent(btnMinaProj)
@@ -153,22 +204,12 @@ public class GeneralWindow extends javax.swing.JFrame {
                         .addComponent(btnGlobalGoals)
                         .addGap(44, 44, 44)
                         .addComponent(btnUppgifter))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSpara))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pnlUppgifter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -206,6 +247,7 @@ public class GeneralWindow extends javax.swing.JFrame {
 
     private void btnUppgifterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUppgifterActionPerformed
         try{
+            pnlUppgifter.setVisible(true);
             txtVisaAllaProj.setVisible(false);
             String id = "10";
             txtFornamn.setText(idb.fetchSingle("select fornamn from anstalld where aid = '" + id + "'"));
@@ -243,6 +285,10 @@ public class GeneralWindow extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnSparaActionPerformed
+
+    private void txtAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAdressActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,7 +332,9 @@ public class GeneralWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnSpara;
     private javax.swing.JButton btnUppgifter;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel pnlUppgifter;
     private javax.swing.JTextField txtAdress;
     private javax.swing.JTextField txtEfternamn;
     private javax.swing.JTextField txtEmail;
