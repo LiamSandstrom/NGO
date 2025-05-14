@@ -43,7 +43,7 @@ public class UIStructure extends JPanel {
 
 	}
 
-	public void btn(String btnText, JPanel panelOnClick) {
+	public void addButton(String btnText, JPanel panelOnClick) {
 		JButton b = new JButton(btnText);
 		b.setPreferredSize(new Dimension(150, 40));
 		gbc.gridy = index;
