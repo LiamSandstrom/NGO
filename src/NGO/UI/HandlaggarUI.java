@@ -11,14 +11,15 @@ import javax.swing.*;
  *
  * @author david
  */
-public class HandlaggarUI extends UIStructure{
-    private User user;
-    
-    public HandlaggarUI(User user){
-        this.user = user;
-       for(int i = 0; i < 10; i++){
-           btn(""+i);
-       }
-       bottomMargin();
-    }
+public class HandlaggarUI extends UIStructure {
+
+	private User user;
+
+	public HandlaggarUI(User user) {
+		this.user = user;
+
+		JPanel coolPanel = new JPanel();
+		addButton("Cool knapp", coolPanel);
+		bottomMargin();
+	}
 }
