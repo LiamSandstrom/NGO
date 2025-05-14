@@ -65,7 +65,7 @@ public class ProjectWindow extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(91, 91, 91)
                 .addComponent(lblProjRub)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
                 .addComponent(btnMyProj)
                 .addGap(256, 256, 256))
         );
@@ -87,8 +87,7 @@ public class ProjectWindow extends javax.swing.JPanel {
 
     public void printAllProjects() {
         for (int i = 0; i < dbVal.size(); i++) {
-            System.out.println("PROJEKT " + (i + 1));
-            System.out.println(getProjektNamn(i));
+            System.out.println(getProjektNamn(i).toUpperCase());
             System.out.println(getBeskrivning(i));
             System.out.println(getStartDatum(i));
             System.out.println(getSlutDatum(i));

@@ -8,15 +8,12 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class AdminUI extends JPanel {
+public class AdminUI extends UIStructure {
 
 	Admin admin;
 
 	public AdminUI(Admin admin) {
+            super();
 		this.admin = admin;
-
-		setLayout(new GridBagLayout());
-		add(new GenWin());
-		setVisible(true);
 	}
 }

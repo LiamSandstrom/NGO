@@ -54,23 +54,6 @@ public class GenWin extends javax.swing.JPanel {
         }
     }
     
-    public void printAllProjects(){
-        System.out.println("fffqwfqwfqew¨pgknqer+bgqerjb    ehfbpåHGBPGH B  WPÖIHJGBWEÖIUVB");
-        try{
-            allProj = idb.fetchRows("SELECT * FROM projekt"); //ArrayListan
-            for(int i = 0; i < allProj.size(); i++){
-                HashMap<String, String> current = allProj.get(i);
-                for(String key : current.keySet()){
-                    String value = current.get(key);
-                    System.out.println(add(new JLabel(value)));
-                }
-                
-            }
-            System.out.println("FAAAAAAAAAAAAAAAAAAN");
-        }catch(InfException e){
-            System.out.println("Vaaaaarföööööööööööörrrrr");
-        }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

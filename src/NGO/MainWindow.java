@@ -2,7 +2,9 @@ package NGO;
 
 import NGO.UI.AdminUI;
 import NGO.UI.GenWin;
+import NGO.UI.HandlaggarUI;
 import NGO.UI.LoginWindow;
+import NGO.UI.UIStructure;
 import NGO.listeners.LoginListener;
 import java.awt.AWTEventMulticaster;
 import java.awt.BorderLayout;
@@ -65,16 +67,16 @@ public class MainWindow extends JFrame implements LoginListener {
 		switch (user.getRole()) {
 			case User.Role.ADMIN:
 				user = new Admin(idb, id);
-				currentPanel = new AdminUI((Admin) user);
+                                currentPanel = new AdminUI((Admin) user);
                                 //currentPanel = new GenWin(user);
                                 currentPanel.setVisible(true);
 				add(currentPanel);
 				break;
 
 			case User.Role.HANDLAGGARE:
-				JPanel temp = new GenWin(idb, user);
-				temp.setVisible(true);
-                                add(temp);
+                                currentPanel = new HandlaggarUI(user);
+                                currentPanel.setVisible(true);
+                                add(currentPanel);
 				break;
 			default:
 				System.out.println("NO ROLE");
