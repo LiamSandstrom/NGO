@@ -21,10 +21,10 @@ public class HandlaggarUI extends UIStructure {
 		changeContentPanel(new WelcomePanel(user, this));
 		ProjectWindow coolPanel = new ProjectWindow(user, this);
 		addButton("Cool knapp", coolPanel);
-		bottomMargin();
-                
                 addButton("Project", coolPanel);
                 
+                
+		bottomMargin();
                // addButton("Mina Uppgifter", minaUppgifter );
 	}
 }
