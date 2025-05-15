@@ -92,4 +92,8 @@ public class User {
 		System.out.println("USER HAS NO AVDELNING");
 		return "";
 	}
+        
+        public InfDB getDb(){
+            return idb;
+        }
 }
