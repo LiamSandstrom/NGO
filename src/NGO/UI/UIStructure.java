@@ -72,7 +72,7 @@ public class UIStructure extends JPanel {
 		toolbarPanel.add(Box.createVerticalGlue(), gbc);
 	}
 
-	private void changeContentPanel(JPanel newPanel) {
+	public void changeContentPanel(JPanel newPanel) {
 		remove(contentPanel);
 		contentPanel = newPanel;
 		add(contentPanel);
