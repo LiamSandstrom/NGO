@@ -23,6 +23,12 @@ public class HandlaggarUI extends UIStructure {
 		addButton("Cool knapp", coolPanel);
                 addButton("Project", coolPanel);
                 
+                MyPersonalInfoPanel myInfo = new MyPersonalInfoPanel(user, this);
+                addButton("My Info", myInfo);
+                
+                ShowMyProjects showMyProject = new ShowMyProjects(user, this);
+                addButton("Show my projects", showMyProject);
+                
                 
 		bottomMargin();
                // addButton("Mina Uppgifter", minaUppgifter );
