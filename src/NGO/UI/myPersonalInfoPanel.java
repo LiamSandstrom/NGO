@@ -48,7 +48,7 @@ public class MyPersonalInfoPanel extends ContentPanelStructure {
             add(phone);
             add(password);
             
-            JButton btnSpara = new JButton("Spara ändringar");
+            JButton btnSpara = new JButton("Save my changes");
             add(btnSpara);
             btnSpara.addActionListener(e -> {
                 try { 
