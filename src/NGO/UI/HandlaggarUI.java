@@ -22,6 +22,8 @@ public class HandlaggarUI extends UIStructure {
 		addButton("Cool knapp", coolPanel);
 		bottomMargin();
                 
+                addButton("Project", coolPanel);
+                
                // addButton("Mina Uppgifter", minaUppgifter );
 	}
 }
