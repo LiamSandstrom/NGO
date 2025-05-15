@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import NGO.UI.HandlaggarUI;
 
 /**
  *
@@ -30,6 +31,7 @@ public class ProjectWindow extends ContentPanelStructure {
     private User user;
     private String id;
     private ArrayList<HashMap<String,String>> dbVal;
+    private JTextArea showProject;
     GridBagConstraints gbc;
     
     public ProjectWindow(User user, UIStructure parentPanel) {
@@ -73,11 +75,20 @@ public class ProjectWindow extends ContentPanelStructure {
             System.out.println();
         }
     }
+    
+    public void searchProj(String date){
+        
+    }
 
+    public void btnSearch(){
+        JButton btnSearch = new JButton();
+
+    }
+    
     public void displayProjects2() {
         try {
             GridBagConstraints style = new GridBagConstraints();
-            JTextArea showProject = new JTextArea(10, 30);
+            showProject = new JTextArea(10, 30);
             showProject.setLineWrap(true);
             showProject.setWrapStyleWord(true);
             showProject.setEditable(false);
@@ -102,7 +113,7 @@ public class ProjectWindow extends ContentPanelStructure {
             showProject.setText(resultat.toString());
             JScrollPane scrollPane = new JScrollPane(showProject);
             setLayout(null);
-            scrollPane.setBounds(10, 10, 780, 680);
+            scrollPane.setBounds(10, 5, 580, 680);
             add(scrollPane);
             revalidate();
             repaint();
