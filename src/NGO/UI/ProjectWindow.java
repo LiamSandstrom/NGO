@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -36,7 +38,7 @@ public class ProjectWindow extends ContentPanelStructure {
         dbVal = new ArrayList();
         this.idb = user.getDb();
         fillArrayList();
-        displayProjects();
+        displayProjects2();
     }
 
     public void fillArrayList() {
@@ -61,6 +63,39 @@ public class ProjectWindow extends ContentPanelStructure {
         }
     }
 
+    public void displayProjects2() {
+        try {
+            JTextArea showProject = new JTextArea(10, 30);
+            showProject.setLineWrap(true);
+            showProject.setWrapStyleWord(true);
+            showProject.setEditable(false);
+            String sqlFraga = "select * from projekt;";
+            ArrayList<HashMap<String, String>> allProjects = idb.fetchRows(sqlFraga);
+            StringBuilder resultat = new StringBuilder();
+            for (HashMap<String, String> rad : allProjects) {
+                resultat.append("Projekt ID: ").append(rad.get("pid"))
+                        .append(", Namn: ").append(rad.get("projektnamn"))
+                        .append(" , Beskrivning: ").append(rad.get("beskrivning"))
+                        .append(" , Startdatum: ").append(rad.get("startdatum"))
+                        .append(" , Slutdatum: ").append(rad.get("slutdatum"))
+                        .append(" , Kostnad: ").append(rad.get("kostnad"))
+                        .append(" , Status: ").append(rad.get("status"))
+                        .append(" , Prioritet: ").append(rad.get("prioritet"))
+                        .append(" , Projektchef: ").append(rad.get("projektchef"))
+                        .append(" , Land: ").append(rad.get("land"))
+                        .append("\n \n");
+            }
+            showProject.setText(resultat.toString());
+            JScrollPane scrollPane = new JScrollPane(showProject);
+            setLayout(null);
+            scrollPane.setBounds(10, 10, 780, 680);
+            add(scrollPane);
+            revalidate();
+            repaint();
+        } catch (Exception e) {
+            System.out.println("e");
+        }
+    }
     public void displayProjects() {
         int ind = 0;
         for (int i = 0; i < dbVal.size(); i++) {
