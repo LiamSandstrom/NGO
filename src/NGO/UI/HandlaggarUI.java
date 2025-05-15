@@ -29,6 +29,9 @@ public class HandlaggarUI extends UIStructure {
                 ShowMyProjects showMyProject = new ShowMyProjects(user, this);
                 addButton("Show my projects", showMyProject);
                 
+                GlobalGoalsPanel globalGoals = new GlobalGoalsPanel(user, this);
+                addButton("Show Global Goals", globalGoals);
+                
                 
 		bottomMargin();
                // addButton("Mina Uppgifter", minaUppgifter );
