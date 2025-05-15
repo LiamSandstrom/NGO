@@ -55,7 +55,7 @@ public class ProjectWindow extends ContentPanelStructure {
     }
     
     private String setTitle(){
-        String title = "Här visas avdelning " + user.getAvdelning() + "'s projekt";
+        String title = "Projects for section " + user.getAvdelning();
         return title;
         
     }
