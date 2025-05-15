@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package NGO.UI;
-
+import NGO.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -22,10 +22,10 @@ public class ProjectWindow extends javax.swing.JPanel {
     private InfDB idb;
     private ArrayList<HashMap<String,String>> dbVal;
     
-    public ProjectWindow(InfDB idb) {
+    public ProjectWindow(User user) {
         initComponents();
         dbVal = new ArrayList();
-        this.idb = idb;
+        this.idb = user.getDb();
         fillArrayList();
     }
 

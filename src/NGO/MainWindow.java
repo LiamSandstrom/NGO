@@ -1,7 +1,6 @@
 package NGO;
 
 import NGO.UI.AdminUI;
-import NGO.UI.GenWin;
 import NGO.UI.HandlaggarUI;
 import NGO.UI.LoginWindow;
 import NGO.UI.UIStructure;
