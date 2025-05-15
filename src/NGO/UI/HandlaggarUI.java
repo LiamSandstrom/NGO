@@ -21,5 +21,7 @@ public class HandlaggarUI extends UIStructure {
 		ProjectWindow coolPanel = new ProjectWindow(user);
 		addButton("Cool knapp", coolPanel);
 		bottomMargin();
+                
+               // addButton("Mina Uppgifter", minaUppgifter );
 	}
 }
