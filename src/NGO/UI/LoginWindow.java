@@ -43,7 +43,8 @@ public class LoginWindow extends JPanel {
 		JPanel content = new JPanel();
 		content.setBackground(new Color(40,40,40));
 		content.setLayout(new GridBagLayout());
-		content.setPreferredSize(new Dimension(450, 230));
+		//450, 230 correct size when no admin and hand button
+		content.setPreferredSize(new Dimension(450, 330));
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		gbc.gridx = 0;
@@ -119,6 +120,32 @@ public class LoginWindow extends JPanel {
 			} catch (InfException ex) {
 				System.out.println(ex);
 			}
+		});
+
+		JButton btnAdmin = new JButton("Login Admin");
+		btnAdmin.setFont(new Font("Arial", Font.PLAIN, textSize));
+		btnAdmin.setPreferredSize(new Dimension(inputWidth, 40));
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		gbc.insets = new Insets(10,0,0,0);
+
+		content.add(btnAdmin ,gbc);
+
+		btnAdmin.addActionListener(e -> {
+			loginListener.onLoginSucess("1");
+		});
+		
+		JButton btnHand = new JButton("Login Handläggare");
+		btnHand.setFont(new Font("Arial", Font.PLAIN, textSize));
+		btnHand.setPreferredSize(new Dimension(inputWidth, 40));
+		gbc.gridx = 0;
+		gbc.gridy = 6;
+		gbc.insets = new Insets(10,0,0,0);
+
+		content.add(btnHand ,gbc);
+
+		btnHand.addActionListener(e -> {
+			loginListener.onLoginSucess("3");
 		});
 
 		add(content, gbc);
