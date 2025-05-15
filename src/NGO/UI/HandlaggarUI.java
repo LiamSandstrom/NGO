@@ -24,9 +24,8 @@ public class HandlaggarUI extends UIStructure {
                 MyPersonalInfoPanel infoPanel = new MyPersonalInfoPanel(user, this);
                 addButton("My personal information", infoPanel);
                 
-                
-                
-                
+                ShowMyProjects myProjects = new ShowMyProjects(user, this);
+                addButton("My projects", myProjects);
                 
                 
                 
