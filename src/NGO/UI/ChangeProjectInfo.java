@@ -75,17 +75,16 @@ public class ChangeProjectInfo extends ContentPanelStructure {
                     String newProjectmanager = projectmanager.getText();
                     String newCountry = country.getText();
             
-                    idb.update("UPDATE anstalld SET pid = '" + newProjectid + 
-                            "', projektnamn = '" + newProjectname + 
+                    idb.update("UPDATE projekt SET projektnamn = '" + newProjectname + 
                             "', beskrivning = '" + newDescription + 
                             "', startdatum = '" + newStartdate + 
                             "', slutdatum = '" + newEnddate + 
                             "', kostnad = '" + newCost + 
                             "', status = '" + newStatus + 
                             "', prioritet = '" + newPriority + 
-                            "', projeckchef = '" + newProjectmanager + 
+                            "', projektchef = '" + newProjectmanager + 
                             "', land = '" + newCountry + 
-                            "' WHERE projektchef = '" + id);
+                            "' WHERE projektchef = '" + id + "'");
                 }catch(InfException error){
                     System.out.println(error);
                 }
