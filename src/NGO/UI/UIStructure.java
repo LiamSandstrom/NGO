@@ -40,7 +40,6 @@ public class UIStructure extends JPanel {
 		contentPanel.setBackground(Color.red);
 		toolbarPanel.setBackground(Color.green);
 		gbc = new GridBagConstraints();
-
 	}
 
 	public void addButton(String btnText, JPanel panelOnClick) {
