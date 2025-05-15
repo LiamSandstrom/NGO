@@ -65,7 +65,7 @@ public class MyPersonalInfoPanel extends ContentPanelStructure {
                             + nyAdress + "', epost = '" 
                             + nyEpost + "', telefon = '" 
                             + nyPhone + "', losenord = '" 
-                            + nyPassword + "' WHERE aid = '" + id + "'");
+                            + nyPassword + "' WHERE aid = '" + id);
             
                 }catch(InfException error){
                     System.out.println(error);

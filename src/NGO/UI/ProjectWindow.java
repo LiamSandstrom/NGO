@@ -27,11 +27,16 @@ import oru.inf.InfException;
 public class ProjectWindow extends ContentPanelStructure {
 
     private InfDB idb;
+    private User user;
+    private String id;
     private ArrayList<HashMap<String,String>> dbVal;
     GridBagConstraints gbc;
     
     public ProjectWindow(User user, UIStructure parentPanel) {
         super(user, parentPanel);
+        this.user = user;
+        id = user.getId();
+        idb= user.getDb();
         this.setBackground(Color.GRAY);
         this.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
@@ -69,8 +74,9 @@ public class ProjectWindow extends ContentPanelStructure {
             showProject.setLineWrap(true);
             showProject.setWrapStyleWord(true);
             showProject.setEditable(false);
-            String sqlFraga = "select * from projekt;";
-            ArrayList<HashMap<String, String>> allProjects = idb.fetchRows(sqlFraga);
+            String sqlFraga = "select avdelning from anstalld where aid = '" + id + "';";
+            //String sqlFraga2 = "select * from projekt where pid in (select pid from ans_proj where aid IN (select aid from anstalld where avdelning = " + sqlFraga +"));";
+            ArrayList<HashMap<String, String>> allProjects = idb.fetchRows("select * from projekt,ans_proj,anstalld,avdelning where projekt.pid = ans_proj.pid and ans_proj.aid = anstalld.aid and anstalld.avdelning = avdelning.avdid having avdelning.avdid = 1");
             StringBuilder resultat = new StringBuilder();
             for (HashMap<String, String> rad : allProjects) {
                 resultat.append("Projekt ID: ").append(rad.get("pid"))
@@ -92,7 +98,7 @@ public class ProjectWindow extends ContentPanelStructure {
             add(scrollPane);
             revalidate();
             repaint();
-        } catch (Exception e) {
+        } catch (InfException e) {
             System.out.println("e");
         }
     }
@@ -152,6 +158,12 @@ public class ProjectWindow extends ContentPanelStructure {
             JLabel projectManagerName = new JLabel("Project manager name: " + getStartDatum(i));
             gbc2.gridy = i2;
             div.add(projectManagerName, gbc2);
+            projectManagerName.setForeground(Color.WHITE);
+            i2++;
+            
+            JLabel landNamn = new JLabel("Project manager name: " + getLandNamn(i));
+            gbc2.gridy = i2;
+            div.add(landNamn, gbc2);
             projectManagerName.setForeground(Color.WHITE);
             
             i2++;
