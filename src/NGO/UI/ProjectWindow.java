@@ -79,16 +79,16 @@ public class ProjectWindow extends ContentPanelStructure {
             ArrayList<HashMap<String, String>> allProjects = idb.fetchRows("select * from projekt,ans_proj,anstalld,avdelning where projekt.pid = ans_proj.pid and ans_proj.aid = anstalld.aid and anstalld.avdelning = avdelning.avdid having avdelning.avdid = 1");
             StringBuilder resultat = new StringBuilder();
             for (HashMap<String, String> rad : allProjects) {
-                resultat.append("Projekt ID: ").append(rad.get("pid"))
-                        .append(", Namn: ").append(rad.get("projektnamn"))
-                        .append(" , Beskrivning: ").append(rad.get("beskrivning"))
-                        .append(" , Startdatum: ").append(rad.get("startdatum"))
-                        .append(" , Slutdatum: ").append(rad.get("slutdatum"))
-                        .append(" , Kostnad: ").append(rad.get("kostnad"))
-                        .append(" , Status: ").append(rad.get("status"))
-                        .append(" , Prioritet: ").append(rad.get("prioritet"))
-                        .append(" , Projektchef: ").append(rad.get("projektchef"))
-                        .append(" , Land: ").append(rad.get("land"))
+                resultat.append("Projekt ID: ").append(rad.get("pid") + ",\n")
+                        .append("Namn: ").append(rad.get("projektnamn")+ ",\n")
+                        .append("Beskrivning: ").append(rad.get("beskrivning")+ ",\n")
+                        .append("Startdatum: ").append(rad.get("startdatum")+ ",\n")
+                        .append("Slutdatum: ").append(rad.get("slutdatum")+ ",\n")
+                        .append("Kostnad: ").append(rad.get("kostnad")+ ",\n")
+                        .append("Status: ").append(rad.get("status")+ ",\n")
+                        .append("Prioritet: ").append(rad.get("prioritet")+ ",\n")
+                        .append("Projektchef: ").append(rad.get("projektchef")+ ",\n")
+                        .append("Land: ").append(rad.get("land"))
                         .append("\n \n");
             }
             showProject.setText(resultat.toString());
