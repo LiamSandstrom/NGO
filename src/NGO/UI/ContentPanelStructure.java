@@ -11,13 +11,6 @@ public class ContentPanelStructure extends JPanel {
 	public ContentPanelStructure(User user, UIStructure parentPanel){
 	
 		setPreferredSize(new Dimension(800, 700));
-		setBackground(Color.blue);
-		//JButton btn = new JButton("AHAHAH");
-		//add(btn);
-		//btn.addActionListener(e -> {
-		//	parentPanel.changeContentPanel(new JPanel());
-		//});
-		
 	} 
 	
 }

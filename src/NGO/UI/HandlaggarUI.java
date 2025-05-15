@@ -18,17 +18,13 @@ public class HandlaggarUI extends UIStructure {
 	public HandlaggarUI(User user) {
 		this.user = user;
 
-		ContentPanelStructure coolPanel = new ContentPanelStructure(user, this);
+		changeContentPanel(new WelcomePanel(user, this));
+		ProjectWindow coolPanel = new ProjectWindow(user, this);
 		addButton("Cool knapp", coolPanel);
-		
-                MyPersonalInfoPanel infoPanel = new MyPersonalInfoPanel(user, this);
-                addButton("My personal information", infoPanel);
+		bottomMargin();
                 
-                ShowMyProjects myProjects = new ShowMyProjects(user, this);
-                addButton("My projects", myProjects);
+                addButton("Project", coolPanel);
                 
-                
-                
-                bottomMargin();
+               // addButton("Mina Uppgifter", minaUppgifter );
 	}
 }

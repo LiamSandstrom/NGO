@@ -8,6 +8,7 @@ import NGO.User;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,15 +27,11 @@ public class ProjectWindow extends ContentPanelStructure {
     public ProjectWindow(User user, UIStructure parentPanel) {
         super(user, parentPanel);
         this.setBackground(Color.GRAY);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         dbVal = new ArrayList();
         this.idb = user.getDb();
         fillArrayList();
-
-	JButton btn = new JButton("Projects");
-	    add(btn);
-	btn.addActionListener(e -> {
-		displayProjects();
-	});
+        displayProjects();
     }
 
     public void fillArrayList() {
@@ -64,22 +61,28 @@ public class ProjectWindow extends ContentPanelStructure {
         for (int i = 0; i < dbVal.size(); i++) {
             JLabel projectName = new JLabel("Project name: " + getProjektNamn(i).toUpperCase());
             this.add(projectName);
-            projectName.setVisible(true);
-            projectName.setForeground(Color.red);
+            projectName.setForeground(Color.WHITE);
             JLabel description = new JLabel("Description " + getBeskrivning(i));
             this.add(description);
+            description.setForeground(Color.WHITE);
             JLabel startdate = new JLabel("Start date " + getStartDatum(i));
             this.add(startdate);
+            startdate.setForeground(Color.WHITE);
             JLabel slutdate = new JLabel("End date: " + getSlutDatum(i));
             this.add(slutdate);
+            slutdate.setForeground(Color.WHITE);
             JLabel cost = new JLabel("Cost: " + getKostnad(i));
             this.add(cost);
+            cost.setForeground(Color.WHITE);
             JLabel status = new JLabel("Status " + getStatus(i));
             this.add(status);
+            status.setForeground(Color.WHITE);
             JLabel priority = new JLabel("Priority " + getPrioritet(i));
             this.add(priority);
+            priority.setForeground(Color.WHITE);
             JLabel projectManagerName = new JLabel("Project manager name: " + getStartDatum(i));
             this.add(projectManagerName);
+            projectManagerName.setForeground(Color.WHITE);
         }
         revalidate();
         repaint();

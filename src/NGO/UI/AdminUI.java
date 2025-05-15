@@ -15,5 +15,6 @@ public class AdminUI extends UIStructure {
 	public AdminUI(Admin admin) {
             super();
 		this.admin = admin;
+		changeContentPanel(new WelcomePanel(admin, this));
 	}
 }
