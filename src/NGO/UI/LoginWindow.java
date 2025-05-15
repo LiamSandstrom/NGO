@@ -145,7 +145,7 @@ public class LoginWindow extends JPanel {
 		content.add(btnHand ,gbc);
 
 		btnHand.addActionListener(e -> {
-			loginListener.onLoginSucess("3");
+			loginListener.onLoginSucess("10");
 		});
 
 		add(content, gbc);
