@@ -5,7 +5,10 @@
 package NGO.UI;
 
 import NGO.User;
+import java.util.ArrayList;
 import javax.swing.*;
+import oru.inf.InfDB;
+import oru.inf.InfException;
 
 /**
  *
@@ -14,9 +17,19 @@ import javax.swing.*;
 public class HandlaggarUI extends UIStructure {
 
 	private User user;
+        private InfDB idb;
+        private boolean kontroll;
+        private String id;
+        private ArrayList<String> chefId;
 
 	public HandlaggarUI(User user) {
+            try{
 		this.user = user;
+                idb = user.getDb();
+                id = user.getId();
+                kontroll = false;
+                chefId = new ArrayList<>();
+                chefId = idb.fetchColumn("select projektchef from projekt");
 
 		changeContentPanel(new WelcomePanel(user, this));
 		ProjectWindow coolPanel = new ProjectWindow(user, this);
@@ -28,6 +41,17 @@ public class HandlaggarUI extends UIStructure {
                 
                 ShowMyProjects showMyProject = new ShowMyProjects(user, this);
                 addButton("Show my projects", showMyProject);
+                for(String ettID : chefId ){
+                    if(ettID.equals(id)){
+                        kontroll = true;
+                    }
+                }
+                if(kontroll){
+                    addButton("Ta bort alla", showMyProject);
+                }
+            }catch(InfException e){
+                System.out.println(e);
+            }   
                 
                 
 		bottomMargin();
