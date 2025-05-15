@@ -6,6 +6,8 @@ package NGO.UI;
 
 import NGO.User;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.BoxLayout;
@@ -24,11 +26,13 @@ public class ProjectWindow extends ContentPanelStructure {
 
     private InfDB idb;
     private ArrayList<HashMap<String,String>> dbVal;
+    GridBagConstraints gbc;
     
     public ProjectWindow(User user, UIStructure parentPanel) {
         super(user, parentPanel);
         this.setBackground(Color.GRAY);
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
         dbVal = new ArrayList();
         this.idb = user.getDb();
         fillArrayList();
@@ -58,38 +62,66 @@ public class ProjectWindow extends ContentPanelStructure {
     }
 
     public void displayProjects() {
-
+        int ind = 0;
         for (int i = 0; i < dbVal.size(); i++) {
+            GridBagConstraints gbc2 = new GridBagConstraints();
+            int i2 = 0;
             JPanel div = new JPanel();
-            this.add(div);
-            div.setLayout(new BoxLayout(div, BoxLayout.Y_AXIS));
+            div.setLayout(new GridBagLayout());
+            gbc.gridy = ind;
+            this.add(div, gbc);
             div.setForeground(Color.gray);
+            
             JLabel projectName = new JLabel("Project name: " + getProjektNamn(i).toUpperCase());
-            div.add(projectName);
+            gbc2.gridy = i2;
+            div.add(projectName, gbc2);
             projectName.setForeground(Color.WHITE);
+            i2++;
+            
             JLabel description = new JLabel("Description " + getBeskrivning(i));
-            div.add(description);
+            gbc2.gridy = i2;
+            div.add(description, gbc2);
             description.setForeground(Color.WHITE);
+            i2++;
+            
             JLabel startdate = new JLabel("Start date " + getStartDatum(i));
-            div.add(startdate);
+            gbc2.gridy = i2;
+            div.add(startdate, gbc2);
             startdate.setForeground(Color.WHITE);
+            i2++;
+            
             JLabel slutdate = new JLabel("End date: " + getSlutDatum(i));
-            div.add(slutdate);
+            gbc2.gridy = i2;
+            div.add(slutdate, gbc2);
             slutdate.setForeground(Color.WHITE);
+            i2++;
+            
             JLabel cost = new JLabel("Cost: " + getKostnad(i));
-            div.add(cost);
+            gbc2.gridy = i2;
+            div.add(cost, gbc2);
             cost.setForeground(Color.WHITE);
+            i2++;
+            
             JLabel status = new JLabel("Status " + getStatus(i));
-            div.add(status);
+            gbc2.gridy = i2;
+            div.add(status, gbc2);
             status.setForeground(Color.WHITE);
+            i2++;
+            
             JLabel priority = new JLabel("Priority " + getPrioritet(i));
-            div.add(priority);
+            gbc2.gridy = i2;
+            div.add(priority, gbc2);
             priority.setForeground(Color.WHITE);
+            i2++;
+            
             JLabel projectManagerName = new JLabel("Project manager name: " + getStartDatum(i));
-            div.add(projectManagerName);
+            gbc2.gridy = i2;
+            div.add(projectManagerName, gbc2);
             projectManagerName.setForeground(Color.WHITE);
-            JLabel pro= new JLabel("-------------------------------------------");
-            div.add(pro);
+            
+            i2++;
+            
+            ind++;
         }
         revalidate();
         repaint();

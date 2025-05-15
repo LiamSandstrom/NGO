@@ -41,7 +41,7 @@ public class MainWindow extends JFrame implements LoginListener {
 		}
 
 		//Window
-		setSize(1000, 700);
+		setSize(1000, 1000);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		setTitle("MainFrame");
