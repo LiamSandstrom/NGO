@@ -49,6 +49,9 @@ public class HandlaggarUI extends UIStructure {
                 if(kontroll){
                     MyProjectsCost costPanel = new MyProjectsCost(user, this);
                     addButton("Show my total cost", costPanel);
+                    
+                    ChangeProjectInfo projInfo = new ChangeProjectInfo(user, this);
+                    addButton("Change project info",  projInfo);
                 }
             }catch(InfException e){
                 System.out.println(e);
