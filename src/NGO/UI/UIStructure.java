@@ -75,7 +75,7 @@ public class UIStructure extends JPanel {
 	public void changeContentPanel(JPanel newPanel) {
 		remove(contentPanel);
 		contentPanel = newPanel;
-		add(contentPanel);
+		add(contentPanel, BorderLayout.EAST);
 		revalidate();
 		repaint();
 	}
