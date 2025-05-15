@@ -4,10 +4,20 @@
  */
 package NGO.UI;
 
+import NGO.User;
+
 /**
  *
  * @author rostykmalanchuk
  */
-public class minaUppgifterPanel {
+public class minaUppgifterPanel extends ContentPanelStructure {
+    private User user;
+    
+    public minaUppgifterPanel (User user, UIStructure ggg){
+        this.user = user;
+        
+    }
+
+    
     
 }
