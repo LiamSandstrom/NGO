@@ -53,6 +53,12 @@ public class ProjectWindow extends ContentPanelStructure {
             JOptionPane.showMessageDialog(null, "Error fetching from database");
         }
     }
+    
+    private String setTitle(){
+        String title = "Här visas avdelning " + user.getAvdelning() + "'s projekt";
+        return title;
+        
+    }
 
     public void printAllProjects() {
         for (int i = 0; i < dbVal.size(); i++) {
@@ -70,6 +76,7 @@ public class ProjectWindow extends ContentPanelStructure {
 
     public void displayProjects2() {
         try {
+            GridBagConstraints style = new GridBagConstraints();
             JTextArea showProject = new JTextArea(10, 30);
             showProject.setLineWrap(true);
             showProject.setWrapStyleWord(true);
@@ -78,6 +85,7 @@ public class ProjectWindow extends ContentPanelStructure {
             //String sqlFraga2 = "select * from projekt where pid in (select pid from ans_proj where aid IN (select aid from anstalld where avdelning = " + sqlFraga +"));";
             ArrayList<HashMap<String, String>> allProjects = idb.fetchRows("select * from projekt,ans_proj,anstalld,avdelning where projekt.pid = ans_proj.pid and ans_proj.aid = anstalld.aid and anstalld.avdelning = avdelning.avdid having avdelning.avdid = 1");
             StringBuilder resultat = new StringBuilder();
+            resultat.append(setTitle() + "\n \n");
             for (HashMap<String, String> rad : allProjects) {
                 resultat.append("Projekt ID: ").append(rad.get("pid") + ",\n")
                         .append("Namn: ").append(rad.get("projektnamn")+ ",\n")
