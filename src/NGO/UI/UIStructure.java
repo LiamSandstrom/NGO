@@ -76,6 +76,7 @@ public class UIStructure extends JPanel {
 		remove(contentPanel);
 		contentPanel = newPanel;
 		add(contentPanel);
+		revalidate();
 		repaint();
 	}
 }
