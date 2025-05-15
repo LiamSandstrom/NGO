@@ -18,7 +18,7 @@ public class HandlaggarUI extends UIStructure {
 	public HandlaggarUI(User user) {
 		this.user = user;
 
-		ProjectWindow coolPanel = new ProjectWindow(user);
+		d coolPanel = new d(user, this);
 		addButton("Cool knapp", coolPanel);
 		bottomMargin();
                 

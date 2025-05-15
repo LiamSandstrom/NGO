@@ -8,6 +8,7 @@ import NGO.User;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
@@ -28,6 +29,12 @@ public class d extends ContentPanelStructure {
         dbVal = new ArrayList();
         this.idb = user.getDb();
         fillArrayList();
+
+	JButton btn = new JButton("Projects");
+	    add(btn);
+	btn.addActionListener(e -> {
+		displayProjects();
+	});
     }
 
     public void fillArrayList() {
