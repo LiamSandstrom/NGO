@@ -35,8 +35,8 @@ public class UIStructure extends JPanel {
 		contentPanel.setPreferredSize(new Dimension(800, 700));
 		toolbarPanel.setPreferredSize(new Dimension(200, 700));
 		toolbarPanel.setLayout(new GridBagLayout());
-		add(contentPanel, BorderLayout.EAST);
 		add(toolbarPanel, BorderLayout.WEST);
+                add(contentPanel, BorderLayout.EAST);
 		contentPanel.setBackground(Color.red);
 		toolbarPanel.setBackground(Color.green);
 		gbc = new GridBagConstraints();
@@ -49,11 +49,7 @@ public class UIStructure extends JPanel {
 		gbc.gridy = index;
 		gbc.gridx = 0;
 		gbc.weighty = 0;
-		if (System.getProperty("os.name").toLowerCase().contains("win")) {//Centrera för windows
-			gbc.insets = new Insets(5, 0, 0, 14);
-		} else {
-			gbc.insets = new Insets(5, 0, 0, 0);
-		}
+		gbc.insets = new Insets(5, 0, 0, 0);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.anchor = GridBagConstraints.WEST;
 
@@ -75,7 +71,7 @@ public class UIStructure extends JPanel {
 	public void changeContentPanel(JPanel newPanel) {
 		remove(contentPanel);
 		contentPanel = newPanel;
-		add(contentPanel);
+		add(contentPanel, BorderLayout.EAST);
 		revalidate();
 		repaint();
 	}
