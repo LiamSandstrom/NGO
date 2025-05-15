@@ -5,16 +5,20 @@
 package NGO.UI;
 
 import NGO.User;
+import java.awt.Color;
+import java.awt.Dimension;
 
 /**
  *
  * @author rostykmalanchuk
  */
-public class minaUppgifterPanel extends ContentPanelStructure {
+public class MyPersonalInfoPanel extends ContentPanelStructure {
     private User user;
     
-    public minaUppgifterPanel (User user, UIStructure ggg){
-        this.user = user;
+    public MyPersonalInfoPanel (User user, UIStructure onePanel){
+        super(user, onePanel);
+        //setPreferredSize(new Dimension(800, 700));
+        setBackground(Color.green);
         
     }
 

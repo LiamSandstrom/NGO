@@ -12,11 +12,11 @@ public class ContentPanelStructure extends JPanel {
 	
 		setPreferredSize(new Dimension(800, 700));
 		setBackground(Color.blue);
-		JButton btn = new JButton("AHAHAH");
-		add(btn);
-		btn.addActionListener(e -> {
-			parentPanel.changeContentPanel(new JPanel());
-		});
+		//JButton btn = new JButton("AHAHAH");
+		//add(btn);
+		//btn.addActionListener(e -> {
+		//	parentPanel.changeContentPanel(new JPanel());
+		//});
 		
 	} 
 	

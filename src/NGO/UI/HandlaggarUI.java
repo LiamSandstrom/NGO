@@ -20,6 +20,16 @@ public class HandlaggarUI extends UIStructure {
 
 		ContentPanelStructure coolPanel = new ContentPanelStructure(user, this);
 		addButton("Cool knapp", coolPanel);
-		bottomMargin();
+		
+                MyPersonalInfoPanel infoPanel = new MyPersonalInfoPanel(user, this);
+                addButton("My personal information", infoPanel);
+                
+                
+                
+                
+                
+                
+                
+                bottomMargin();
 	}
 }
