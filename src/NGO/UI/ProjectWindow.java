@@ -12,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -59,30 +60,36 @@ public class ProjectWindow extends ContentPanelStructure {
     public void displayProjects() {
 
         for (int i = 0; i < dbVal.size(); i++) {
+            JPanel div = new JPanel();
+            this.add(div);
+            div.setLayout(new BoxLayout(div, BoxLayout.Y_AXIS));
+            div.setForeground(Color.gray);
             JLabel projectName = new JLabel("Project name: " + getProjektNamn(i).toUpperCase());
-            this.add(projectName);
+            div.add(projectName);
             projectName.setForeground(Color.WHITE);
             JLabel description = new JLabel("Description " + getBeskrivning(i));
-            this.add(description);
+            div.add(description);
             description.setForeground(Color.WHITE);
             JLabel startdate = new JLabel("Start date " + getStartDatum(i));
-            this.add(startdate);
+            div.add(startdate);
             startdate.setForeground(Color.WHITE);
             JLabel slutdate = new JLabel("End date: " + getSlutDatum(i));
-            this.add(slutdate);
+            div.add(slutdate);
             slutdate.setForeground(Color.WHITE);
             JLabel cost = new JLabel("Cost: " + getKostnad(i));
-            this.add(cost);
+            div.add(cost);
             cost.setForeground(Color.WHITE);
             JLabel status = new JLabel("Status " + getStatus(i));
-            this.add(status);
+            div.add(status);
             status.setForeground(Color.WHITE);
             JLabel priority = new JLabel("Priority " + getPrioritet(i));
-            this.add(priority);
+            div.add(priority);
             priority.setForeground(Color.WHITE);
             JLabel projectManagerName = new JLabel("Project manager name: " + getStartDatum(i));
-            this.add(projectManagerName);
+            div.add(projectManagerName);
             projectManagerName.setForeground(Color.WHITE);
+            JLabel pro= new JLabel("-------------------------------------------");
+            div.add(pro);
         }
         revalidate();
         repaint();
