@@ -110,7 +110,7 @@ public class ProjWin extends ContentPanelStructure {
                 avdelningsProjQuery = "select * from projekt"
                         + " where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
                         + "where a.avdelning = '" + avdelningsIdQuery + "') "
-                        + "and status = 'Pågående' and startdatum >= '2023-01-01' and slutdatum <= '2024-06-01';";//Glöm ej att ha in värden från textfield här
+                        + "and status = 'Pågående' and startdatum >= '" + searchFieldFrom.getText() +"' and slutdatum <= '" + searchFieldTo.getText() + "';";//Glöm ej att ha in värden från textfield här
                 System.out.println(avdelningsProjQuery);
             }
             else{//Alla projekt på avdelningen
