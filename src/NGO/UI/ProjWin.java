@@ -144,7 +144,18 @@ public class ProjWin extends ContentPanelStructure {
             System.out.println(q);
             ArrayList<HashMap<String, String>> allProj = idb.fetchRows(getQuery(buttonClicked));
             StringBuilder searchResult = new StringBuilder();
-            searchResult.append("Im a Title" + "\n \n");
+            
+            String title = "";
+            if(buttonClicked){
+                if(!(allProj.size() == 1)){
+                    title = "There was " + allProj.size() + " results \n \n";
+                }else{
+                    title = "There was " + allProj.size() + " result \n \n";
+                }
+            }else{
+                title = "These are all active projects for your section \n \n";
+            }
+            searchResult.append(title);
             System.out.println(searchResult.toString());
             if (allProj.size() > 0) {
                 for (HashMap<String, String> row : allProj) {
