@@ -48,7 +48,7 @@ public class ProjWin extends ContentPanelStructure {
         resPan = new JPanel();
         resPan.setPreferredSize(new Dimension(780, 600));
         add(resPan, BorderLayout.SOUTH);
-        resPan.setBackground(Color.LIGHT_GRAY);
+        resPan.setBackground(Color.GRAY);
         
         //Panel i NORTH
         searchPan = new JPanel();
@@ -81,16 +81,17 @@ public class ProjWin extends ContentPanelStructure {
         searchButton.setVisible(true);
     }
     
-    public void resultDisplay() throws InfException {//ligger i resPan
+    public void resultDisplay(){//ligger i resPan
         try {
             JTextArea res = new JTextArea(40, 54); //JTextarea(antal rader, tecken i x led)
             res.setLineWrap(true);
             res.setWrapStyleWord(true);
             res.setEditable(false);
             
-            String sqlQuery = "select avdelning from anstalld where aid = '" + id + "';";
+            String sqlQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
             //Sql frågan nedan är hårdkodad till avdelning 1, sqlQuery över ger InfException
-            ArrayList<HashMap<String, String>> allProj = idb.fetchRows("select * from projekt,ans_proj,anstalld,avdelning where projekt.pid = ans_proj.pid and ans_proj.aid = anstalld.aid and anstalld.avdelning = avdelning.avdid having avdelning.avdid = 1");
+            //ArrayList<HashMap<String, String>> allProj = idb.fetchRows("select distinct * from projekt,ans_proj,anstalld,avdelning where projekt.pid = ans_proj.pid and ans_proj.aid = anstalld.aid and anstalld.avdelning having avdelning.avdid = '" + sqlQuery + "';");
+            ArrayList<HashMap<String, String>> allProj = idb.fetchRows("select * from projekt where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid where a.avdelning = " + sqlQuery + ");");
             StringBuilder searchResult = new StringBuilder();
             searchResult.append("Im a Title" + "\n \n");
             for(HashMap<String, String> row: allProj){
@@ -98,11 +99,11 @@ public class ProjWin extends ContentPanelStructure {
                         .append("Project name: " + row.get("projektnamn") + "\n")
                         .append("Description: " + row.get("beskrivning") + "\n")
                         .append("Start date: " + row.get("startdatum") + "\n")
-                        .append("End date" + row.get("slutdatum") + "\n")
+                        .append("End date: " + row.get("slutdatum") + "\n")
                         .append("Cost: " + row.get("kostnad") + "\n")
-                        .append("Status" + row.get("status") + "\n")
+                        .append("Status: " + row.get("status") + "\n")
                         .append("Priority: " +row.get("prioritet") + "\n")
-                        .append("Project manager" + row.get("projektchef") + "\n")
+                        .append("Project manager: " + row.get("projektchef") + "\n")
                         .append("Country: " + row.get("land") + "\n")
                         .append("\n \n");
             }
@@ -118,6 +119,7 @@ public class ProjWin extends ContentPanelStructure {
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Yup, error fetching from database, gl next time, gg tho!");
             System.out.println("In ProjWin at resultDisplay InfException was caught");
+            e.printError();
         }
 
     }
