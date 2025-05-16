@@ -146,18 +146,22 @@ public class ProjWin extends ContentPanelStructure {
             StringBuilder searchResult = new StringBuilder();
             searchResult.append("Im a Title" + "\n \n");
             System.out.println(searchResult.toString());
-            for(HashMap<String, String> row: allProj){
-                searchResult.append("Project ID: " + row.get("pid") + "\n")
-                        .append("Project name: " + row.get("projektnamn") + "\n")
-                        .append("Description: " + row.get("beskrivning") + "\n")
-                        .append("Start date: " + row.get("startdatum") + "\n")
-                        .append("End date: " + row.get("slutdatum") + "\n")
-                        .append("Cost: " + row.get("kostnad") + "\n")
-                        .append("Status: " + row.get("status") + "\n")
-                        .append("Priority: " +row.get("prioritet") + "\n")
-                        .append("Project manager: " + row.get("projektchef") + "\n")
-                        .append("Country: " + row.get("land") + "\n")
-                        .append("\n " + allProj.size() +"\n");
+            if (allProj.size() > 0) {
+                for (HashMap<String, String> row : allProj) {
+                    searchResult.append("Project ID: " + row.get("pid") + "\n")
+                            .append("Project name: " + row.get("projektnamn") + "\n")
+                            .append("Description: " + row.get("beskrivning") + "\n")
+                            .append("Start date: " + row.get("startdatum") + "\n")
+                            .append("End date: " + row.get("slutdatum") + "\n")
+                            .append("Cost: " + row.get("kostnad") + "\n")
+                            .append("Status: " + row.get("status") + "\n")
+                            .append("Priority: " + row.get("prioritet") + "\n")
+                            .append("Project manager: " + row.get("projektchef") + "\n")
+                            .append("Country: " + row.get("land") + "\n")
+                            .append("\n \n");
+                }
+            }else{
+                searchResult.append("There are no active projects within these dates");
             }
             res.setText(searchResult.toString());
             //resPan.add(res); La jag till med denna res två
