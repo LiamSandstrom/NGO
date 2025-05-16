@@ -10,6 +10,7 @@ import javax.swing.*;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
+
 public class GlobalGoalsPanel extends ContentPanelStructure{
     
     private User user;
@@ -28,40 +29,84 @@ public class GlobalGoalsPanel extends ContentPanelStructure{
         idb = user.getDb();
         dbVal = new ArrayList();
         
-        try{
-            setBackground(Color.decode("#201c1c"));
-            id = user.getId();
-            idb = user.getDb();
-            
-            JTextArea goals = new JTextArea(10, 30);
-            goals.setLineWrap(true);
-            goals.setWrapStyleWord(true);
-            goals.setEditable(false);
-            
-            String sqlQuestion = "select * from hallbarhetsmal;";
-            ArrayList<HashMap<String, String>> allGoals = idb.fetchRows(sqlQuestion);
-            StringBuilder results = new StringBuilder();
-            for (HashMap<String, String> rad : allGoals){
-                results.append("Global Goals ID: ").append(rad.get("hid"))
-                        .append(", Name: ").append(rad.get("namn"))
-                        .append(", Goal number: ").append(rad.get("malnummer"))
-                        .append(" , Description: ").append(rad.get("beskrivning"))
-                        .append(" , Priority: ").append(rad.get("prioritet"))
-                        .append("\n \n");
+        setBackground(Color.decode("#201c1c"));
+        id = user.getId();
+        idb = user.getDb();
+        
+        JButton filterButton = new JButton("Filter by ▼");
+        JPopupMenu filterMenu = new JPopupMenu();
+        JMenuItem filterID = new JMenuItem("ID");
+        JMenuItem filterName = new JMenuItem("Name");
+        JMenuItem filterPrioritet = new JMenuItem("Priority");
+        
+        
+        JTextArea goals = new JTextArea(10, 30);
+        goals.setLineWrap(true);
+        goals.setWrapStyleWord(true);
+        goals.setEditable(false);
+        JTextField searchField = new JTextField();
+        searchField.setBounds(15, 10, 200, 30);
+        add(searchField);
+        JButton searchButton = new JButton("Search name");
+        searchButton.setBounds(215, 10, 120, 30);
+        searchButton.addActionListener(e -> {
+            String searchText = searchField.getText().trim();
+            if (!searchText.isEmpty()) {
+                String query = "SELECT * FROM hallbarhetsmal WHERE namn LIKE '%" + searchText + "%'";
+                loadGoals(query, goals);
+            } else {
+                loadGoals("SELECT * FROM hallbarhetsmal", goals);
             }
-            goals.setText(results.toString());
-            JScrollPane scrollPane = new JScrollPane(goals);
-            setLayout(null);
-            scrollPane.setBounds(12, 0, 800, 700);
-            add(scrollPane);
-            revalidate();
-            repaint();
-        }
+        });
         
-        catch(InfException e){
-            System.out.println(e);
-        }
         
+        add(searchButton);
+        
+        filterID.addActionListener(e -> {
+            loadGoals("select * from hallbarhetsmal order by hid", goals);
+        });
+        filterName.addActionListener(e -> {
+            loadGoals("select * from hallbarhetsmal order by namn", goals);
+        });
+        filterPrioritet.addActionListener(e -> {
+            loadGoals("select * from hallbarhetsmal order by field(prioritet, 'Hög', 'Medel', 'Låg')", goals);
+        });
+        filterButton.setBounds(565, 10, 150, 30);
+        JScrollPane scrollPane = new JScrollPane(goals);
+        scrollPane.setBounds(15, 50, 700, 685);
+        filterButton.addActionListener(e -> {
+            filterMenu.show(filterButton, 0, filterButton.getHeight());
+        });
+        
+        add(filterButton);
+        filterMenu.add(filterID);
+        filterMenu.add(filterName);
+        filterMenu.add(filterPrioritet);
+        loadGoals("SELECT * FROM hallbarhetsmal", goals);
+        setLayout(null);
+        add(scrollPane);
+        
+        revalidate();
+        repaint();
+        
+    }
+    
+    private void loadGoals(String mysqlQuestion, JTextArea goals) {
+    try {
+        ArrayList<HashMap<String, String>> allGoals = idb.fetchRows(mysqlQuestion);
+        StringBuilder results = new StringBuilder();
+        for (HashMap<String, String> rad : allGoals) {
+            results.append("Global Goals ID: ").append(rad.get("hid"))
+                    .append("\nName: ").append(rad.get("namn"))
+                    .append("\nGoal number: ").append(rad.get("malnummer"))
+                    .append("\nDescription: ").append(rad.get("beskrivning"))
+                    .append("\nPriority: ").append(rad.get("prioritet"))
+                    .append("\n\n");
+        }
+        goals.setText(results.toString());
+    } catch (InfException ex) {
+        ex.printStackTrace();
+    }
     }
     
 }
