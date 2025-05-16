@@ -52,8 +52,10 @@ public class ProjWin extends ContentPanelStructure {
         //Panel i SOUTH
         resPan = new JPanel();
         resPan.setPreferredSize(new Dimension(780, 600));
-        add(resPan, BorderLayout.SOUTH);
         resPan.setBackground(Color.GRAY);
+        resPan.setLayout(new BorderLayout());
+        //resPan.setLayout(new BorderLayout());
+        add(resPan, BorderLayout.SOUTH);
         
         //Panel i NORTH
         searchPan = new JPanel();
@@ -73,13 +75,13 @@ public class ProjWin extends ContentPanelStructure {
     
     public void searchFields(){
         //Datum från
-        searchFieldFrom = new JTextField("2023-01-01");
+        searchFieldFrom = new JTextField();
         searchFieldFrom.setPreferredSize(new Dimension(150, 30));
         searchPan.add(searchFieldFrom);
         searchFieldFrom.setVisible(true);
         
         //Datum till
-        searchFieldTo = new JTextField("2024-12-01");
+        searchFieldTo = new JTextField();
         searchFieldTo.setPreferredSize(new Dimension(150, 30));
         searchPan.add(searchFieldTo);
         searchFieldTo.setVisible(true);
@@ -104,26 +106,33 @@ public class ProjWin extends ContentPanelStructure {
             String avdelningsIdQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
  
             if (buttonClicked) {//Pågående projekt inom sökt datum spann
+                //FEL I DENNA SQL FRÅGA: i ordet Pågående finns två å som blir till P?g?ende
                 avdelningsProjQuery = "select * from projekt"
                         + " where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
-                        + "where a.avdelning = " + avdelningsIdQuery + ") "
-                        + "having status = 'Pågående' and startdatum >= 2023-01-01 and slutdatum <= '2023-06-01';";//Glöm ej att ha in värden från textfield här
+                        + "where a.avdelning = '" + avdelningsIdQuery + "') "
+                        + "and status = 'Pågående' and startdatum >= '2023-01-01' and slutdatum <= '2023-06-01';";//Glöm ej att ha in värden från textfield här
                 System.out.println(avdelningsProjQuery);
             }
             else{//Alla projekt på avdelningen
                 avdelningsProjQuery = "select * from projekt "
                     + "where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
                     + "where a.avdelning = " + avdelningsIdQuery + ");";
+                System.out.println(avdelningsProjQuery);
+                System.out.println("I am false");
             }
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "There are no active project for those dates. Or there was and error with the database");
             e.printError();
         }
+        System.out.println("DEBUG Query = " + avdelningsProjQuery);
         return avdelningsProjQuery;
     }
     
     public void resultDisplay(boolean buttonClicked){//ligger i resPan
         try {
+            if(buttonClicked){
+                resPan.removeAll();
+            }
             JTextArea res = new JTextArea(40, 54); //JTextarea(antal rader, tecken i x led)
             res.setLineWrap(true);
             res.setWrapStyleWord(true);
@@ -134,6 +143,7 @@ public class ProjWin extends ContentPanelStructure {
             ArrayList<HashMap<String, String>> allProj = idb.fetchRows(getQuery(buttonClicked));
             StringBuilder searchResult = new StringBuilder();
             searchResult.append("Im a Title" + "\n \n");
+            System.out.println(searchResult.toString());
             for(HashMap<String, String> row: allProj){
                 searchResult.append("Project ID: " + row.get("pid") + "\n")
                         .append("Project name: " + row.get("projektnamn") + "\n")
@@ -145,17 +155,17 @@ public class ProjWin extends ContentPanelStructure {
                         .append("Priority: " +row.get("prioritet") + "\n")
                         .append("Project manager: " + row.get("projektchef") + "\n")
                         .append("Country: " + row.get("land") + "\n")
-                        .append("\n \n");
+                        .append("\n " + allProj.size() +"\n");
             }
             res.setText(searchResult.toString());
-            resPan.add(res);
+            //resPan.add(res); La jag till med denna res två
             //ScrollPane
             JScrollPane scroller = new JScrollPane(res);
             //scroller.setBounds(20, 0, 580, 660);
-            resPan.add(scroller);
-            
-            revalidate();
-            repaint();
+            resPan.add(scroller, BorderLayout.CENTER);
+            //resPan.add(scroller, BorderLayout.CENTER);
+            resPan.revalidate();
+            resPan.repaint();
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Yup, error fetching from database, gl next time, gg tho!");
             System.out.println("In ProjWin at resultDisplay InfException was caught");
