@@ -8,12 +8,15 @@ import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import static java.awt.font.TextAttribute.FONT;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,14 +30,16 @@ import oru.inf.InfException;
  * @author david
  */
 public class ProjWin extends ContentPanelStructure {
-    //JPanels
+    //J
     private JPanel resPan;
     private JPanel searchPan;
+    private JTextField searchFieldFrom;
+    private JTextField searchFieldTo;
     //Databas
     private InfDB idb;
     private User user;
     private String id;
-    GridBagConstraints gbc;
+    //GridBagConstraints gbc;
 
     public ProjWin(User user, UIStructure parentPanel) throws InfException {
         super(user, parentPanel);
@@ -56,42 +61,77 @@ public class ProjWin extends ContentPanelStructure {
         add(searchPan, BorderLayout.NORTH);
         searchPan.setBackground(Color.GRAY);
         
-        gbc = new GridBagConstraints();
+        //gbc = new GridBagConstraints();
         
         //Metod Anrop ---- resPan
-        resultDisplay();
+        resultDisplay(false);
         //Metod Anrop ---- searchPan
-        searchField();
+        searchFields();
         searchButton();
         
     }
     
-    public void searchField(){
-        JTextField searchField = new JTextField();
-        searchField.setPreferredSize(new Dimension(150, 30));
-        searchPan.add(searchField);
-        searchField.setVisible(true);
+    public void searchFields(){
+        //Datum från
+        searchFieldFrom = new JTextField("2023-01-01");
+        searchFieldFrom.setPreferredSize(new Dimension(150, 30));
+        searchPan.add(searchFieldFrom);
+        searchFieldFrom.setVisible(true);
+        
+        //Datum till
+        searchFieldTo = new JTextField("2024-12-01");
+        searchFieldTo.setPreferredSize(new Dimension(150, 30));
+        searchPan.add(searchFieldTo);
+        searchFieldTo.setVisible(true);
     }
     
+    //Måste känna igen om projekt status är aktiv, sedan idb.fetchRows + "... and startdatum >= från and slutdatum <= till and status = 'pågående'"
     public void searchButton(){
         JButton searchButton = new JButton("Search");
-        searchButton.setPreferredSize(new Dimension(50, 40));
-
+        searchButton.setPreferredSize(new Dimension(70, 40));
+        searchButton.setFont(new Font("Arial", Font.PLAIN, 11));
+        //onClick
+        searchButton.addActionListener(e ->{
+            resultDisplay(true);
+        });
         searchPan.add(searchButton);
         searchButton.setVisible(true);
     }
     
-    public void resultDisplay(){//ligger i resPan
+    private String getQuery(boolean buttonClicked) {//Bestäm sql fråga beroende på om man redan sökt
+        String avdelningsProjQuery = "";
+        try {
+            String avdelningsIdQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
+ 
+            if (buttonClicked) {//Pågående projekt inom sökt datum spann
+                avdelningsProjQuery = "select * from projekt"
+                        + " where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
+                        + "where a.avdelning = " + avdelningsIdQuery + ") "
+                        + "having status = 'Pågående' and startdatum >= 2023-01-01 and slutdatum <= '2023-06-01';";//Glöm ej att ha in värden från textfield här
+                System.out.println(avdelningsProjQuery);
+            }
+            else{//Alla projekt på avdelningen
+                avdelningsProjQuery = "select * from projekt "
+                    + "where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
+                    + "where a.avdelning = " + avdelningsIdQuery + ");";
+            }
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "There are no active project for those dates. Or there was and error with the database");
+            e.printError();
+        }
+        return avdelningsProjQuery;
+    }
+    
+    public void resultDisplay(boolean buttonClicked){//ligger i resPan
         try {
             JTextArea res = new JTextArea(40, 54); //JTextarea(antal rader, tecken i x led)
             res.setLineWrap(true);
             res.setWrapStyleWord(true);
             res.setEditable(false);
             
-            String sqlQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
-            //Sql frågan nedan är hårdkodad till avdelning 1, sqlQuery över ger InfException
-            //ArrayList<HashMap<String, String>> allProj = idb.fetchRows("select distinct * from projekt,ans_proj,anstalld,avdelning where projekt.pid = ans_proj.pid and ans_proj.aid = anstalld.aid and anstalld.avdelning having avdelning.avdid = '" + sqlQuery + "';");
-            ArrayList<HashMap<String, String>> allProj = idb.fetchRows("select * from projekt where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid where a.avdelning = " + sqlQuery + ");");
+            //String sqlQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
+          //ArrayList<HashMap<String, String>> allProj = idb.fetchRows("select * from projekt where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid where a.avdelning = " + sqlQuery + ");");
+            ArrayList<HashMap<String, String>> allProj = idb.fetchRows(getQuery(buttonClicked));
             StringBuilder searchResult = new StringBuilder();
             searchResult.append("Im a Title" + "\n \n");
             for(HashMap<String, String> row: allProj){
