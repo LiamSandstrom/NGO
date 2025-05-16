@@ -25,7 +25,7 @@ public class ShowMyProjects extends ContentPanelStructure{
     public ShowMyProjects(User user, UIStructure anotherPanel){
         super(user, anotherPanel);
         try{
-            setBackground(Color.LIGHT_GRAY);
+            setBackground(Color.GRAY);
             id = user.getId();
             idb = user.getDb();
             

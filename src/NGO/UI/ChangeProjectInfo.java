@@ -29,7 +29,7 @@ public class ChangeProjectInfo extends ContentPanelStructure {
     public ChangeProjectInfo(User user, UIStructure twoPanel) {
         super(user, twoPanel);
         try {
-            setBackground(Color.LIGHT_GRAY);
+            setBackground(Color.GRAY);
             id = user.getId();
             idb = user.getDb();
             JPanel mainPanel = new JPanel();
