@@ -27,7 +27,7 @@ public class MyProjectsCost extends ContentPanelStructure {
     public MyProjectsCost(User user, UIStructure oneMorePanel){
         super(user, oneMorePanel);
         try{
-            setBackground(Color.LIGHT_GRAY);
+            setBackground(Color.GRAY);
             id = user.getId();
             idb = user.getDb();
             totalCost = 0;

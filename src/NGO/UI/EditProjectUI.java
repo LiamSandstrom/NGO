@@ -26,11 +26,11 @@ import oru.inf.InfDB;
  *
  * @author liam
  */
-public class RemoveAnstalldUI extends ContentPanelStructure {
+public class EditProjectUI extends ContentPanelStructure {
 
 	InfDB idb;
 
-	public RemoveAnstalldUI(User user, UIStructure parentPanel) {
+	public EditProjectUI(User user, UIStructure parentPanel) {
 		super(user, parentPanel);
 
 		setLayout(new GridBagLayout());
@@ -39,7 +39,7 @@ public class RemoveAnstalldUI extends ContentPanelStructure {
 		idb = user.getDb();
 
 		try {
-			ArrayList<String> workers = idb.fetchColumn("select aid from anstalld;");
+			ArrayList<String> projects = idb.fetchColumn("select pid from projekt;");
 			JPanel panel = new JPanel();
 			panel.setLayout(new GridBagLayout());
 
@@ -53,17 +53,16 @@ public class RemoveAnstalldUI extends ContentPanelStructure {
 
 			GridBagConstraints workerGbc = new GridBagConstraints();
 			int yIndex = 0;
-			for (String id : workers) {
+			for (String id : projects) {
 				RoundedPanel workerPanel = new RoundedPanel(20);
 				workerPanel.setLayout(new BorderLayout());
 				workerPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
 				workerPanel.setPreferredSize(new Dimension(400, 70));
-				Color workerPanelColor = new Color(40,40,40);
+				Color workerPanelColor = new Color(40, 40, 40);
 				workerPanel.setBackground(workerPanelColor);
 
-				String name = idb.fetchSingle("select fornamn from anstalld where aid = " + id + ";");
-				String lastName = idb.fetchSingle("select efternamn from anstalld where aid = " + id + ";");
-				JLabel label = new JLabel(name + " " + lastName);
+				String name = idb.fetchSingle("select projektnamn from projekt where pid = " + id + ";");
+				JLabel label = new JLabel(name);
 				label.setFont(new Font("Arial", Font.PLAIN, 20));
 
 				workerGbc.gridy = yIndex;

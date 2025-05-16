@@ -23,7 +23,7 @@ public class MyPersonalInfoPanel extends ContentPanelStructure {
         super(user, onePanel);
         try{
             
-            setBackground(Color.LIGHT_GRAY);
+            setBackground(Color.GRAY);
             id = user.getId();
             idb = user.getDb();
             

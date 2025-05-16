@@ -37,8 +37,8 @@ public class UIStructure extends JPanel {
 		toolbarPanel.setLayout(new GridBagLayout());
 		add(toolbarPanel, BorderLayout.WEST);
                 add(contentPanel, BorderLayout.EAST);
-		contentPanel.setBackground(Color.red);
-		toolbarPanel.setBackground(Color.green);
+		contentPanel.setBackground(Color.gray);
+		toolbarPanel.setBackground(Color.GRAY);
 		gbc = new GridBagConstraints();
 	}
 
