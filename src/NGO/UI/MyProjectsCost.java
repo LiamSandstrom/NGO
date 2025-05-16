@@ -53,7 +53,7 @@ public class MyProjectsCost extends ContentPanelStructure {
                         .append(" , Status: ").append(rad.get("status"))
                         .append("\n \n");
             }
-            resultat.append(totalCost);
+            resultat.append("Total cost for my projects: ").append(totalCost);
             showCost.setText(resultat.toString() ); 
             JScrollPane scrollPane = new JScrollPane(showCost);
             setLayout(null);
