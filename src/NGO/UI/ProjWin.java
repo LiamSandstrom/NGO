@@ -53,7 +53,7 @@ public class ProjWin extends ContentPanelStructure {
         resPan = new JPanel();
         resPan.setPreferredSize(new Dimension(780, 600));
         resPan.setBackground(Color.GRAY);
-        resPan.setLayout(new BorderLayout());
+        //resPan.setLayout(new BorderLayout());
         //resPan.setLayout(new BorderLayout());
         add(resPan, BorderLayout.SOUTH);
         
@@ -110,7 +110,7 @@ public class ProjWin extends ContentPanelStructure {
                 avdelningsProjQuery = "select * from projekt"
                         + " where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
                         + "where a.avdelning = '" + avdelningsIdQuery + "') "
-                        + "and status = 'Pågående' and startdatum >= '2023-01-01' and slutdatum <= '2023-06-01';";//Glöm ej att ha in värden från textfield här
+                        + "and status = 'Pågående' and startdatum >= '2023-01-01' and slutdatum <= '2024-06-01';";//Glöm ej att ha in värden från textfield här
                 System.out.println(avdelningsProjQuery);
             }
             else{//Alla projekt på avdelningen
@@ -140,6 +140,8 @@ public class ProjWin extends ContentPanelStructure {
             
             //String sqlQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
           //ArrayList<HashMap<String, String>> allProj = idb.fetchRows("select * from projekt where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid where a.avdelning = " + sqlQuery + ");");
+            String q = getQuery(buttonClicked);
+            System.out.println(q);
             ArrayList<HashMap<String, String>> allProj = idb.fetchRows(getQuery(buttonClicked));
             StringBuilder searchResult = new StringBuilder();
             searchResult.append("Im a Title" + "\n \n");
