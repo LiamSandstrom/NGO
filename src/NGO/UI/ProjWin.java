@@ -106,7 +106,7 @@ public class ProjWin extends ContentPanelStructure {
             String avdelningsIdQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
  
             if (buttonClicked) {//Pågående projekt inom sökt datum spann
-                //FEL I DENNA SQL FRÅGA: i ordet Pågående finns två å som blir till P?g?ende
+                //FEL I DENNA SQL FRÅGA: i ordet Pågående finns två å som blir till P?g?ende, alt lösning -Dfile.encoding=UTF-8 i run VMoptions för projektet
                 avdelningsProjQuery = "select * from projekt"
                         + " where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
                         + "where a.avdelning = '" + avdelningsIdQuery + "') "
