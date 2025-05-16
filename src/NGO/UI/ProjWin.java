@@ -161,7 +161,7 @@ public class ProjWin extends ContentPanelStructure {
                             .append("\n \n");
                 }
             }else{
-                searchResult.append("There are no active projects within these dates");
+                searchResult.append("There are no active projects within these dates in your section");
             }
             res.setText(searchResult.toString());
             //resPan.add(res); La jag till med denna res två
