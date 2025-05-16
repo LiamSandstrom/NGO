@@ -2,6 +2,7 @@ package NGO;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkFlatIJTheme;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import java.awt.Font;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JOptionPane;

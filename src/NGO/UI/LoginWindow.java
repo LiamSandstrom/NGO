@@ -40,7 +40,7 @@ public class LoginWindow extends JPanel {
 		int inputHeight = 40;
 
 		//Login Content
-		JPanel content = new JPanel();
+		RoundedPanel content = new RoundedPanel(20);
 		content.setBackground(new Color(40,40,40));
 		content.setLayout(new GridBagLayout());
 		//450, 230 correct size when no admin and hand button
