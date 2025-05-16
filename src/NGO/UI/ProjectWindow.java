@@ -19,6 +19,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import NGO.UI.HandlaggarUI;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Insets;
 
 /**
  *
@@ -30,6 +34,8 @@ public class ProjectWindow extends ContentPanelStructure {
     private User user;
     private String id;
     private ArrayList<HashMap<String,String>> dbVal;
+    private JTextArea showProject;
+    private JPanel pan;
     GridBagConstraints gbc;
     
     public ProjectWindow(User user, UIStructure parentPanel) {
@@ -37,12 +43,16 @@ public class ProjectWindow extends ContentPanelStructure {
         this.user = user;
         id = user.getId();
         idb= user.getDb();
-        this.setBackground(Color.GRAY);
-        this.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
+        setBackground(Color.GRAY);
         dbVal = new ArrayList();
         this.idb = user.getDb();
+        pan = new JPanel();
+        pan.setPreferredSize(new Dimension(280,600));
+        pan.setLayout(new GridBagLayout());
+        add(pan, BorderLayout.EAST);
+        gbc = new GridBagConstraints();
         fillArrayList();
+        btnSearch();
         displayProjects2();
     }
 
@@ -52,6 +62,12 @@ public class ProjectWindow extends ContentPanelStructure {
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Error fetching from database");
         }
+    }
+    
+    private String setTitle(){
+        String title = "Projects for section " + user.getAvdelning();
+        return title;
+        
     }
 
     public void printAllProjects() {
@@ -68,9 +84,20 @@ public class ProjectWindow extends ContentPanelStructure {
         }
     }
 
+    public void btnSearch(){//Höll på att implementera grid bag constraints, har inte lagt till textarea i panelen med gridbag
+        JButton btnSearch = new JButton();
+        btnSearch.setPreferredSize(new Dimension(150, 70));
+        gbc.gridy = 0;
+        gbc.gridx = 1;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.anchor = GridBagConstraints.EAST;
+    }
+    
     public void displayProjects2() {
         try {
-            JTextArea showProject = new JTextArea(10, 30);
+            GridBagConstraints style = new GridBagConstraints();
+            showProject = new JTextArea(10, 30);
             showProject.setLineWrap(true);
             showProject.setWrapStyleWord(true);
             showProject.setEditable(false);
@@ -78,6 +105,7 @@ public class ProjectWindow extends ContentPanelStructure {
             //String sqlFraga2 = "select * from projekt where pid in (select pid from ans_proj where aid IN (select aid from anstalld where avdelning = " + sqlFraga +"));";
             ArrayList<HashMap<String, String>> allProjects = idb.fetchRows("select * from projekt,ans_proj,anstalld,avdelning where projekt.pid = ans_proj.pid and ans_proj.aid = anstalld.aid and anstalld.avdelning = avdelning.avdid having avdelning.avdid = 1");
             StringBuilder resultat = new StringBuilder();
+            resultat.append(setTitle() + "\n \n");
             for (HashMap<String, String> rad : allProjects) {
                 resultat.append("Projekt ID: ").append(rad.get("pid") + ",\n")
                         .append("Namn: ").append(rad.get("projektnamn")+ ",\n")
@@ -94,7 +122,7 @@ public class ProjectWindow extends ContentPanelStructure {
             showProject.setText(resultat.toString());
             JScrollPane scrollPane = new JScrollPane(showProject);
             setLayout(null);
-            scrollPane.setBounds(10, 10, 780, 680);
+            scrollPane.setBounds(20, 0, 580, 660);
             add(scrollPane);
             revalidate();
             repaint();

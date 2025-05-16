@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.Timer;
+import oru.inf.InfException;
 
 /**
  *
@@ -21,10 +22,14 @@ public class WelcomePanel extends ContentPanelStructure {
 	public WelcomePanel(User user, UIStructure parentPanel) {
 		super(user, parentPanel);
 
-		JLabel txt = new JLabel("Welcome Liam");
+                try{
+                    JLabel txt = new JLabel("Welcome " + user.getName());
 		txt.setFont(new Font("Arial", Font.PLAIN, 40));
 		add(txt);
 		animateText(txt);
+                }catch(InfException e){
+                    System.out.println("Nah bruh");
+                }
 	}
 
 	public void animateText(JLabel label) {
