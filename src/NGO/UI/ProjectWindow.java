@@ -20,6 +20,9 @@ import javax.swing.JTextArea;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import NGO.UI.HandlaggarUI;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Insets;
 
 /**
  *
@@ -32,6 +35,7 @@ public class ProjectWindow extends ContentPanelStructure {
     private String id;
     private ArrayList<HashMap<String,String>> dbVal;
     private JTextArea showProject;
+    private JPanel pan;
     GridBagConstraints gbc;
     
     public ProjectWindow(User user, UIStructure parentPanel) {
@@ -39,12 +43,16 @@ public class ProjectWindow extends ContentPanelStructure {
         this.user = user;
         id = user.getId();
         idb= user.getDb();
-        this.setBackground(Color.GRAY);
-        this.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
+        setBackground(Color.GRAY);
         dbVal = new ArrayList();
         this.idb = user.getDb();
+        pan = new JPanel();
+        pan.setPreferredSize(new Dimension(280,600));
+        pan.setLayout(new GridBagLayout());
+        add(pan, BorderLayout.EAST);
+        gbc = new GridBagConstraints();
         fillArrayList();
+        btnSearch();
         displayProjects2();
     }
 
@@ -75,14 +83,15 @@ public class ProjectWindow extends ContentPanelStructure {
             System.out.println();
         }
     }
-    
-    public void searchProj(String date){
-        
-    }
 
-    public void btnSearch(){
+    public void btnSearch(){//Höll på att implementera grid bag constraints, har inte lagt till textarea i panelen med gridbag
         JButton btnSearch = new JButton();
-
+        btnSearch.setPreferredSize(new Dimension(150, 70));
+        gbc.gridy = 0;
+        gbc.gridx = 1;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.anchor = GridBagConstraints.EAST;
     }
     
     public void displayProjects2() {
@@ -113,7 +122,7 @@ public class ProjectWindow extends ContentPanelStructure {
             showProject.setText(resultat.toString());
             JScrollPane scrollPane = new JScrollPane(showProject);
             setLayout(null);
-            scrollPane.setBounds(10, 5, 580, 680);
+            scrollPane.setBounds(20, 0, 580, 660);
             add(scrollPane);
             revalidate();
             repaint();
