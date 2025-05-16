@@ -57,6 +57,9 @@ public class HandlaggarUI extends UIStructure {
                 System.out.println(e);
             }   
                 
+                GlobalGoalsPanel globalGoals = new GlobalGoalsPanel(user, this);
+                addButton("Show Global Goals", globalGoals);
+                
                 
 		bottomMargin();
                // addButton("Mina Uppgifter", minaUppgifter );

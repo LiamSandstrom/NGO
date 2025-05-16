@@ -16,5 +16,10 @@ public class AdminUI extends UIStructure {
             super();
 		this.admin = admin;
 		changeContentPanel(new WelcomePanel(admin, this));
+
+		RemoveAnstalldUI anstalldUI = new RemoveAnstalldUI(admin, this);
+		addButton("Workers", anstalldUI);
+
+		bottomMargin();
 	}
 }
