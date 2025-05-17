@@ -20,57 +20,54 @@ import oru.inf.InfException;
  *
  * @author rostykmalanchuk
  */
-public class ChangeProjectInfo extends ContentPanelStructure {
-
-    private User user;
+public class ChangeProjectInfo extends ContentPanelStructure{
     private String id;
     private InfDB idb;
-
-    public ChangeProjectInfo(User user, UIStructure twoPanel) {
+    
+    public ChangeProjectInfo(User user, UIStructure twoPanel){
         super(user, twoPanel);
-        try {
-            setBackground(Color.GRAY);
+        try{
+            setBackground(Color.gray);
             id = user.getId();
             idb = user.getDb();
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
-            ArrayList<HashMap<String, String>> allProjects = idb.fetchRows("select * from projekt where projektchef = '" + id + "'");
-
-            for (HashMap<String, String> project : allProjects) {
+            
+            ArrayList<HashMap<String, String>> allProject = idb.fetchRows("select * from projekt where projektchef = '" + id + "'");
+            
+            for(HashMap<String, String> project : allProject){
                 JPanel projectPanel = new JPanel();
                 projectPanel.setLayout(new BoxLayout(projectPanel, BoxLayout.Y_AXIS));
-                final String pID = project.get("pid");
+                String pID = project.get("pid");
                 projectPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Project: " + project.get("pid")));
-
-                final JTextField projectid = new JTextField(project.get("pid"), 60);
-                final JTextField projectname = new JTextField(project.get("projektnamn"), 60);
-                final JTextField description = new JTextField(project.get("beskrivning"), 60);
-                final JTextField startdate = new JTextField(project.get("startdatum"), 60);
-                final JTextField enddate = new JTextField(project.get("slutdatum"), 60);
-                final JTextField cost = new JTextField(project.get("kostnad"), 60);
-                final JTextField status = new JTextField(project.get("status"), 60);
-                final JTextField priority = new JTextField(project.get("prioritet"), 60);
-                final JTextField projectmanager = new JTextField(project.get("projektchef"), 60);
-                final JTextField country = new JTextField(project.get("land"), 60);
-
+                
+                JTextField projectid = new JTextField(project.get("pid"), 60);
+                JTextField projectname = new JTextField(project.get("projektnamn"), 60);
+                JTextField description = new JTextField(project.get("beskrivning"), 60);
+                JTextField startdate = new JTextField(project.get("startdatum"), 60);
+                JTextField enddate = new JTextField(project.get("slutdatum"), 60);
+                JTextField cost = new JTextField(project.get("kostnad"), 60);
+                JTextField status = new JTextField(project.get("status"), 60);
+                JTextField priority = new JTextField(project.get("prioritet"), 60);
+                JTextField projectmanager = new JTextField(project.get("projektchef"), 60);
+                JTextField country = new JTextField(project.get("land"), 60);
+                
                 JButton btnSave = new JButton("Save my changes");
-
                 btnSave.addActionListener(e -> {
-                    try {
-                        String query = "UPDATE projekt SET projektnamn = '" + projectname.getText()
-                                + "', beskrivning = '" + description.getText()
-                                + "', startdatum = '" + startdate.getText()
-                                + "', slutdatum = '" + enddate.getText()
-                                + "', kostnad = '" + cost.getText()
-                                + "', status = '" + status.getText()
-                                + "', prioritet = '" + priority.getText()
-                                + "', projektchef = '" + projectmanager.getText()
-                                + "', land = '" + country.getText()
-                                + "' WHERE pid = '" + pID + "'";
+                    try{
+                        String query = "update projekt set projektnamn = '" + projectname.getText()
+                                +"', beskrivning = '" + description.getText()
+                                +"', startdatum = '" + startdate.getText()
+                                +"', slutdatum = '" + enddate.getText()
+                                +"', kostnad = '" + cost.getText()
+                                +"', status = '" + status.getText()
+                                +"', prioritet = '" + priority.getText()
+                                +"', projektchef = '" + projectmanager.getText()
+                                +"', land = '" +country.getText()
+                                +"' where pid = '" + pID + "'";
                         idb.update(query);
-                    } catch (InfException error) {
-                        System.out.println(error);
+                    }catch(InfException error){
+                        System.out.println(error.getMessage());
                     }
                 });
                 projectid.setEditable(false);
@@ -85,16 +82,19 @@ public class ChangeProjectInfo extends ContentPanelStructure {
                 projectPanel.add(projectmanager);
                 projectPanel.add(country);
                 projectPanel.add(btnSave);
-
+                
                 mainPanel.add(projectPanel);
+                
             }
             JScrollPane scrollPane = new JScrollPane(mainPanel);
             add(scrollPane);
             revalidate();
             repaint();
-
-        } catch (InfException e) {
-            System.out.println(e);
+            
+        }catch(InfException e){
+            System.out.println(e.getMessage());
         }
+        
     }
+    
 }

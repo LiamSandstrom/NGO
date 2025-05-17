@@ -5,7 +5,6 @@
 package NGO.UI;
 
 import NGO.User;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,14 +17,13 @@ import oru.inf.InfException;
  * @author rostykmalanchuk
  */
 public class ShowMyProjects extends ContentPanelStructure{
-    private User user;
     private InfDB idb;
     private String id;
     
-    public ShowMyProjects(User user, UIStructure anotherPanel){
-        super(user, anotherPanel);
+    public ShowMyProjects(User user, UIStructure parentPanel) {
+        super(user, parentPanel);
         try{
-            setBackground(Color.GRAY);
+            setBackground(Color.gray);
             id = user.getId();
             idb = user.getDb();
             
@@ -34,24 +32,24 @@ public class ShowMyProjects extends ContentPanelStructure{
             showProject.setWrapStyleWord(true);
             showProject.setEditable(false);
             
-            String sqlFraga = "select * from projekt where projektchef = '" + id + "'";
-            ArrayList<HashMap<String, String>> allProjects = idb.fetchRows(sqlFraga);
-            StringBuilder resultat = new StringBuilder();
-            for (HashMap<String, String> rad : allProjects) {
-                resultat.append("Projekt ID: ").append(rad.get("pid"))
-                        .append(", Namn: ").append(rad.get("projektnamn"))
-                        .append(" , Beskrivning: ").append(rad.get("beskrivning"))
-                        .append(" , Startdatum: ").append(rad.get("startdatum"))
-                        .append(" , Slutdatum: ").append(rad.get("slutdatum"))
-                        .append(" , Kostnad: ").append(rad.get("kostnad"))
-                        .append(" , Status: ").append(rad.get("status"))
-                        .append(" , Prioritet: ").append(rad.get("prioritet"))
-                        .append(" , Projektchef: ").append(rad.get("projektchef"))
-                        .append(" , Land: ").append(rad.get("land"))
+            String sqlQuery = "select * from projekt where projektchef = '" + id + "'";
+            ArrayList<HashMap<String, String>> allProjects = idb.fetchRows(sqlQuery);
+            StringBuilder result = new StringBuilder();
+            for(HashMap<String, String> row : allProjects){
+                result.append("Project ID: ").append(row.get("pid"))
+                        .append(", Name: ").append(row.get("projektnamn"))
+                        .append(", Description: ").append(row.get("beskrivning"))
+                        .append(", Startdate: ").append(row.get("startdatum"))
+                        .append(", Enddate: ").append(row.get("slutdatum"))
+                        .append(", Cost: ").append(row.get("kostnad"))
+                        .append(", Status: ").append(row.get("status"))
+                        .append(", Priority: ").append(row.get("prioritet"))
+                        .append(", Project manager: ").append(row.get("projektchef"))
+                        .append(", Country: ").append(row.get("land"))
                         .append("\n \n");
             }
             
-            showProject.setText(resultat.toString() ); 
+            showProject.setText(result.toString());
             JScrollPane scrollPane = new JScrollPane(showProject);
             setLayout(null);
             scrollPane.setBounds(10, 10, 780, 300);
@@ -59,10 +57,9 @@ public class ShowMyProjects extends ContentPanelStructure{
             revalidate();
             repaint();
             
-        }catch(InfException e){
-            System.out.println(e);
-        }  
-        
+         }catch(InfException e){
+             System.out.println(e.getMessage());
+         }
     }
     
 }
