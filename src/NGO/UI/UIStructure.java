@@ -53,7 +53,6 @@ public class UIStructure extends JPanel {
 		gbc.anchor = GridBagConstraints.WEST;
 
 		b.addActionListener(e -> {
-			System.out.println("hej jag ligger ui structure");
 			changeContentPanel(panelOnClick);
 		});
 		toolbarPanel.add(b, gbc);
