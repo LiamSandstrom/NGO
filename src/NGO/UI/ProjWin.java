@@ -74,19 +74,33 @@ public class ProjWin extends ContentPanelStructure {
     }
     
     public void searchFields(){
+
         //Datum från
-        searchFieldFrom = new JTextField();
+        searchFieldFrom = new JTextField("From");
         searchFieldFrom.setPreferredSize(new Dimension(150, 30));
         searchPan.add(searchFieldFrom);
         searchFieldFrom.setVisible(true);
+        removeTextInField(searchFieldFrom);
         
         //Datum till
-        searchFieldTo = new JTextField();
+        searchFieldTo = new JTextField("To");
         searchFieldTo.setPreferredSize(new Dimension(150, 30));
         searchPan.add(searchFieldTo);
         searchFieldTo.setVisible(true);
+        removeTextInField(searchFieldTo);
     }
     
+    private void removeTextInField(JTextField aField){
+        aField.addMouseListener(new java.awt.event.MouseAdapter() {
+            boolean fieldIsClicked = false;
+            public void mouseClicked(java.awt.event.MouseEvent e){
+                if(!fieldIsClicked){
+                    aField.setText("");
+                    fieldIsClicked = true;
+                }
+            }
+        });
+    }
     //Måste känna igen om projekt status är aktiv, sedan idb.fetchRows + "... and startdatum >= från and slutdatum <= till and status = 'pågående'"
     public void searchButton(){
         JButton searchButton = new JButton("Search");
@@ -111,20 +125,16 @@ public class ProjWin extends ContentPanelStructure {
                         + " where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
                         + "where a.avdelning = '" + avdelningsIdQuery + "') "
                         + "and status = 'Pågående' and startdatum >= '" + searchFieldFrom.getText() +"' and slutdatum <= '" + searchFieldTo.getText() + "';";//Glöm ej att ha in värden från textfield här
-                System.out.println(avdelningsProjQuery);
             }
             else{//Alla projekt på avdelningen
                 avdelningsProjQuery = "select * from projekt "
                     + "where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
                     + "where a.avdelning = " + avdelningsIdQuery + ");";
-                System.out.println(avdelningsProjQuery);
-                System.out.println("I am false");
             }
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "There are no active project for those dates. Or there was and error with the database");
             e.printError();
         }
-        System.out.println("DEBUG Query = " + avdelningsProjQuery);
         return avdelningsProjQuery;
     }
     
@@ -140,8 +150,6 @@ public class ProjWin extends ContentPanelStructure {
             
             //String sqlQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
           //ArrayList<HashMap<String, String>> allProj = idb.fetchRows("select * from projekt where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid where a.avdelning = " + sqlQuery + ");");
-            String q = getQuery(buttonClicked);
-            System.out.println(q);
             ArrayList<HashMap<String, String>> allProj = idb.fetchRows(getQuery(buttonClicked));
             StringBuilder searchResult = new StringBuilder();
             
@@ -153,7 +161,7 @@ public class ProjWin extends ContentPanelStructure {
                     title = "There was " + allProj.size() + " result \n \n";
                 }
             }else{
-                title = "These are all active projects for your section \n \n";
+                title = "These are all projects for your section: " + allProj.size() +" \n \n";
             }
             searchResult.append(title);
             System.out.println(searchResult.toString());
