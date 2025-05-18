@@ -25,7 +25,7 @@ import oru.inf.InfException;
  */
 public class EditPartnerUI extends ContentPanelStructure {
 
-	InfDB idb;
+	private InfDB idb;
 
 	public EditPartnerUI(User user, UIStructure parentPanel) {
 		super(user, parentPanel);

@@ -36,7 +36,7 @@ public class ProjectWindow extends ContentPanelStructure {
     private ArrayList<HashMap<String,String>> dbVal;
     private JTextArea showProject;
     private JPanel pan;
-    GridBagConstraints gbc;
+    private GridBagConstraints gbc;
     
     public ProjectWindow(User user, UIStructure parentPanel) {
         super(user, parentPanel);

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class AdminUI extends UIStructure {
 
-	Admin admin;
+	private Admin admin;
 
 	public AdminUI(Admin admin) {
             super();

@@ -17,7 +17,7 @@ import oru.inf.InfException;
  */
 public class WelcomePanel extends ContentPanelStructure {
 
-	int animTracker;
+	private int animTracker;
 
 	public WelcomePanel(User user, UIStructure parentPanel) {
 		super(user, parentPanel);

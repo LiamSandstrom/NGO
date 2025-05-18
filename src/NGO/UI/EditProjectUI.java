@@ -31,7 +31,7 @@ import oru.inf.InfException;
  */
 public class EditProjectUI extends ContentPanelStructure {
 
-	InfDB idb;
+	private InfDB idb;
 
 	public EditProjectUI(User user, UIStructure parentPanel) {
 		super(user, parentPanel);

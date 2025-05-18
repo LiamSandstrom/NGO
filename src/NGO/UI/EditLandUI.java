@@ -25,7 +25,7 @@ import oru.inf.InfException;
  */
 public class EditLandUI extends ContentPanelStructure {
 
-	InfDB idb;
+	private InfDB idb;
 
 	public EditLandUI(User user, UIStructure parentPanel) {
 		super(user, parentPanel);
