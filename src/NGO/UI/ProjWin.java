@@ -63,8 +63,6 @@ public class ProjWin extends ContentPanelStructure {
         add(searchPan, BorderLayout.NORTH);
         searchPan.setBackground(Color.GRAY);
         
-        //gbc = new GridBagConstraints();
-        
         //Metod Anrop ---- resPan
         resultDisplay(false);
         //Metod Anrop ---- searchPan
@@ -73,7 +71,7 @@ public class ProjWin extends ContentPanelStructure {
         
     }
     
-    public void searchFields(){
+    public void searchFields(){//Skapa fälten
 
         //Datum från
         searchFieldFrom = new JTextField("From");
@@ -90,7 +88,7 @@ public class ProjWin extends ContentPanelStructure {
         removeTextInField(searchFieldTo);
     }
     
-    private void removeTextInField(JTextField aField){
+    private void removeTextInField(JTextField aField){//Set texten i text fält till empty string när man klickar på det
         aField.addMouseListener(new java.awt.event.MouseAdapter() {
             boolean fieldIsClicked = false;
             public void mouseClicked(java.awt.event.MouseEvent e){
@@ -101,7 +99,7 @@ public class ProjWin extends ContentPanelStructure {
             }
         });
     }
-    //Måste känna igen om projekt status är aktiv, sedan idb.fetchRows + "... and startdatum >= från and slutdatum <= till and status = 'pågående'"
+
     public void searchButton(){
         JButton searchButton = new JButton("Search");
         searchButton.setPreferredSize(new Dimension(70, 40));
@@ -114,7 +112,7 @@ public class ProjWin extends ContentPanelStructure {
         searchButton.setVisible(true);
     }
     
-    private String getQuery(boolean buttonClicked) {//Bestäm sql fråga beroende på om man redan sökt
+    private String getQuery(boolean buttonClicked) {//Bestäm sql fråga beroende på om man redan sökt eller om man precis klickat på project knappen
         String avdelningsProjQuery = "";
         try {
             String avdelningsIdQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
@@ -148,8 +146,6 @@ public class ProjWin extends ContentPanelStructure {
             res.setWrapStyleWord(true);
             res.setEditable(false);
             
-            //String sqlQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
-          //ArrayList<HashMap<String, String>> allProj = idb.fetchRows("select * from projekt where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid where a.avdelning = " + sqlQuery + ");");
             ArrayList<HashMap<String, String>> allProj = idb.fetchRows(getQuery(buttonClicked));
             StringBuilder searchResult = new StringBuilder();
             
@@ -183,12 +179,9 @@ public class ProjWin extends ContentPanelStructure {
                 searchResult.append("There are no active projects within these dates in your section");
             }
             res.setText(searchResult.toString());
-            //resPan.add(res); La jag till med denna res två
             //ScrollPane
             JScrollPane scroller = new JScrollPane(res);
-            //scroller.setBounds(20, 0, 580, 660);
             resPan.add(scroller, BorderLayout.CENTER);
-            //resPan.add(scroller, BorderLayout.CENTER);
             resPan.revalidate();
             resPan.repaint();
         } catch (InfException e) {
