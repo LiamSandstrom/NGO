@@ -23,19 +23,18 @@ import oru.inf.InfException;
  *
  * @author liam
  */
-public class EditAnstalldUI extends ContentPanelStructure {
+public class EditPartnerUI extends ContentPanelStructure {
 
 	InfDB idb;
 
-	public EditAnstalldUI(User user, UIStructure parentPanel) {
+	public EditPartnerUI(User user, UIStructure parentPanel) {
 		super(user, parentPanel);
-
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		idb = user.getDb();
 
 		try {
-			ArrayList<String> workers = idb.fetchColumn("select aid from anstalld;");
+			ArrayList<String> avdelningar = idb.fetchColumn("select pid from partner;");
 
 			Card<String> card = id -> {
 
@@ -46,11 +45,9 @@ public class EditAnstalldUI extends ContentPanelStructure {
 				panel.setBackground(new Color(40, 40, 40));
 
 				try {
-					String name = idb.fetchSingle("select fornamn from anstalld where aid = " + id + ";");
-					String lastName = idb.fetchSingle("select efternamn from anstalld where aid = " + id + ";");
-					String fullName = name + " " + lastName;
+					String name = idb.fetchSingle("select namn from partner where pid = " + id + ";");
 
-					JLabel nameLabel = new JLabel(fullName);
+					JLabel nameLabel = new JLabel(name);
 					nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 					panel.add(nameLabel, BorderLayout.CENTER);
 
@@ -66,16 +63,15 @@ public class EditAnstalldUI extends ContentPanelStructure {
 
 				return panel;
 			};
-
-			JLabel header = new JLabel("Employees");
+			JLabel header = new JLabel("Partners");
 			header.setFont(new Font("Arial", Font.PLAIN, 30));
 			add(header, gbc);
 			gbc.insets = new Insets(10, 0, 10, 0);
 			gbc.gridy = 1;
-			ScrollListPanel<String> cardList = new ScrollListPanel(workers, card);
+			ScrollListPanel<String> cardList = new ScrollListPanel(avdelningar, card);
 			add(cardList, gbc);
 		} catch (Exception e) {
 		}
-
 	}
+
 }
