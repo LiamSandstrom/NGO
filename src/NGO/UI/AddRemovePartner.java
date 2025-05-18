@@ -21,11 +21,11 @@ import oru.inf.InfException;
  *
  * @author rostykmalanchuk
  */
-public class ChangePartnerInfo extends ContentPanelStructure {
+public class AddRemovePartner extends ContentPanelStructure {
     private InfDB idb;
     private String id;
     
-    public ChangePartnerInfo(User user, UIStructure newPanel){
+    public AddRemovePartner(User user, UIStructure newPanel){
         super(user, newPanel);
         try{
             setBackground(Color.gray);
