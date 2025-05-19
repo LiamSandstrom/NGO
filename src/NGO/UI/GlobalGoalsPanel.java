@@ -17,7 +17,7 @@ public class GlobalGoalsPanel extends ContentPanelStructure{
     private String id;
     private InfDB idb;
     private ArrayList<HashMap<String,String>> dbVal;
-    GridBagConstraints gbc;
+    private GridBagConstraints gbc;
 
     
     public GlobalGoalsPanel(User user, UIStructure parentPanel) {
