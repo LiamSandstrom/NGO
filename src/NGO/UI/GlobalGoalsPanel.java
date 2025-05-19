@@ -52,10 +52,10 @@ public class GlobalGoalsPanel extends ContentPanelStructure{
         searchButton.addActionListener(e -> {
             String searchText = searchField.getText().trim();
             if (!searchText.isEmpty()) {
-                String query = "SELECT * FROM hallbarhetsmal WHERE namn LIKE '%" + searchText + "%'";
+                String query = "select * from hallbarhetsmal where namn like '%" + searchText + "%'";
                 loadGoals(query, goals);
             } else {
-                loadGoals("SELECT * FROM hallbarhetsmal", goals);
+                loadGoals("select * from hallbarhetsmal", goals);
             }
         });
         
@@ -82,7 +82,7 @@ public class GlobalGoalsPanel extends ContentPanelStructure{
         filterMenu.add(filterID);
         filterMenu.add(filterName);
         filterMenu.add(filterPrioritet);
-        loadGoals("SELECT * FROM hallbarhetsmal", goals);
+        loadGoals("select * from hallbarhetsmal", goals);
         setLayout(null);
         add(scrollPane);
         

@@ -64,6 +64,8 @@ public class HandlaggarUI extends UIStructure {
                 GlobalGoalsPanel globalGoals = new GlobalGoalsPanel(user, this);
                 addButton("Show Global Goals", globalGoals);
                 
+                SearchByHandlaggare searchHandlaggare = new SearchByHandlaggare(user, this);
+                addButton("Search Handlaggare", searchHandlaggare);
                 
 		bottomMargin();
                // addButton("Mina Uppgifter", minaUppgifter );
