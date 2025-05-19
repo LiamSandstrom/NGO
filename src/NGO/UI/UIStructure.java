@@ -28,6 +28,7 @@ public class UIStructure extends JPanel {
 	private JPanel toolbarPanel;
 	private GridBagConstraints gbc;
 	private int index = 0;
+	private Color defaultbtnColor;  
 
 	public UIStructure() {
 		this.setLayout(new BorderLayout());
@@ -35,6 +36,7 @@ public class UIStructure extends JPanel {
 		toolbarPanel = new JPanel();
 		contentPanel.setPreferredSize(new Dimension(800, 700));
 		toolbarPanel.setPreferredSize(new Dimension(200, 700));
+		defaultbtnColor = new Color(70, 70, 70);
 		toolbarPanel.setLayout(new GridBagLayout());
 		add(toolbarPanel, BorderLayout.WEST);
                 add(contentPanel, BorderLayout.EAST);
@@ -55,6 +57,7 @@ public class UIStructure extends JPanel {
 
 		b.addActionListener(e -> {
 			changeContentPanel(panelOnClick);
+			changeOutlineButton(b);
 		});
 		toolbarPanel.add(b, gbc);
 		index++;
@@ -75,7 +78,13 @@ public class UIStructure extends JPanel {
 		repaint();
 	}
 
-	public void changeOutlineButton(){
-		
+	public void changeOutlineButton(JButton btn){
+		System.out.println("in");
+		if(currentButton != null){
+			currentButton.setBackground(defaultbtnColor);
+			System.out.println("change");
+		}
+		currentButton = btn;
+		btn.setBackground(new Color(200,50,0));
 	}
 }

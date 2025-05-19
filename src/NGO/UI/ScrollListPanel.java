@@ -1,47 +1,40 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package NGO.UI;
 
-import java.util.List;
-import javax.swing.JPanel;
-import NGO.UI.Card;
+import java.util.function.Supplier;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-/**
- *
- * @author liam
- */
-public class ScrollListPanel<T> extends JPanel {
 
-	public ScrollListPanel(List<T> items, Card<T> cards) {
-		setLayout(new GridBagLayout());
-		JPanel panel = new JPanel(new GridBagLayout());
+public class ScrollListPanel extends JPanel {
 
-		JScrollPane scroll = new JScrollPane(panel);
-		scroll.getVerticalScrollBar().setUnitIncrement(20);
-		scroll.setPreferredSize(new Dimension(700, 600));
-		scroll.setBorder(null);
+    public ScrollListPanel(List<String> items, Supplier<? extends CardStructure> cardFactory) {
+        setLayout(new GridBagLayout());
+        JPanel panel = new JPanel(new GridBagLayout());
 
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(10, 0, 10, 0);
-		gbc.gridx = 0;
+        JScrollPane scroll = new JScrollPane(panel);
+        scroll.getVerticalScrollBar().setUnitIncrement(20);
+        scroll.setPreferredSize(new Dimension(700, 600));
+        scroll.setBorder(null);
 
-		int yIndex = 0;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 0, 10, 0);
+        gbc.gridx = 0;
 
-		for(T item : items){
-			gbc.gridy = yIndex;
-			yIndex++;
-			JPanel card = cards.createCard(item);
-			panel.add(card, gbc);
-		}
+        int yIndex = 0;
 
-		add(scroll);
-	}
+        for (String item : items) {
+            gbc.gridy = yIndex++;
 
+            CardStructure card = cardFactory.get(); // Ny instans varje gång
+            card.initCard(item); // Fyll med data
+            panel.add(card, gbc);
+        }
+
+        add(scroll);
+    }
 }
