@@ -44,13 +44,12 @@ public class AddRemovePartner extends ContentPanelStructure {
                 //String partnerID = partners.get("pid");
                 //partnerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Project: " + partners.get("projekt.pid")));
                 
-                JTextField projectid = new JTextField(partners.get("projekt.pid"), 60);
+                JTextField projectid = new JTextField(partners.get("pid"), 60);
                 JTextField projectname = new JTextField(partners.get("projektnamn"), 60);
                 
                 //for(HashMap<String, String> partner : allPartners){
                 JTextField partnerid = new JTextField(partners.get("partner_pid"), 60);
                 JTextField partnername = new JTextField(partners.get("namn"), 60);
-                
                 
                     /*JButton btnSave = new JButton("Save my changes");
                     btnSave.addActionListener(e -> {

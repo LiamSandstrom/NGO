@@ -41,7 +41,7 @@ public class ProjWin extends ContentPanelStructure {
     private InfDB idb;
     private User user;
     private String id;
-    private String[] alternatives = {"Pågående", "Planerat", "Avslutat"};
+    private String[] alternatives = {"Unspecified", "Pågående", "Planerat", "Avslutat"};
     //GridBagConstraints gbc;
 
     public ProjWin(User user, UIStructure parentPanel) throws InfException {
@@ -81,7 +81,11 @@ public class ProjWin extends ContentPanelStructure {
     }
     
     private String getStatusChoice(){
-        return (String) combo.getSelectedItem();
+        String sqlAddition = "and Status = " + "'" + ((String) combo.getSelectedItem()) + "'";
+        if(((String) combo.getSelectedItem()).equals("Unspecified")){
+            sqlAddition = "";
+        }
+        return sqlAddition;
     }
     
     public void searchFields(){//Skapa fälten
@@ -152,7 +156,7 @@ public class ProjWin extends ContentPanelStructure {
                 avdelningsProjQuery = "select * from projekt"
                         + " where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
                         + "where a.avdelning = '" + avdelningsIdQuery + "') "
-                        + "and status = '" + getStatusChoice() +"' and startdatum >= '" + searchFieldFrom.getText() +"' and slutdatum <= '" + searchFieldTo.getText() + "';";
+                        + getStatusChoice() +" and startdatum >= '" + searchFieldFrom.getText() +"' and slutdatum <= '" + searchFieldTo.getText() + "';";
             }
             else{//Alla projekt på avdelningen
                 avdelningsProjQuery = "select * from projekt "
