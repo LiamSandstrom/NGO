@@ -32,7 +32,7 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
     private JComboBox<String> addOrRemove;
     private JTextField alterPerson;
     private JTextField alterToField;
-    private String[]  alts = {"add, remove"};
+    private String[]  alts = {"add","remove"};
     //private ArrayList<HashMap<String, String>> chefScope;
     
     public AddRemoveHandläggareOnProject(User user, UIStructure uiStructure){
@@ -67,6 +67,9 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
         executeBtn.addActionListener(e ->{
             addOrRemove();
         });
+        
+        addOrRemove = new JComboBox<>(alts);
+        pan.add(addOrRemove);
         
         pan.add(PersText);
         pan.add(alterPerson);
