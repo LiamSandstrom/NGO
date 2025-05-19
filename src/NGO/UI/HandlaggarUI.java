@@ -56,6 +56,9 @@ public class HandlaggarUI extends UIStructure {
                     
                     AddRemovePartner partnerInfo = new AddRemovePartner(user, this);
                     addButton("Add/Remove partner", partnerInfo);
+                    
+                    AddRemoveHandläggareOnProject handOnProj = new AddRemoveHandläggareOnProject(user, this);
+                    addButton("Add/Remove Handläggare", handOnProj);
                 }
             }catch(InfException e){
                 System.out.println(e);
@@ -64,6 +67,8 @@ public class HandlaggarUI extends UIStructure {
                 GlobalGoalsPanel globalGoals = new GlobalGoalsPanel(user, this);
                 addButton("Show Global Goals", globalGoals);
                 
+                SearchByHandlaggare searchHandlaggare = new SearchByHandlaggare(user, this);
+                addButton("Search Handlaggare", searchHandlaggare);
                 
 		bottomMargin();
                // addButton("Mina Uppgifter", minaUppgifter );
