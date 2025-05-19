@@ -50,7 +50,6 @@ public class AddRemovePartner extends ContentPanelStructure {
                 //for(HashMap<String, String> partner : allPartners){
                 JTextField partnerid = new JTextField(partners.get("partner_pid"), 60);
                 JTextField partnername = new JTextField(partners.get("namn"), 60);
-                System.out.println(partners.keySet());
                 
                     /*JButton btnSave = new JButton("Save my changes");
                     btnSave.addActionListener(e -> {
