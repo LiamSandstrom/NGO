@@ -56,7 +56,7 @@ public class HandlaggarUI extends UIStructure {
                     addButton("Change project info",  projInfo);
                     
                     AddRemovePartner partnerInfo = new AddRemovePartner(user, this);
-                    addButton("Change partner info", partnerInfo);
+                    addButton("Add/Remove partner", partnerInfo);
                 }
             }catch(InfException e){
                 System.out.println(e);

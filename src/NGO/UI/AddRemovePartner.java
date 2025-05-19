@@ -47,9 +47,9 @@ public class AddRemovePartner extends ContentPanelStructure {
                 JTextField projectid = new JTextField(partners.get("projekt_partner.pid"), 60);
                 JTextField projectname = new JTextField(partners.get("projektnamn"), 60);
                 
-                for(HashMap<String, String> partner : allPartners){
-                    JTextField partnerid = new JTextField(partner.get("partner_pid"), 60);
-                    JTextField partnername = new JTextField(partner.get("namn"), 60);
+                //for(HashMap<String, String> partner : allPartners){
+                    JTextField partnerid = new JTextField(partners.get("partner_pid"), 60);
+                    JTextField partnername = new JTextField(partners.get("namn"), 60);
                 
                 
                     /*JButton btnSave = new JButton("Save my changes");
@@ -78,7 +78,7 @@ public class AddRemovePartner extends ContentPanelStructure {
                     partnerPanel.add(partnername);
                     
                     mainPanel.add(partnerPanel);
-                }
+                //}
             }
             JScrollPane scrollPane = new JScrollPane(mainPanel);
             add(scrollPane);
