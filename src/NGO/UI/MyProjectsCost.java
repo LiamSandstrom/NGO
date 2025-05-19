@@ -18,27 +18,24 @@ import oru.inf.InfException;
  * @author rostykmalanchuk
  */
 public class MyProjectsCost extends ContentPanelStructure {
-    private User user;
     private String id;
     private InfDB idb;
     private double totalCost;
     
     
-    public MyProjectsCost(User user, UIStructure oneMorePanel){
+    public MyProjectsCost(User user, UIStructure oneMorePanel) {
         super(user, oneMorePanel);
         try{
-            setBackground(Color.GRAY);
+            setBackground(Color.gray);
             id = user.getId();
             idb = user.getDb();
             totalCost = 0;
             
-            ArrayList<String> sqlFraga = idb.fetchColumn("select kostnad from projekt where projektchef = '" + id + "'");
-            for(String cost : sqlFraga){
-                double tot  = Double.parseDouble(cost);
+            ArrayList<String> sqlQuery = idb.fetchColumn("select kostnad from projekt where projektchef = '" + id + "'");
+            for(String cost : sqlQuery){
+                double tot = Double.parseDouble(cost);
                 totalCost += tot;
-                
             }
-            System.out.println(totalCost);
             JTextArea showCost = new JTextArea(10, 30);
             showCost.setLineWrap(true);
             showCost.setWrapStyleWord(true);
@@ -46,15 +43,15 @@ public class MyProjectsCost extends ContentPanelStructure {
             
             String sql = "select projektnamn, kostnad, status from projekt where projektchef = '" + id + "'";
             ArrayList<HashMap<String, String>> allProjects = idb.fetchRows(sql);
-            StringBuilder resultat = new StringBuilder();
-            for (HashMap<String, String> rad : allProjects) {
-                resultat.append("Namn: ").append(rad.get("projektnamn"))
-                        .append(" , Kostnad: ").append(rad.get("kostnad"))
-                        .append(" , Status: ").append(rad.get("status"))
+            StringBuilder result = new StringBuilder();
+            for(HashMap<String, String> row : allProjects){
+                result.append("Name: ").append(row.get("projektnamn"))
+                        .append(" , Cost: ").append(row.get("kostnad"))
+                        .append(" , Status: ").append(row.get("status"))
                         .append("\n \n");
             }
-            resultat.append("Total cost for my projects: ").append(totalCost);
-            showCost.setText(resultat.toString() ); 
+            result.append("Total cost for my projects: ").append(totalCost);
+            showCost.setText(result.toString());
             JScrollPane scrollPane = new JScrollPane(showCost);
             setLayout(null);
             scrollPane.setBounds(10, 10, 780, 300);
@@ -63,7 +60,7 @@ public class MyProjectsCost extends ContentPanelStructure {
             repaint();
             
         }catch(InfException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
     

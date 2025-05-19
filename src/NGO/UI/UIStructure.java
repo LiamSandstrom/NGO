@@ -24,9 +24,10 @@ import javax.swing.JPanel;
 public class UIStructure extends JPanel {
 
 	private JPanel contentPanel;
-	JPanel toolbarPanel;
-	GridBagConstraints gbc;
-	int index = 0;
+	private JButton currentButton;
+	private JPanel toolbarPanel;
+	private GridBagConstraints gbc;
+	private int index = 0;
 
 	public UIStructure() {
 		this.setLayout(new BorderLayout());
@@ -38,7 +39,7 @@ public class UIStructure extends JPanel {
 		add(toolbarPanel, BorderLayout.WEST);
                 add(contentPanel, BorderLayout.EAST);
 		contentPanel.setBackground(Color.gray);
-		toolbarPanel.setBackground(Color.GRAY);
+		toolbarPanel.setBackground(new Color(40,40,40));
 		gbc = new GridBagConstraints();
 	}
 
@@ -72,5 +73,9 @@ public class UIStructure extends JPanel {
 		add(contentPanel, BorderLayout.EAST);
 		revalidate();
 		repaint();
+	}
+
+	public void changeOutlineButton(){
+		
 	}
 }

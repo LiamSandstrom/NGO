@@ -23,11 +23,11 @@ import oru.inf.InfException;
  *
  * @author liam
  */
-public class EditAnstalldUI extends ContentPanelStructure {
+public class EditAvdelningUI extends ContentPanelStructure {
 
 	private InfDB idb;
 
-	public EditAnstalldUI(User user, UIStructure parentPanel) {
+	public EditAvdelningUI(User user, UIStructure parentPanel) {
 		super(user, parentPanel);
 
 		setLayout(new GridBagLayout());
@@ -35,23 +35,21 @@ public class EditAnstalldUI extends ContentPanelStructure {
 		idb = user.getDb();
 
 		try {
-			ArrayList<String> workers = idb.fetchColumn("select aid from anstalld;");
+			ArrayList<String> avdelningar = idb.fetchColumn("select avdid from avdelning;");
 
 			Card<String> card = id -> {
 
 				RoundedPanel panel = new RoundedPanel(20);
 				panel.setLayout(new BorderLayout());
 				panel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-				panel.setPreferredSize(new Dimension(500, 70));
+				panel.setPreferredSize(new Dimension(600, 70));
 				panel.setBackground(new Color(40, 40, 40));
 
 				try {
-					String name = idb.fetchSingle("select fornamn from anstalld where aid = " + id + ";");
-					String lastName = idb.fetchSingle("select efternamn from anstalld where aid = " + id + ";");
-					String fullName = name + " " + lastName;
+					String name = idb.fetchSingle("select namn from avdelning where avdid = " + id + ";");
 
-					JLabel nameLabel = new JLabel(fullName);
-					nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+					JLabel nameLabel = new JLabel(name);
+					nameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 					panel.add(nameLabel, BorderLayout.CENTER);
 
 					JButton editBtn = new JButton("Edit");
@@ -67,15 +65,16 @@ public class EditAnstalldUI extends ContentPanelStructure {
 				return panel;
 			};
 
-			JLabel header = new JLabel("Employees");
+			JLabel header = new JLabel("Departments");
 			header.setFont(new Font("Arial", Font.PLAIN, 30));
 			add(header, gbc);
 			gbc.insets = new Insets(10, 0, 10, 0);
 			gbc.gridy = 1;
-			ScrollListPanel<String> cardList = new ScrollListPanel(workers, card);
+			ScrollListPanel<String> cardList = new ScrollListPanel(avdelningar, card);
 			add(cardList, gbc);
+
 		} catch (Exception e) {
 		}
-
 	}
+
 }

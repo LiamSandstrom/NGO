@@ -14,75 +14,67 @@ import oru.inf.InfException;
  *
  * @author rostykmalanchuk
  */
-public class MyPersonalInfoPanel extends ContentPanelStructure {
-    private User user;
+public class MyPersonalInfoPanel extends ContentPanelStructure{
     private String id;
     private InfDB idb;
     
-    public MyPersonalInfoPanel (User user, UIStructure onePanel){
+    public MyPersonalInfoPanel(User user, UIStructure onePanel){
         super(user, onePanel);
         try{
-            
-            setBackground(Color.GRAY);
+            setBackground(Color.gray);
             id = user.getId();
             idb = user.getDb();
             
             JTextField firstname = new JTextField(60);
-            JTextField secondname = new JTextField(60);
+            JTextField lastname = new JTextField(60);
             JTextField addres = new JTextField(60);
             JTextField email = new JTextField(60);
             JTextField phone = new JTextField(60);
             JTextField password = new JTextField(60);
             
             firstname.setText(idb.fetchSingle("select fornamn from anstalld where aid = '" + id + "'"));
-            secondname.setText(idb.fetchSingle("select efternamn from anstalld where aid = '" + id + "'"));
+            lastname.setText(idb.fetchSingle("select efternamn from anstalld where aid = '" + id + "'"));
             addres.setText(idb.fetchSingle("select adress from anstalld where aid = '" + id + "'"));
             email.setText(idb.fetchSingle("select epost from anstalld where aid = '" + id + "'"));
             phone.setText(idb.fetchSingle("select telefon from anstalld where aid = '" + id + "'"));
             password.setText(idb.fetchSingle("select losenord from anstalld where aid = '" + id + "'"));
             
             add(firstname);
-            add(secondname);
+            add(lastname);
             add(addres);
             add(email);
             add(phone);
             add(password);
             
-            JButton btnSpara = new JButton("Save my changes");
-            add(btnSpara);
-            btnSpara.addActionListener(e -> {
-                try { 
-                    String nyFornamn = firstname.getText();
-                    String nyEfternamn = secondname.getText();
-                    String nyAdress = addres.getText();
-                    String nyEpost = email.getText();
-                    String nyPhone = phone.getText();
-                    String nyPassword = password.getText();
-            
-                    idb.update("UPDATE anstalld SET fornamn = '"
-                            + nyFornamn + "', efternamn = '" 
-                            + nyEfternamn + "', adress = '" 
-                            + nyAdress + "', epost = '" 
-                            + nyEpost + "', telefon = '" 
-                            + nyPhone + "', losenord = '" 
-                            + nyPassword + "' WHERE aid = '" + id);
-            
+            JButton btnSave = new JButton("Save my changes");
+            add(btnSave);
+            btnSave.addActionListener(e -> {
+                try{
+                    String newFirstname = firstname.getText();
+                    String newLastname = lastname.getText();
+                    String newAddres = addres.getText();
+                    String newEmail = email.getText();
+                    String newPhone = phone.getText();
+                    String newPassword = password.getText();
+                    
+                    idb.update("update anstalld set fornamn = '"
+                            +newFirstname + "', efternamn = '"
+                            +newLastname + "', adress = '"
+                            +newAddres + "', epost = '"
+                            +newEmail + "', telefon = '"
+                            +newPhone + "', losenord = '"
+                            +newPassword + "' where aid = '" + id + "'");
                 }catch(InfException error){
-                    System.out.println(error);
+                    System.out.println(error.getMessage());
                 }
             });
             
             revalidate();
             repaint();
             
-            
         }catch(InfException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
-
-        
     }
-
-    
     
 }

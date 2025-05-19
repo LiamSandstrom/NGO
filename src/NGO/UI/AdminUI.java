@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class AdminUI extends UIStructure {
 
-	Admin admin;
+	private Admin admin;
 
 	public AdminUI(Admin admin) {
             super();
@@ -18,10 +18,19 @@ public class AdminUI extends UIStructure {
 		changeContentPanel(new WelcomePanel(admin, this));
 
 		EditAnstalldUI anstalldUI = new EditAnstalldUI(admin, this);
-		addButton("Workers", anstalldUI);
+		addButton("Employees", anstalldUI);
+
 		EditProjectUI projectUI = new EditProjectUI(admin, this);
 		addButton("Projects", projectUI);
-		
+
+		EditPartnerUI partnerUI = new EditPartnerUI(admin, this);
+		addButton("Partners", partnerUI);
+
+		EditLandUI landUI = new EditLandUI(admin, this);
+		addButton("Countries", landUI);
+
+		EditAvdelningUI avdelningUI = new EditAvdelningUI(admin, this);
+		addButton("Departments", avdelningUI);
 		
 		bottomMargin();
 	}

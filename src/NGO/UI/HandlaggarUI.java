@@ -35,7 +35,6 @@ public class HandlaggarUI extends UIStructure {
 		
                 //ProjectWindow coolPanel = new ProjectWindow(user, this);
                 ProjWin coolPanel = new ProjWin(user, this);
-		addButton("Cool knapp", coolPanel);
                 addButton("Project", coolPanel);
                 
                 MyPersonalInfoPanel myInfo = new MyPersonalInfoPanel(user, this);
@@ -55,8 +54,8 @@ public class HandlaggarUI extends UIStructure {
                     ChangeProjectInfo projInfo = new ChangeProjectInfo(user, this);
                     addButton("Change project info",  projInfo);
                     
-                    ChangePartnerInfo partnerInfo = new ChangePartnerInfo(user, this);
-                    addButton("Change partner info", partnerInfo);
+                    AddRemovePartner partnerInfo = new AddRemovePartner(user, this);
+                    addButton("Add/Remove partner", partnerInfo);
                 }
             }catch(InfException e){
                 System.out.println(e);
