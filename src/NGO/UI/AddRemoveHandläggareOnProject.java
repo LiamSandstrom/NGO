@@ -51,6 +51,8 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
         theUI();
     }
     
+    //VIDARE UTVECKLING: skriva ut i panel, inte genom .showMessageDialog, att hen har lagts till i visst projekt
+    
     public void theUI(){
         addOrRemove = new JComboBox<String>();
         JLabel PersText = new JLabel("person:");
@@ -151,6 +153,8 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
             } else {
                 removePerson(alterPerson.getText(), alterToField.getText());
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "This project is not within your authority");
         }
     }
     private void addPerson(String aid, String pid){
