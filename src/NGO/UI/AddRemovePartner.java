@@ -21,11 +21,11 @@ import oru.inf.InfException;
  *
  * @author rostykmalanchuk
  */
-public class ChangePartnerInfo extends ContentPanelStructure {
+public class AddRemovePartner extends ContentPanelStructure {
     private InfDB idb;
     private String id;
     
-    public ChangePartnerInfo(User user, UIStructure newPanel){
+    public AddRemovePartner(User user, UIStructure newPanel){
         super(user, newPanel);
         try{
             setBackground(Color.gray);
@@ -37,20 +37,19 @@ public class ChangePartnerInfo extends ContentPanelStructure {
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
             //ArrayList<HashMap<String, String>> allPartners = idb.fetchRows("select * from partner join stad on stad = sid join projekt_partner on partner.pid = projekt_partner.partner_pid join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
-            ArrayList<HashMap<String, String>> allPartners = idb.fetchRows("select projekt_partner.pid, projektnamn, partner_pid, namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
+            ArrayList<HashMap<String, String>> allPartners = idb.fetchRows("select projekt.pid, projektnamn, partner_pid, namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
             for(HashMap<String, String> partners : allPartners){
                 JPanel partnerPanel = new JPanel();
                 partnerPanel.setLayout(new BoxLayout(partnerPanel, BoxLayout.Y_AXIS));
-                String partnerID = partners.get("pid");
+                //String partnerID = partners.get("pid");
                 //partnerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Project: " + partners.get("projekt.pid")));
                 
-                JTextField projectid = new JTextField(partners.get("projekt_partner.pid"), 60);
+                JTextField projectid = new JTextField(partners.get("pid"), 60);
                 JTextField projectname = new JTextField(partners.get("projektnamn"), 60);
                 
-                for(HashMap<String, String> partner : allPartners){
-                    JTextField partnerid = new JTextField(partner.get("partner_pid"), 60);
-                    JTextField partnername = new JTextField(partner.get("namn"), 60);
-                
+                //for(HashMap<String, String> partner : allPartners){
+                JTextField partnerid = new JTextField(partners.get("partner_pid"), 60);
+                JTextField partnername = new JTextField(partners.get("namn"), 60);
                 
                     /*JButton btnSave = new JButton("Save my changes");
                     btnSave.addActionListener(e -> {
@@ -78,7 +77,7 @@ public class ChangePartnerInfo extends ContentPanelStructure {
                     partnerPanel.add(partnername);
                     
                     mainPanel.add(partnerPanel);
-                }
+                //}
             }
             JScrollPane scrollPane = new JScrollPane(mainPanel);
             add(scrollPane);
