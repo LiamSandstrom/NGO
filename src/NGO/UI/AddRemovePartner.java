@@ -6,6 +6,7 @@ package NGO.UI;
 
 import NGO.User;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.BorderFactory;
@@ -70,6 +71,8 @@ public class AddRemovePartner extends ContentPanelStructure {
                             model.addElement(row);
                         }
                         JComboBox<String> comboBox = new JComboBox(model);
+                        comboBox.setMinimumSize(new Dimension(10, 30));
+                        comboBox.setPreferredSize(new Dimension(10,30));
                         JButton btnConfirm = new JButton("Confirm");
                         
                         btnConfirm.addActionListener( action -> {
