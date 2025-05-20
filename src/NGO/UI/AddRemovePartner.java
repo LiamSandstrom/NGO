@@ -27,6 +27,7 @@ import oru.inf.InfException;
 public class AddRemovePartner extends ContentPanelStructure {
     private InfDB idb;
     private String id;
+    private JComboBox<String> comboBox;
     
     public AddRemovePartner(User user, UIStructure newPanel){
         super(user, newPanel);
@@ -65,37 +66,39 @@ public class AddRemovePartner extends ContentPanelStructure {
                 JButton btnAdd = new JButton("Add partner");
                 btnAdd.addActionListener(e -> {
                     try{
-                        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-                        ArrayList<String> allPartner = idb.fetchColumn("select namn from partner");
-                        for(String row : allPartner){
-                            model.addElement(row);
-                        }
-                        JComboBox<String> comboBox = new JComboBox(model);
-                        comboBox.setMinimumSize(new Dimension(10, 30));
-                        comboBox.setPreferredSize(new Dimension(10,30));
-                        JButton btnConfirm = new JButton("Confirm");
-                        
-                        btnConfirm.addActionListener( action -> {
-                            try{
-                                String selectedPartner = (String) comboBox.getSelectedItem();
-                                String choice = idb.fetchSingle("select pid from partner where namn = '" + selectedPartner + "'");
-                                
-                                String checkQuery = "select * from projekt_partner where pid = " + projektID + " and partner_pid = " + choice;
-                                if(idb.fetchRows(checkQuery).isEmpty()){
-                                    String query = "insert into projekt_partner (pid, partner_pid) values (" + projektID + ", " + choice + ")";
-                                    idb.insert(query);
-                                    System.out.println("New partner is added!");
-                                }else{
-                                    System.out.println("Partner is already existing!");
-                                }
-                            }catch(InfException ee){
-                                System.out.println(ee.getMessage());
+                        if(comboBox == null){
+                            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+                            ArrayList<String> allPartner = idb.fetchColumn("select namn from partner");
+                            for(String row : allPartner){
+                                model.addElement(row);
                             }
-                        });
-                        partnerPanel.add(comboBox);
-                        partnerPanel.add(btnConfirm);
-                        partnerPanel.revalidate();
-                        partnerPanel.repaint();
+                            comboBox = new JComboBox(model);
+                            comboBox.setMinimumSize(new Dimension(10, 30));
+                            comboBox.setPreferredSize(new Dimension(10,30));
+                            JButton btnConfirm = new JButton("Confirm");
+                            
+                            btnConfirm.addActionListener( action -> {
+                                try{
+                                    String selectedPartner = (String) comboBox.getSelectedItem();
+                                    String choice = idb.fetchSingle("select pid from partner where namn = '" + selectedPartner + "'");
+                                
+                                    String checkQuery = "select * from projekt_partner where pid = " + projektID + " and partner_pid = " + choice;
+                                    if(idb.fetchRows(checkQuery).isEmpty()){
+                                        String query = "insert into projekt_partner (pid, partner_pid) values (" + projektID + ", " + choice + ")";
+                                        idb.insert(query);
+                                        System.out.println("New partner is added!");
+                                    }else{
+                                        System.out.println("Partner is already existing!");
+                                    }
+                                }catch(InfException ee){
+                                    System.out.println(ee.getMessage());
+                                }
+                            });
+                            partnerPanel.add(comboBox);
+                            partnerPanel.add(btnConfirm);
+                            partnerPanel.revalidate();
+                            partnerPanel.repaint();
+                        }
                     }catch(InfException exception){
                         System.out.println(exception.getMessage());
                     }
