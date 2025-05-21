@@ -15,7 +15,7 @@ public class PartnerCard extends CardStructure {
 	private User user;
 
 	public PartnerCard(int radius, User user) {
-		super(radius);
+		super(radius, user);
 		this.user = user;
 	}
 
@@ -27,7 +27,7 @@ public class PartnerCard extends CardStructure {
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 			add(nameLabel, BorderLayout.CENTER);
 
-			addEditBtn(new JFrame());
+			addBtn("Edit", new JPanel());
 
 		} catch (Exception e) {
 			e.printStackTrace();
