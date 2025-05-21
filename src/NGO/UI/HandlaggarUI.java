@@ -64,7 +64,7 @@ public class HandlaggarUI extends UIStructure {
                 System.out.println(e);
             }   
                 
-                GlobalGoalsPanel globalGoals = new GlobalGoalsPanel(user, this);
+                GlobalGoals globalGoals = new GlobalGoals(user, this);
                 addButton("Show Global Goals", globalGoals);
                 
                 SearchByHandlaggare searchHandlaggare = new SearchByHandlaggare(user, this);
