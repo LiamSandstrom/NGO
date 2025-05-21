@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package NGO.UI;
-
+import NGO.Validate;
 import NGO.User;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -23,9 +23,11 @@ import oru.inf.InfException;
 public class ChangeProjectInfo extends ContentPanelStructure{
     private String id;
     private InfDB idb;
+    private Validate val;
     
     public ChangeProjectInfo(User user, UIStructure twoPanel){
         super(user, twoPanel);
+        val = new Validate();
         try{
             setBackground(Color.gray);
             id = user.getId();
@@ -54,19 +56,21 @@ public class ChangeProjectInfo extends ContentPanelStructure{
                 
                 JButton btnSave = new JButton("Save my changes");
                 btnSave.addActionListener(e -> {
-                    try{
-                        String query = "update projekt set projektnamn = '" + projectname.getText()
-                                +"', beskrivning = '" + description.getText()
-                                +"', startdatum = '" + startdate.getText()
-                                +"', slutdatum = '" + enddate.getText()
-                                +"', kostnad = '" + cost.getText()
-                                +"', status = '" + status.getText()
-                                +"', prioritet = '" + priority.getText()
-                                +"', projektchef = '" + projectmanager.getText()
-                                +"', land = '" +country.getText()
-                                +"' where pid = '" + pID + "'";
-                        idb.update(query);
-                    }catch(InfException error){
+                    try {
+                        if (val.projName(projectname.getText()) && val.description(description.getText()) && val.date(startdate.getText()) && val.date(enddate.getText()) && val.cost(cost.getText()) && val.status(status.getText()) && val.id(projectmanager.getText()) && val.id(country.getText())&& val.prio(priority.getText())) {
+                            String query = "update projekt set projektnamn = '" + projectname.getText()
+                                    + "', beskrivning = '" + description.getText()
+                                    + "', startdatum = '" + startdate.getText()
+                                    + "', slutdatum = '" + enddate.getText()
+                                    + "', kostnad = '" + cost.getText()
+                                    + "', status = '" + status.getText()
+                                    + "', prioritet = '" + priority.getText()
+                                    + "', projektchef = '" + projectmanager.getText()
+                                    + "', land = '" + country.getText()
+                                    + "' where pid = '" + pID + "'";
+                            idb.update(query);
+                        }
+                    } catch (InfException error) {
                         System.out.println(error.getMessage());
                     }
                 });
