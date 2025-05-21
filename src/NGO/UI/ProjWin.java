@@ -5,6 +5,7 @@
 package NGO.UI;
 
 import NGO.User;
+import NGO.Validate;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -42,6 +43,7 @@ public class ProjWin extends ContentPanelStructure {
     private User user;
     private String id;
     private String[] alternatives = {"Unspecified", "Pågående", "Planerat", "Avslutat"};
+    private Validate val;
     //GridBagConstraints gbc;
 
     public ProjWin(User user, UIStructure parentPanel) throws InfException {
@@ -72,7 +74,7 @@ public class ProjWin extends ContentPanelStructure {
         createStatusComboBox();
         searchFields();
         searchButton();
-        
+        val = new Validate();
     }
     
     private void createStatusComboBox(){
@@ -94,7 +96,7 @@ public class ProjWin extends ContentPanelStructure {
         from.setForeground(Color.BLACK);
         searchPan.add(from);
         //Datum från
-        searchFieldFrom = new JTextField("From");
+        searchFieldFrom = new JTextField("2023-01-02");
         searchFieldFrom.setPreferredSize(new Dimension(150, 30));
         searchPan.add(searchFieldFrom);
         searchFieldFrom.setVisible(true);
@@ -105,7 +107,7 @@ public class ProjWin extends ContentPanelStructure {
         to.setForeground(Color.BLACK);
         searchPan.add(to);
         //Datum till
-        searchFieldTo = new JTextField("To");
+        searchFieldTo = new JTextField("2024-01-01");
         searchFieldTo.setPreferredSize(new Dimension(150, 30));
         searchPan.add(searchFieldTo);
         searchFieldTo.setVisible(true);
@@ -147,21 +149,24 @@ public class ProjWin extends ContentPanelStructure {
     private String getQuery(boolean buttonClicked) {//Bestäm sql fråga beroende på om man redan sökt eller om man precis klickat på project knappen
         //String from = checkInput(searchFieldFrom.getText());
         //String to = checkInput(searchFieldTo.getText());
-        
         String avdelningsProjQuery = "";
+
         try {
             String avdelningsIdQuery = idb.fetchSingle("select avdelning from anstalld where aid = '" + id + "';");
- 
+
             if (buttonClicked) {//Pågående projekt inom sökt datum spann
-                avdelningsProjQuery = "select * from projekt"
-                        + " where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
-                        + "where a.avdelning = '" + avdelningsIdQuery + "') "
-                        + getStatusChoice() +" and startdatum >= '" + searchFieldFrom.getText() +"' and slutdatum <= '" + searchFieldTo.getText() + "';";
-            }
-            else{//Alla projekt på avdelningen
+                String fom = searchFieldFrom.getText();
+                String to = searchFieldTo.getText();
+                if (val.date(fom) && val.date(to)) {
+                    avdelningsProjQuery = "select * from projekt"
+                            + " where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
+                            + "where a.avdelning = '" + avdelningsIdQuery + "') "
+                            + getStatusChoice() + " and startdatum >= '" + searchFieldFrom.getText() + "' and slutdatum <= '" + to + "';";
+                }
+            } else {//Alla projekt på avdelningen
                 avdelningsProjQuery = "select * from projekt "
-                    + "where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
-                    + "where a.avdelning = " + avdelningsIdQuery + ");";
+                        + "where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
+                        + "where a.avdelning = " + avdelningsIdQuery + ");";
             }
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "There was an error with the database");
@@ -219,7 +224,7 @@ public class ProjWin extends ContentPanelStructure {
             resPan.revalidate();
             resPan.repaint();
         } catch (InfException e) {
-            JOptionPane.showMessageDialog(null, "Wrong format, format must be: ''YYYY-MM-DD''.\nOr there are no active project for those dates.\nOr there was an error with the database");
+            //JOptionPane.showMessageDialog(null, "There was an error with the database");
             e.printError();
         }
 
