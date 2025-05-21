@@ -4,6 +4,7 @@
  */
 package NGO.UI;
 
+import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,7 +22,7 @@ import javax.swing.JPanel;
  */
 public abstract class CardStructure extends RoundedPanel {
 
-	public CardStructure(int radius) {
+	public CardStructure(int radius, User user) {
 		super(radius);
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(500, 70));
@@ -43,12 +44,16 @@ public abstract class CardStructure extends RoundedPanel {
 
 	public abstract void initCard(String id); // Måste implementeras i varje kortklass
 
-	public void addEditBtn(JFrame frame) {
+	public void addBtn(String text, JPanel panel) {
 
-		JButton editBtn = new JButton("Edit");
+		JButton editBtn = new JButton(text);
 		editBtn.setPreferredSize(new Dimension(100, 33));
 		editBtn.setFont(new Font("Arial", Font.PLAIN, 16));
 		editBtn.setBackground(new Color(63, 81, 181));
 		add(editBtn, BorderLayout.EAST);
+
+		editBtn.addActionListener(e -> {
+			SettingsJFrameHandler.addPanel(panel);
+		});
 	}
 }

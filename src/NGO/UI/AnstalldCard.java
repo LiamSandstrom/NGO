@@ -24,7 +24,7 @@ public class AnstalldCard extends CardStructure {
 	private User user;
 
 	public AnstalldCard(int radius, User user) {
-		super(radius);
+		super(radius, user );
 		this.user = user;
 	}
 
@@ -38,7 +38,7 @@ public class AnstalldCard extends CardStructure {
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 			add(nameLabel, BorderLayout.CENTER);
 
-			addEditBtn(new JFrame());
+			addBtn("Edit", new AnstalldSettingsUI(user));
 
 		} catch (Exception e) {
 			e.printStackTrace();

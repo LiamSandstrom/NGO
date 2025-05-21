@@ -23,7 +23,7 @@ public class AvdelningCard extends CardStructure {
 	private User user;
 
 	public AvdelningCard(int radius, User user) {
-		super(radius);
+		super(radius, user);
 		this.user = user;
 	}
 
@@ -35,7 +35,7 @@ public class AvdelningCard extends CardStructure {
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 			add(nameLabel, BorderLayout.CENTER);
 
-			addEditBtn(new JFrame());
+			addBtn("Edit", new JPanel());
 
 		} catch (Exception e) {
 			e.printStackTrace();
