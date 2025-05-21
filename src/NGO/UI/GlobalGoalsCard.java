@@ -3,26 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package NGO.UI;
+
 import NGO.User;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import javax.swing.JButton;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import oru.inf.InfDB;
+
 /**
  *
  * @author liam
  */
+public class GlobalGoalsCard extends CardStructure {
+	User user;
 
-public class LandCard extends CardStructure {
-	
-	private User user;
-
-	public LandCard(int radius, User user) {
+	public GlobalGoalsCard(int radius, User user) {
 		super(radius, user);
 		this.user = user;
 	}
@@ -30,10 +29,18 @@ public class LandCard extends CardStructure {
 	@Override
 	public void initCard(String id) {
 		try {
-			String name = user.getDb().fetchSingle("select namn from land where lid = " + id);
+			GridBagConstraints gbc = new GridBagConstraints();
+			JPanel panel = new JPanel(new GridBagLayout());
+			panel.setBackground(null);
+			panel.setPreferredSize(new Dimension( 200,400));
+			String name = user.getDb().fetchSingle("select namn from hallbarhetsmal where hid = " + id + ";");
 			JLabel nameLabel = new JLabel(name);
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-			add(nameLabel, BorderLayout.CENTER);
+			panel.add(nameLabel, gbc);
+			gbc.gridy = 1;
+			String goalNumber = user.getDb().fetchSingle("select malnummer from hallbarhetsmal where hid = " + id + ";"); 
+			panel.add(new JLabel(goalNumber),gbc);
+			add(panel);
 
 			addBtn("Edit", new JPanel());
 
@@ -41,4 +48,5 @@ public class LandCard extends CardStructure {
 			e.printStackTrace();
 		}
 	}
+
 }

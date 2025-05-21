@@ -3,6 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/Users/liam/school-repos/NGO/src/NGO/UI/GlobalGoalsCard.java</file>
+            <file>file:/Users/liam/school-repos/NGO/src/NGO/UI/EditLandUI.java</file>
+            <file>file:/Users/liam/school-repos/NGO/src/NGO/UI/ScrollListPanel.java</file>
+            <file>file:/Users/liam/school-repos/NGO/src/NGO/UI/ProjektCard.java</file>
+            <file>file:/Users/liam/school-repos/NGO/src/NGO/UI/MyPersonalInfoPanel.java</file>
+            <file>file:/Users/liam/school-repos/NGO/src/NGO/UI/GlobalGoalsPanel.java</file>
+=======
             <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/AddRemovePartner.java</file>
             <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/ProjWin.java</file>
             <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/ChangeProjectInfo.java</file>
@@ -19,6 +27,7 @@
             <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/EditAnstalldUI.java</file>
             <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/myPersonalInfoPanel.java</file>
             <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/WelcomePanel.java</file>
+>>>>>>> 635062bcc4216b0ed0d8d3f8e232c4ab568e31f1
         </group>
     </open-files>
 </project-private>
