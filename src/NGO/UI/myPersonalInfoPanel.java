@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package NGO.UI;
-
+import NGO.Validate;
 import NGO.User;
 import java.awt.Color;
 import javax.swing.*;
@@ -20,6 +20,7 @@ public class MyPersonalInfoPanel extends ContentPanelStructure{
     
     public MyPersonalInfoPanel(User user, UIStructure onePanel){
         super(user, onePanel);
+        Validate n = new Validate();
         try{
             setBackground(Color.gray);
             id = user.getId();
@@ -49,6 +50,7 @@ public class MyPersonalInfoPanel extends ContentPanelStructure{
             JButton btnSave = new JButton("Save my changes");
             add(btnSave);
             btnSave.addActionListener(e -> {
+                
                 try{
                     String newFirstname = firstname.getText();
                     String newLastname = lastname.getText();
@@ -56,14 +58,15 @@ public class MyPersonalInfoPanel extends ContentPanelStructure{
                     String newEmail = email.getText();
                     String newPhone = phone.getText();
                     String newPassword = password.getText();
-                    
-                    idb.update("update anstalld set fornamn = '"
-                            +newFirstname + "', efternamn = '"
-                            +newLastname + "', adress = '"
-                            +newAddres + "', epost = '"
-                            +newEmail + "', telefon = '"
-                            +newPhone + "', losenord = '"
-                            +newPassword + "' where aid = '" + id + "'");
+                    if (n.epost(newEmail) && n.adress(newAddres) && n.telefon(newPhone) && n.pass(newPassword) && n.firstName(newFirstname) && n.lastName(newLastname)) {
+                        idb.update("update anstalld set fornamn = '"
+                                + newFirstname + "', efternamn = '"
+                                + newLastname + "', adress = '"
+                                + newAddres + "', epost = '"
+                                + newEmail + "', telefon = '"
+                                + newPhone + "', losenord = '"
+                                + newPassword + "' where aid = '" + id + "'");
+                    }
                 }catch(InfException error){
                     System.out.println(error.getMessage());
                 }
