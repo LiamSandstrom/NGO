@@ -3,18 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/ProjWin.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/LoginWindow.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/UIStructure.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/MyPersonalInfoPanel.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/AdminUI.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/ShowMyProjects.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/HandlaggarUI.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/ContentPanelStructure.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/ChangeProjectInfo.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/MyProjectsCost.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/ProjectWindow.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/WelcomePanel.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/AddRemovePartner.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/ProjWin.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/ChangeProjectInfo.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/AvdelningCard.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/CardStructure.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/ScrollListPanel.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/RoundedPanel.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/HandlaggarUI.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/PartnerCard.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/EditLandUI.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/LandCard.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/AdminUI.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/AnstalldCard.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/EditAnstalldUI.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/myPersonalInfoPanel.java</file>
+            <file>file:/Users/rostykmalanchuk/Documents/GitHub/NGO/src/NGO/UI/WelcomePanel.java</file>
         </group>
     </open-files>
 </project-private>
