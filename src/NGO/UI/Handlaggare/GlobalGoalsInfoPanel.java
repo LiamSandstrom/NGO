@@ -23,6 +23,7 @@ public class GlobalGoalsInfoPanel extends SettingsPanelStructure{
         idb = user.getDb();
         add(new JLabel(id));
         setBackground(Color.red);
+        //Här skrivs allt som lägg till för varje fönster
         revalidate();
         repaint();
     }

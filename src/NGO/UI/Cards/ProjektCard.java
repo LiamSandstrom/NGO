@@ -29,7 +29,6 @@ public class ProjektCard extends CardStructure {
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 			add(nameLabel, BorderLayout.CENTER);
 
-			addBtn("Edit", new SettingsPanelStructure(user, id));
 
 		} catch (Exception e) {
 			e.printStackTrace();

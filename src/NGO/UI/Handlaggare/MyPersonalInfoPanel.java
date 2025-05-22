@@ -22,7 +22,7 @@ public class MyPersonalInfoPanel extends ContentPanelStructure{
     
     public MyPersonalInfoPanel(User user, UIStructure onePanel){
         super(user, onePanel);
-        Validate n = new Validate();
+        Validate n = new Validate(user);
         try{
             setBackground(Color.gray);
             id = user.getId();

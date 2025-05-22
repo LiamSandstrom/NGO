@@ -13,7 +13,6 @@ import NGO.UI.Handlaggare.SearchByHandlaggare;
 import NGO.UI.Handlaggare.ShowMyProjects;
 import NGO.User;
 import java.util.ArrayList;
-import javax.swing.*;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
