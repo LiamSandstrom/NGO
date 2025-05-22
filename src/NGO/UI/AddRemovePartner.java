@@ -25,85 +25,101 @@ import oru.inf.InfException;
  * @author rostykmalanchuk
  */
 public class AddRemovePartner extends ContentPanelStructure {
+
     private InfDB idb;
     private String id;
     private JComboBox<String> comboBox;
-    
-    public AddRemovePartner(User user, UIStructure newPanel){
+    private JButton btnAdd;
+    private int idCounter;
+
+    public AddRemovePartner(User user, UIStructure newPanel) {
         super(user, newPanel);
-        try{
+        try {
             setBackground(Color.gray);
             id = user.getId();
             idb = user.getDb();
-            
+            idCounter = 0;
+
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-            
+
             ArrayList<HashMap<String, String>> allPartners = idb.fetchRows("select projekt.pid, projektnamn, partner_pid, namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
-            for(HashMap<String, String> partners : allPartners){
+            JTextField projectid = new JTextField( 60);
+            JTextField projectname = new JTextField(60);
+            JTextField partnerid = new JTextField(60);
+            JTextField partnername = new JTextField(60);
+            for (HashMap<String, String> partners : allPartners) {
                 JPanel partnerPanel = new JPanel();
                 partnerPanel.setLayout(new BoxLayout(partnerPanel, BoxLayout.Y_AXIS));
+
                 String projektID = partners.get("pid");
                 String partnerID = partners.get("partner_pid");
-                JTextField projectid = new JTextField(partners.get("pid"), 60);
-                JTextField projectname = new JTextField(partners.get("projektnamn"), 60);
-                JTextField partnerid = new JTextField(partners.get("partner_pid"), 60);
-                JTextField partnername = new JTextField(partners.get("namn"), 60);
-                
-                
+                projectid.setText(partners.get("pid"));
+                projectname.setText(partners.get("projektnamn"));
+                partnerid.setText(partners.get("partner_pid"));
+                partnername.setText(partners.get("namn"));
+
                 JButton btnRemove = new JButton("Remove partner");
                 btnRemove.addActionListener(e -> {
-                    try{
+                    try {
                         String query = "delete from projekt_partner where pid = '" + projektID + "' and partner_pid = '" + partnerID + "'";
                         idb.delete(query);
                         revalidate();
                         repaint();
-                    }catch(InfException error){
+                    } catch (InfException error) {
                         System.out.println(error.getMessage());
                     }
                 });
-                
-                JButton btnAdd = new JButton("Add partner");
+                ArrayList<String> allaProjID = idb.fetchColumn("select projekt_partner.pid from projekt_partner join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
+                for (int i = 0; i < allaProjID.size(); i++) {
+                    if (allaProjID.get(i).equals(projektID)) {
+                        idCounter++;
+                    }
+                }
+
+                btnAdd = new JButton("Add partner");
                 btnAdd.addActionListener(e -> {
-                    try{
-                        if(comboBox == null){
+                    try {
+                        if (comboBox == null) {
+
                             DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
                             ArrayList<String> allPartner = idb.fetchColumn("select namn from partner");
-                            for(String row : allPartner){
+                            for (String row : allPartner) {
                                 model.addElement(row);
                             }
                             comboBox = new JComboBox(model);
                             comboBox.setMinimumSize(new Dimension(10, 30));
-                            comboBox.setPreferredSize(new Dimension(10,30));
+                            comboBox.setPreferredSize(new Dimension(10, 30));
+
                             JButton btnConfirm = new JButton("Confirm");
-                            
-                            btnConfirm.addActionListener( action -> {
-                                try{
+                            btnConfirm.addActionListener(action -> {
+                                try {
                                     String selectedPartner = (String) comboBox.getSelectedItem();
                                     String choice = idb.fetchSingle("select pid from partner where namn = '" + selectedPartner + "'");
-                                
+
                                     String checkQuery = "select * from projekt_partner where pid = " + projektID + " and partner_pid = " + choice;
-                                    if(idb.fetchRows(checkQuery).isEmpty()){
+                                    if (idb.fetchRows(checkQuery).isEmpty()) {
                                         String query = "insert into projekt_partner (pid, partner_pid) values (" + projektID + ", " + choice + ")";
                                         idb.insert(query);
                                         System.out.println("New partner is added!");
-                                    }else{
+                                    } else {
                                         System.out.println("Partner is already existing!");
                                     }
-                                }catch(InfException ee){
+                                } catch (InfException ee) {
                                     System.out.println(ee.getMessage());
                                 }
                             });
                             partnerPanel.add(comboBox);
                             partnerPanel.add(btnConfirm);
+
                             partnerPanel.revalidate();
                             partnerPanel.repaint();
                         }
-                    }catch(InfException exception){
+                    } catch (InfException exception) {
                         System.out.println(exception.getMessage());
                     }
                 });
-                
+
                 projectid.setEditable(false);
                 partnerPanel.add(projectid);
                 projectname.setEditable(false);
@@ -113,21 +129,23 @@ public class AddRemovePartner extends ContentPanelStructure {
                 partnername.setEditable(false);
                 partnerPanel.add(partnername);
                 partnerPanel.add(btnRemove);
-                partnerPanel.add(btnAdd);
-                    
-                mainPanel.add(partnerPanel);
                 
+                mainPanel.add(partnerPanel);
+                if (idCounter != 1) {
+                    partnerPanel.add(btnAdd);
+                    mainPanel.add(partnerPanel);
+                }
             }
+            
             JScrollPane scrollPane = new JScrollPane(mainPanel);
             add(scrollPane);
             revalidate();
             repaint();
-            
-            
-        }catch(InfException e){
+
+        } catch (Exception e) {
             System.out.println(e);
         }
-        
+
     }
-    
+
 }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package NGO.UI.Handlaggare;
+package NGO.UI;
 
 import NGO.UI.ContentPanelStructure;
 import NGO.UI.UIStructure;
