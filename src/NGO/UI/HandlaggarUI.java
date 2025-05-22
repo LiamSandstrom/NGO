@@ -10,6 +10,7 @@ import NGO.UI.Handlaggare.MyPersonalInfoPanel;
 import NGO.UI.Handlaggare.ChangeProjectInfo;
 import NGO.UI.Handlaggare.GlobalGoals;
 import NGO.UI.Handlaggare.SearchByHandlaggare;
+import NGO.UI.Handlaggare.SearchHandlaggare;
 import NGO.UI.Handlaggare.ShowMyProjects;
 import NGO.User;
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class HandlaggarUI extends UIStructure {
                 GlobalGoals globalGoals = new GlobalGoals(user, this);
                 addButton("Show Global Goals", globalGoals);
                 
-                SearchByHandlaggare searchHandlaggare = new SearchByHandlaggare(user, this);
+                SearchHandlaggare searchHandlaggare = new SearchHandlaggare(user, this);
                 addButton("Search Handlaggare", searchHandlaggare);
                 
 		bottomMargin();

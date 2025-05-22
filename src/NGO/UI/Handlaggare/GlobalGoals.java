@@ -22,7 +22,7 @@ public class GlobalGoals extends ContentPanelStructure {
     private InfDB idb;
     private User user;
     private ScrollListPanel cardList;
-     GridBagConstraints gbc;
+    GridBagConstraints gbc;
     
 
     public GlobalGoals(User user, UIStructure parentPanel) {
