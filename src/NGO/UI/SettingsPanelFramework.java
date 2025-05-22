@@ -13,9 +13,11 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import oru.inf.InfDB;
 
@@ -32,6 +34,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		setLayout(new GridBagLayout());
 		gbc = new GridBagConstraints();
 		gbc.gridy = 0;
+		gbc.gridx = 0;
 
 		contentPanel = new RoundedPanel(20);
 		contentPanel.setLayout(new GridBagLayout());
@@ -41,7 +44,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 
 		JScrollPane scrollPane = new JScrollPane(contentPanel);
 		scrollPane.setPreferredSize(new Dimension(550, 450)); // synlig storlek
-        	scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.setBorder(null);
 		add(scrollPane);
 
@@ -82,5 +85,55 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 
 	public void addInfo(String titel, String info) {
 		infoMap.put(titel, info);
+	}
+
+	public void setEditInfo() {
+
+		for (String key : infoMap.keySet()) {
+
+			RoundedPanel cPanel = new RoundedPanel(10);
+			cPanel.setLayout(new BorderLayout());
+			cPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+			cPanel.setPreferredSize(new Dimension(500, 70));
+
+			JLabel keyLabel = new JLabel(key + ":");
+			keyLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+			keyLabel.setHorizontalAlignment(JLabel.RIGHT);
+
+			JTextField valueLabel = new JTextField(infoMap.get(key));
+			valueLabel.setPreferredSize(new Dimension(250, 60));
+			valueLabel.setHorizontalAlignment(JTextField.RIGHT);
+			valueLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+
+			gbc.gridx = 0;
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.insets = new Insets(10, 0, 0, 0);
+			cPanel.add(keyLabel, BorderLayout.WEST);
+
+			gbc.gridx = 1;
+			gbc.anchor = GridBagConstraints.EAST;
+			cPanel.add(valueLabel, BorderLayout.EAST);
+			contentPanel.add(cPanel, gbc);
+			gbc.gridy = gbc.gridy + 1;
+
+			revalidate();
+			repaint();
+		}
+	}
+
+	public void addSaveButton() {
+		JButton btn = new JButton("Save");
+		GridBagConstraints knappGbc = new GridBagConstraints();
+		btn.setPreferredSize(new Dimension(100,60));
+		btn.setFont(new Font("Arial", Font.PLAIN, 20));
+		knappGbc.gridx = 0;
+		knappGbc.gridy = gbc.gridy; 
+		knappGbc.gridwidth = 2;    
+		knappGbc.anchor = GridBagConstraints.CENTER;
+		knappGbc.insets = new Insets(20, 0, 10, 0);
+		knappGbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 0;
+		contentPanel.add(btn, knappGbc);
+		gbc.gridy = gbc.gridy + 1;
 	}
 }
