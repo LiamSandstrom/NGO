@@ -4,6 +4,14 @@
  */
 package NGO.UI;
 
+import NGO.UI.Handlaggare.ProjWin;
+import NGO.UI.Handlaggare.MyProjectsCost;
+import NGO.UI.Handlaggare.MyPersonalInfoPanel;
+import NGO.UI.Handlaggare.ChangeProjectInfo;
+import NGO.UI.Handlaggare.AddRemoveHandläggareOnProject;
+import NGO.UI.Handlaggare.GlobalGoals;
+import NGO.UI.Handlaggare.SearchByHandlaggare;
+import NGO.UI.Handlaggare.ShowMyProjects;
 import NGO.User;
 import java.util.ArrayList;
 import javax.swing.*;

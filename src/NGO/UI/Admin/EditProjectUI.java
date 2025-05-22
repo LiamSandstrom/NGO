@@ -2,8 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package NGO.UI;
+package NGO.UI.Admin;
 
+import NGO.UI.Cards.ProjektCard;
+import NGO.UI.ContentPanelStructure;
+import NGO.UI.ScrollListPanel;
+import NGO.UI.UIStructure;
 import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;

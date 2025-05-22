@@ -1,5 +1,9 @@
-package NGO.UI;
+package NGO.UI.Handlaggare;
 
+import NGO.UI.Cards.GlobalCard;
+import NGO.UI.ContentPanelStructure;
+import NGO.UI.ScrollListPanel;
+import NGO.UI.UIStructure;
 import NGO.User;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

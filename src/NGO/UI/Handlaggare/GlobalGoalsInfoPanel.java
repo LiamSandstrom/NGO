@@ -1,6 +1,7 @@
 
-package NGO.UI;
+package NGO.UI.Handlaggare;
 
+import NGO.UI.SettingsPanelStructure;
 import NGO.User;
 import java.awt.Color;
 import java.awt.GridBagLayout;
