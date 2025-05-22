@@ -1,5 +1,10 @@
 package NGO.UI;
 
+import NGO.UI.Admin.EditPartnerUI;
+import NGO.UI.Admin.EditAnstalldUI;
+import NGO.UI.Admin.EditLandUI;
+import NGO.UI.Admin.EditProjectUI;
+import NGO.UI.Admin.EditAvdelningUI;
 import NGO.Admin;
 import NGO.User;
 import java.awt.Color;

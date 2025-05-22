@@ -2,8 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package NGO.UI;
+package NGO.UI.Admin;
 
+import NGO.UI.Cards.PartnerCard;
+import NGO.UI.ContentPanelStructure;
+import NGO.UI.ScrollListPanel;
+import NGO.UI.UIStructure;
 import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,8 +16,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -25,26 +27,25 @@ import oru.inf.InfException;
  *
  * @author liam
  */
-public class EditAnstalldUI extends ContentPanelStructure {
+public class EditPartnerUI extends ContentPanelStructure {
 
 	private InfDB idb;
 
-	public EditAnstalldUI(User user, UIStructure parentPanel) {
+	public EditPartnerUI(User user, UIStructure parentPanel) {
 		super(user, parentPanel);
-
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		idb = user.getDb();
 
 		try {
-			ArrayList<String> workers = idb.fetchColumn("select aid from anstalld;");
+			ArrayList<String> avdelningar = idb.fetchColumn("select pid from partner;");
 
-			ScrollListPanel cardList = new ScrollListPanel(
-				workers,
-				() -> new AnstalldCard(20, user));
+			ScrollListPanel cardList = new ScrollListPanel(avdelningar,
+			() -> new PartnerCard(20, user));
 			add(cardList);
+
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 	}
+
 }
