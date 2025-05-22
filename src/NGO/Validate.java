@@ -4,14 +4,23 @@
  */
 package NGO;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import oru.inf.InfDB;
+import oru.inf.InfException;
 
 /**
  *
  * @author david
  */
 public class Validate {
-    
+    private User user;
+    private InfDB idb;
+    public Validate(User user){
+        this.user = user;
+        this.idb = user.getDb();
+    }
     public static boolean epost(String epost){
         boolean isCorrect = false;
         if(epost.matches("^$")){// om den är tom
@@ -193,5 +202,28 @@ public class Validate {
             JOptionPane.showMessageDialog(null, "Id must be only numbers, ex '''123''");
         }
         return isCorrect;
+    }
+    
+        public boolean isInMyAuthority(String pid){
+        boolean inMyAuthority = false;
+        try{
+            String query = "select ans_proj.pid from projekt join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid where projektchef = '" + user.getId() + "';";
+            ArrayList<HashMap<String, String>> projsAndWorkers = idb.fetchRows(query);
+            for(HashMap<String, String> aWorkerOnProj : projsAndWorkers){
+                for(String idColumn: aWorkerOnProj.keySet()){
+                    String pidInDb = aWorkerOnProj.get(idColumn);
+                    if(pidInDb.equals(pid)){
+                        inMyAuthority = true;
+                    }
+                }
+            }
+            if(!inMyAuthority){//För att skriva ut felmeddelande
+                JOptionPane.showMessageDialog(null, "You do not have authority over this project");
+            }
+        }catch(InfException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return inMyAuthority;
     }
 }

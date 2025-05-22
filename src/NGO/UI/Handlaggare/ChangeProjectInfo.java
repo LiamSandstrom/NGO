@@ -29,7 +29,7 @@ public class ChangeProjectInfo extends ContentPanelStructure{
     
     public ChangeProjectInfo(User user, UIStructure twoPanel){
         super(user, twoPanel);
-        val = new Validate();
+        val = new Validate(user);
         try{
             setBackground(Color.gray);
             id = user.getId();

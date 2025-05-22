@@ -76,7 +76,7 @@ public class ProjWin extends ContentPanelStructure {
         createStatusComboBox();
         searchFields();
         searchButton();
-        val = new Validate();
+        val = new Validate(user);
     }
     
     private void createStatusComboBox(){

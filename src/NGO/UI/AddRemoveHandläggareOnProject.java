@@ -34,11 +34,10 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
     private JTextField alterPerson;
     private JTextField alterToField;
     private String[]  alts = {"add"," remove"};
-    //private ArrayList<HashMap<String, String>> chefScope;
     
     public AddRemoveHandläggareOnProject(User user, UIStructure uiStructure){
         super(user, uiStructure);
-        Validate val = new Validate();
+        val = new Validate(user);
         this.user = user;
         idb = user.getDb();
         
@@ -47,9 +46,6 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
         pan = new JPanel();
         pan.setBackground(Color.GRAY);
         add(pan);
-        
-        //chefScope = new ArrayList<>();
-        //canAlter("10");
         theUI();
     }
     
@@ -69,8 +65,6 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
         executeBtn.setPreferredSize(new Dimension(80, 35));
         executeBtn.setFont(new Font("Arial", Font.PLAIN, 12));
         executeBtn.addActionListener(e ->{
-            //addOrRemove();
-            //chosenAlt();
             chosenAction(alterToField.getText());
         });
         
@@ -98,71 +92,22 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
         return projChefScope;
     }
     
-    
-    /*
-    private boolean canAlter(String id) {
-        boolean canAlter = true;
-        //query choice
-        String query = "";
-        if (id.equals("pid")) {
-            query = "select ans_proj.pid from projekt join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid where projektchef = '" + user.getId() + "';";
-        }else{
-            query = "select ans_proj.aid from projekt join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid where projektchef = '" + user.getId() + "';";
-        }
-        //Fetch
-        try {
-            ArrayList<HashMap<String, String>> workers = idb.fetchRows(query);
-            for (HashMap<String, String> a : workers) {
-                for (String key : a.keySet()) {
-                    //System.out.println("key: " + key + " value " + a.get(key));
-                    if (!(a.get(key).equals(id))) {
-                        canAlter = false;
-                    }
-                }
-            }
-        } catch (InfException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        return canAlter;
-    }*/
-    
-    //Om jag är projektchef för ett visst projekt ska jag kunna lägga till en person i det
-    
-    private boolean isInMyAukthority(String pid){
-        boolean inMyAukthority = false;
-        try{
-            String query = "select ans_proj.pid from projekt join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid where projektchef = '" + user.getId() + "';";
-            ArrayList<HashMap<String, String>> projsAndWorkers = idb.fetchRows(query);
-            for(HashMap<String, String> aWorkerOnProj : projsAndWorkers){
-                for(String idColumn: aWorkerOnProj.keySet()){
-                    String pidInDb = aWorkerOnProj.get(idColumn);
-                    if(pidInDb.equals(pid)){
-                        inMyAukthority = true;
-                    }
-                }
-            }
-        }catch(InfException e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-        
-        return inMyAukthority;
-    }
-    
     private void chosenAction(String pid) {
-        if (isInMyAukthority(pid)) {//Är projektet i fråga ett projekt under projektchefens aukthoritet
-            if (getAlt().equals("add")) {//Vad vill användaren göra, add eller remove
-                addPerson(alterPerson.getText(), alterToField.getText());
-            } else {
-                removePerson(alterPerson.getText(), alterToField.getText());
+        String aid = alterPerson.getText();
+        if (val.id(aid) && val.id(pid)) {//Är formaten rätt skrivna
+            if (val.isInMyAuthority(pid)) {//Är projektet i fråga ett projekt under projektchefens aukthoritet
+                if (getAlt().equals("add")) {//Vad vill användaren göra, add eller remove
+                    addPerson(alterPerson.getText(), alterToField.getText());
+                } else {
+                    removePerson(alterPerson.getText(), alterToField.getText());
+                }
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "This project is not within your authority");
         }
     }
+    
     private void addPerson(String aid, String pid){
         try{
             idb.insert("insert into ans_proj values('" + pid +"', '" + aid + "')");
-            
             String namn = idb.fetchSingle("select fornamn from anstalld where aid = '" + aid + "';");
             String projnamn = idb.fetchSingle("select projektnamn from projekt where pid = '" + pid + "';");
             JOptionPane.showMessageDialog(null, namn + " har lagts till i " + projnamn );
@@ -182,28 +127,5 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
         }
 
     }
-    /*
-    private void chosenAlt() {
-        if (getAlt().equals("add")) {
-            addPerson(alterPerson.getText(), alterToField.getText());
-        } else {
-            removePerson(alterPerson.getText(), alterToField.getText());
-        }
-    }*/
- 
-    /*
-    private void addOrRemove() {
-        if (canAlter(alterPerson.getText()) && canAlter(alterToField.getText())) {
-            if (getAlt().equals("add")) {
-                addPerson(alterPerson.getText(), alterToField.getText());
-            } else {
-                removePerson(alterPerson.getText(), alterToField.getText());
-            }
-        } 
-        else if((alterPerson.getText().isEmpty() || (alterToField.getText().isEmpty()))){
-            JOptionPane.showMessageDialog(null, "A field is empty");
-        }else {
-            JOptionPane.showMessageDialog(null, "This person is not under your authority");
-        }
-    }*/
+
 }

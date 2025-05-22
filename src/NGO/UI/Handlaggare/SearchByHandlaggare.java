@@ -49,7 +49,7 @@ public class SearchByHandlaggare extends ContentPanelStructure{
             String searchText = searchField.getText().trim();
             if (!searchText.isEmpty()){
                 if(searchText.contains("@")){
-                    query = "select aid,fornamn,efternamn,adress,epost,telefon,anstallningsdatum,avdelning from anstalld where epost like '%" + searchText + "%'";
+                    query = "select aid,fornamn,efternamn,adress,epost,telefon,anstallningsdatum,avdelning from anstalld where epost like '" + searchText + "%'";
                     searchBy(query, handlaggare);
                 }
                 else{
@@ -57,12 +57,12 @@ public class SearchByHandlaggare extends ContentPanelStructure{
                     if(name.length >= 2){
                         String firstName = name[0];
                         String lastName = name[1];
-                        query = "select aid,fornamn,efternamn,adress,epost,telefon,anstallningsdatum,avdelning from anstalld where fornamn like '%" + firstName + "%' and efternamn like '%" + lastName + "%'";
+                        query = "select aid,fornamn,efternamn,adress,epost,telefon,anstallningsdatum,avdelning from anstalld where fornamn like '" + firstName + "%' and efternamn like '" + lastName + "%'";
                         searchBy(query, handlaggare);
                     }
                     else{
                         String firstOrLastName = searchText;
-                        query = "select aid,fornamn,efternamn,adress,epost,telefon,anstallningsdatum,avdelning from anstalld where fornamn like '%" + firstOrLastName + "%' or efternamn like '%" + firstOrLastName + "%'";
+                        query = "select aid,fornamn,efternamn,adress,epost,telefon,anstallningsdatum,avdelning from anstalld where fornamn like '" + firstOrLastName + "%' or efternamn like '" + firstOrLastName + "%'";
                         searchBy(query, handlaggare);
                     }
                 }
