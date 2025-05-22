@@ -5,7 +5,7 @@
 package NGO.UI.Cards;
 
 import NGO.UI.CardStructure;
-import NGO.UI.Handlaggare.GlobalGoalsInfoPanel;
+import NGO.UI.Handlaggare.SearchHandlaggareInfoPanel;
 import NGO.UI.SettingsJFrameHandler;
 import NGO.User;
 import java.awt.BorderLayout;
@@ -44,7 +44,7 @@ public class SearchHandlaggareCard extends CardStructure {
 			add(infoBtn, BorderLayout.EAST);
 
 			infoBtn.addActionListener(e -> {
-				SettingsJFrameHandler.addPanel(new GlobalGoalsInfoPanel(user, id));
+				SettingsJFrameHandler.addPanel(new SearchHandlaggareInfoPanel(user, id));
 			});
 
 

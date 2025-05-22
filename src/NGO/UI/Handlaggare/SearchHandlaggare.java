@@ -4,7 +4,6 @@
  */
 package NGO.UI.Handlaggare;
 
-import NGO.UI.Cards.GlobalCard;
 import NGO.UI.Cards.SearchHandlaggareCard;
 import NGO.UI.ContentPanelStructure;
 import NGO.UI.ScrollListPanel;
