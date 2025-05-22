@@ -9,12 +9,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -31,7 +29,6 @@ public class AddRemovePartner extends ContentPanelStructure {
     private String id;
     private JComboBox<String> comboBox;
     private JButton btnAdd;
-    private String idCounter;
 
     public AddRemovePartner(User user, UIStructure newPanel) {
         super(user, newPanel);
@@ -39,79 +36,33 @@ public class AddRemovePartner extends ContentPanelStructure {
             setBackground(Color.gray);
             id = user.getId();
             idb = user.getDb();
-            idCounter = "";
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-            //ArrayList<String> allProjId = idb.fetchColumn("select projekt_partner.pid from projekt_partner join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
-            
+
             ArrayList<String> onlyProj = idb.fetchColumn("select distinct projekt.pid from projekt_partner join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
-            for(int i = 0; i<onlyProj.size(); i++){
+            for (int i = 0; i < onlyProj.size(); i++) {
                 JPanel partnerPanel = new JPanel();
                 partnerPanel.setLayout(new BoxLayout(partnerPanel, BoxLayout.Y_AXIS));
                 String ettID = onlyProj.get(i);
-                JTextField projectID = new JTextField(ettID);
+                JTextField projectID = new JTextField("Project " + ettID);
                 partnerPanel.add(projectID);
-                
-                //HashMap<String, String>
-                
-                
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            ArrayList<HashMap<String, String>> allPartners = idb.fetchRows("select projekt.pid, projektnamn, partner_pid, namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
-            for (HashMap<String, String> partners : allPartners) {
-                JPanel partnerPanel = new JPanel();
-                partnerPanel.setLayout(new BoxLayout(partnerPanel, BoxLayout.Y_AXIS));
 
-                String projektID = partners.get("pid");
-                String partnerID = partners.get("partner_pid");
-                JLabel project = new JLabel("Add new partners to project "+ projektID);
-                //JTextField projectid = new JTextField(partners.get("pid"), 60);
-                JTextField projectname = new JTextField(partners.get("projektnamn"), 60);
-                //JTextField partnerid = new JTextField(partners.get("partner_pid"), 60);
-                JTextField partnername = new JTextField(partners.get("namn"), 60);
-
-                /*ArrayList<String> allaProjID = idb.fetchColumn("select projekt_partner.pid from projekt_partner join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
-                for (int i = 0; i < allaProjID.size(); i++) {
-                    if (allaProjID.get(i).equals(projektID)) {
-                        idCounter++;
-                    }
-                }*/
-                partnerPanel.add(project);
-                while(!idCounter.equals(projektID)){
-                    addButton(id, partnerPanel);
-                    idCounter = projektID;
+                ArrayList<HashMap<String, String>> onlyPart = idb.fetchRows("select projekt.pid, projektnamn, partner_pid, namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "' and projekt.pid = '" + ettID + "'");
+                for (HashMap<String, String> partners : onlyPart) {
+                    String partnerId = partners.get("partner_pid");
+                    JTextField partnername = new JTextField(partners.get("namn"), 60);
+                    partnername.setEditable(false);
+                    partnerPanel.add(partnername);
+                    removeButton(ettID, partnerId, partnerPanel);
                 }
-                //projectid.setEditable(false);
-                //partnerPanel.add(projectid);
-                projectname.setEditable(false);
-                partnerPanel.add(projectname);
-                //partnerid.setEditable(false);
-                //partnerPanel.add(partnerid);
-                partnername.setEditable(false);
-                partnerPanel.add(partnername);
-                
-                removeButton(projektID, partnerID, partnerPanel);
-                
-                
-                
                 mainPanel.add(partnerPanel);
-
+                addButton(ettID, partnerPanel);
             }
-
             JScrollPane scrollPane = new JScrollPane(mainPanel);
             add(scrollPane);
             revalidate();
             repaint();
-
         } catch (InfException e) {
             System.out.println(e);
         }
@@ -155,12 +106,11 @@ public class AddRemovePartner extends ContentPanelStructure {
                     });
                     partnerPanel.add(comboBox);
                     partnerPanel.add(btnConfirm);
-                    
+
                     partnerPanel.revalidate();
                     partnerPanel.repaint();
                 }
-                
-                
+
             } catch (InfException exception) {
                 System.out.println(exception.getMessage());
             }
