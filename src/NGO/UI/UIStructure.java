@@ -87,4 +87,23 @@ public class UIStructure extends JPanel {
 		currentButton = btn;
 		btn.setBackground(new Color(200,50,0));
 	}
+
+	public void addDirectLinkButton(String btnText, JPanel newPanel){
+		
+		JButton b = new JButton(btnText);
+		b.setPreferredSize(new Dimension(150, 40));
+		gbc.gridy = index;
+		gbc.gridx = 0;
+		gbc.weighty = 0;
+		gbc.insets = new Insets(5, 0, 0, 0);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.anchor = GridBagConstraints.WEST;
+
+		b.addActionListener(e -> {
+			SettingsJFrameHandler.addPanel(newPanel);
+		});
+		toolbarPanel.add(b, gbc);
+		index++;
+		b.setVisible(true);
+	}
 }
