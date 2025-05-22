@@ -44,16 +44,22 @@ public class AddRemovePartner extends ContentPanelStructure {
             for (int i = 0; i < onlyProj.size(); i++) {
                 JPanel partnerPanel = new JPanel();
                 partnerPanel.setLayout(new BoxLayout(partnerPanel, BoxLayout.Y_AXIS));
+                
                 String ettID = onlyProj.get(i);
+                
                 JTextField projectID = new JTextField("Project " + ettID);
+                projectID.setEditable(false);
                 partnerPanel.add(projectID);
 
                 ArrayList<HashMap<String, String>> onlyPart = idb.fetchRows("select projekt.pid, projektnamn, partner_pid, namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "' and projekt.pid = '" + ettID + "'");
                 for (HashMap<String, String> partners : onlyPart) {
+                    
                     String partnerId = partners.get("partner_pid");
+                    
                     JTextField partnername = new JTextField(partners.get("namn"), 60);
                     partnername.setEditable(false);
                     partnerPanel.add(partnername);
+                    
                     removeButton(ettID, partnerId, partnerPanel);
                 }
                 mainPanel.add(partnerPanel);
