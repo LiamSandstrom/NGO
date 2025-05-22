@@ -44,20 +44,16 @@ public class AddRemovePartner extends ContentPanelStructure {
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
             ArrayList<HashMap<String, String>> allPartners = idb.fetchRows("select projekt.pid, projektnamn, partner_pid, namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
-            JTextField projectid = new JTextField( 60);
-            JTextField projectname = new JTextField(60);
-            JTextField partnerid = new JTextField(60);
-            JTextField partnername = new JTextField(60);
             for (HashMap<String, String> partners : allPartners) {
                 JPanel partnerPanel = new JPanel();
                 partnerPanel.setLayout(new BoxLayout(partnerPanel, BoxLayout.Y_AXIS));
 
                 String projektID = partners.get("pid");
                 String partnerID = partners.get("partner_pid");
-                projectid.setText(partners.get("pid"));
-                projectname.setText(partners.get("projektnamn"));
-                partnerid.setText(partners.get("partner_pid"));
-                partnername.setText(partners.get("namn"));
+                JTextField projectid = new JTextField(partners.get("pid"), 60);
+                JTextField projectname = new JTextField(partners.get("projektnamn"), 60);
+                JTextField partnerid = new JTextField(partners.get("partner_pid"), 60);
+                JTextField partnername = new JTextField(partners.get("namn"), 60);
 
                 JButton btnRemove = new JButton("Remove partner");
                 btnRemove.addActionListener(e -> {
@@ -142,7 +138,7 @@ public class AddRemovePartner extends ContentPanelStructure {
             revalidate();
             repaint();
 
-        } catch (Exception e) {
+        } catch (InfException e) {
             System.out.println(e);
         }
 
