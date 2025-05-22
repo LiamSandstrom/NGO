@@ -43,7 +43,6 @@ public class GlobalGoalsCard extends CardStructure {
 			panel.add(new JLabel(goalNumber),gbc);
 			add(panel);
 
-			addBtn("Edit", new JPanel());
 
 		} catch (Exception e) {
 			e.printStackTrace();

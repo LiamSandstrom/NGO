@@ -36,7 +36,6 @@ public class LandCard extends CardStructure {
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 			add(nameLabel, BorderLayout.CENTER);
 
-			addBtn("Edit", new JPanel());
 
 		} catch (Exception e) {
 			e.printStackTrace();

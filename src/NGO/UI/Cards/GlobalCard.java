@@ -37,7 +37,6 @@ public class GlobalCard extends CardStructure {
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 			add(nameLabel, BorderLayout.CENTER);
 
-			addBtn("Info", new GlobalGoalsInfoPanel(user, id));
 
 		} catch (Exception e) {
 			e.printStackTrace();
