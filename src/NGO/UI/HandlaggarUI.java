@@ -42,7 +42,7 @@ public class HandlaggarUI extends UIStructure {
                 //ProjectWindow coolPanel = new ProjectWindow(user, this);
                 ProjWin coolPanel = new ProjWin(user, this);
                 addButton("Project", coolPanel);
-                
+
                 MyPersonalInfoPanel myInfo = new MyPersonalInfoPanel(user, this);
                 addButton("My Info", myInfo);
                 
