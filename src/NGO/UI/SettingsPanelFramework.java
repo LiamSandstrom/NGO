@@ -45,40 +45,6 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		add(scrollPane);
 
 		infoMap = new HashMap<String, String>();
-
-		//titel
-		String namn;
-		String adress;
-		String epost;
-		String telefonnummer;
-		String avdelningNamn;
-
-		/**
-		 * try { String fornamn = idb.fetchSingle("select fornamn from
-		 * anstalld where aid = " + id + ";"); String efternamn =
-		 * idb.fetchSingle("select efternamn from anstalld where aid = "
-		 * + id + ";"); namn = fornamn + " " + efternamn;
-		 *
-		 * adress = idb.fetchSingle("select adress from anstalld where
-		 * aid = " + id + ";");
-		 *
-		 * epost = idb.fetchSingle("select epost from anstalld where aid
-		 * = " + id + ";");
-		 *
-		 * telefonnummer = idb.fetchSingle("select telefon from anstalld
-		 * where aid = " + id + ";");
-		 *
-		 * avdelningNamn = idb.fetchSingle("select avdelning from
-		 * anstalld where aid = " + id + ";");
-		 *
-		 * infoMap.put("Namn", namn); infoMap.put("Adress", adress);
-		 * infoMap.put("Epost", epost); infoMap.put("Nmr",
-		 * telefonnummer); infoMap.put("Avdelning", avdelningNamn);
-		 * setInfo();
-		 *
-		 * } catch (Exception e) { }
-		 *
-		 */
 	}
 
 	public void setInfo() {
