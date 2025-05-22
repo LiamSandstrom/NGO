@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package NGO.UI;
-
+import NGO.Validate;
 import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,6 +28,7 @@ import oru.inf.InfException;
 public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
     private User user;
     private InfDB idb;
+    private Validate val;
     private JPanel pan;
     private JComboBox<String> addOrRemove;
     private JTextField alterPerson;
@@ -37,6 +38,7 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
     
     public AddRemoveHandläggareOnProject(User user, UIStructure uiStructure){
         super(user, uiStructure);
+        Validate val = new Validate();
         this.user = user;
         idb = user.getDb();
         
