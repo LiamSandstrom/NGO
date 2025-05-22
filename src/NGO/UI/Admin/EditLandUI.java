@@ -2,8 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package NGO.UI;
+package NGO.UI.Admin;
 
+import NGO.UI.Cards.LandCard;
+import NGO.UI.ContentPanelStructure;
+import NGO.UI.ScrollListPanel;
+import NGO.UI.UIStructure;
 import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,21 +27,22 @@ import oru.inf.InfException;
  *
  * @author liam
  */
-public class EditPartnerUI extends ContentPanelStructure {
+public class EditLandUI extends ContentPanelStructure {
 
 	private InfDB idb;
 
-	public EditPartnerUI(User user, UIStructure parentPanel) {
+	public EditLandUI(User user, UIStructure parentPanel) {
 		super(user, parentPanel);
+
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		idb = user.getDb();
 
 		try {
-			ArrayList<String> avdelningar = idb.fetchColumn("select pid from partner;");
+			ArrayList<String> avdelningar = idb.fetchColumn("select lid from land;");
 
-			ScrollListPanel cardList = new ScrollListPanel(avdelningar,
-			() -> new PartnerCard(20, user));
+			ScrollListPanel cardList = new ScrollListPanel(avdelningar
+			, () -> new LandCard(20, user));
 			add(cardList);
 
 		} catch (Exception e) {

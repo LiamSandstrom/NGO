@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package NGO.UI;
+package NGO.UI.Handlaggare;
 
+import NGO.UI.ContentPanelStructure;
 import NGO.User;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -20,6 +21,7 @@ import javax.swing.JTextArea;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import NGO.UI.HandlaggarUI;
+import NGO.UI.UIStructure;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Insets;

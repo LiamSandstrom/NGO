@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package NGO.UI;
+package NGO.UI.Cards;
+import NGO.UI.CardStructure;
 import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,16 +14,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import oru.inf.InfDB;
-
 /**
  *
  * @author liam
  */
-public class AvdelningCard extends CardStructure {
+
+public class LandCard extends CardStructure {
 	
 	private User user;
 
-	public AvdelningCard(int radius, User user) {
+	public LandCard(int radius, User user) {
 		super(radius, user);
 		this.user = user;
 	}
@@ -30,9 +31,9 @@ public class AvdelningCard extends CardStructure {
 	@Override
 	public void initCard(String id) {
 		try {
-			String name = user.getDb().fetchSingle("select namn from avdelning where avdid = " + id);
+			String name = user.getDb().fetchSingle("select namn from land where lid = " + id);
 			JLabel nameLabel = new JLabel(name);
-			nameLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+			nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 			add(nameLabel, BorderLayout.CENTER);
 
 			addBtn("Edit", new JPanel());
