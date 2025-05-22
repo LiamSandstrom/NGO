@@ -36,7 +36,6 @@ public class AvdelningCard extends CardStructure {
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 			add(nameLabel, BorderLayout.CENTER);
 
-			addBtn("Edit", new JPanel());
 
 		} catch (Exception e) {
 			e.printStackTrace();

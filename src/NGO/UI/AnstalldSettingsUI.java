@@ -11,10 +11,16 @@ import javax.swing.JPanel;
  *
  * @author liam
  */
-public class AnstalldSettingsUI extends JPanel {
+public class AnstalldSettingsUI extends SettingsPanelFramework {
 	
-	public AnstalldSettingsUI(User user) {
+	public AnstalldSettingsUI(User user, String id) {
+		super(user, id);
+
+		for(int i = 0; i < 10; i++){
+			addInfo("" + i, "info: " + 1);
+		}
+
+		setInfo();
 	}
-	
 	
 }
