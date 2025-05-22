@@ -19,8 +19,8 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 		for(int i = 0; i < 10; i++){
 			addInfo("" + i, "info: " + 1);
 		}
-
-		setInfo();
+		setEditInfo();
+		addSaveButton();
 	}
 	
 		//titel
