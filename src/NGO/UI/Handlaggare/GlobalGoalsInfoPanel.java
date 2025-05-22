@@ -1,4 +1,3 @@
-
 package NGO.UI.Handlaggare;
 
 import NGO.UI.SettingsPanelStructure;
@@ -12,11 +11,11 @@ import javax.swing.JTextArea;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
+public class GlobalGoalsInfoPanel extends SettingsPanelStructure {
 
-public class GlobalGoalsInfoPanel extends SettingsPanelStructure{
-    
     private InfDB idb;
     private User user;
+
     public GlobalGoalsInfoPanel(User user, String id) {
         super(user, id);
         setLayout(new GridBagLayout());
@@ -24,11 +23,14 @@ public class GlobalGoalsInfoPanel extends SettingsPanelStructure{
         add(new JLabel(id));
         setBackground(Color.red);
         //Här skrivs allt som lägg till för varje fönster
+        JTextArea content = new JTextArea();
+        add(content);
+        loadGoals("Select * from hallbarhetsmal", content);
         revalidate();
         repaint();
     }
-    
-private void loadGoals(String mysqlQuestion, JTextArea goals) {
+
+    private void loadGoals(String mysqlQuestion, JTextArea goals) {
         try {
             ArrayList<HashMap<String, String>> allGoals = idb.fetchRows(mysqlQuestion);
             StringBuilder results = new StringBuilder();

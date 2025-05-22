@@ -5,6 +5,7 @@
 package NGO.UI.Cards;
 import NGO.UI.CardStructure;
 import NGO.UI.Handlaggare.GlobalGoalsInfoPanel;
+import NGO.UI.SettingsJFrameHandler;
 import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,6 +37,16 @@ public class GlobalCard extends CardStructure {
 			JLabel nameLabel = new JLabel(name);
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 			add(nameLabel, BorderLayout.CENTER);
+                        
+                        JButton button = new JButton("Edit");
+                        button.setPreferredSize(new Dimension(100,33));
+                        button.setFont(new Font("Arial", Font.PLAIN, 16));
+                        button.setBackground( new Color(63, 81, 181));
+                        add(button, BorderLayout.EAST);
+                        
+                        button.addActionListener(e ->{
+                            SettingsJFrameHandler.addPanel(new GlobalGoalsInfoPanel(user, id));
+                        });
 
 
 		} catch (Exception e) {
