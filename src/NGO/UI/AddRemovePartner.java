@@ -29,6 +29,7 @@ public class AddRemovePartner extends ContentPanelStructure {
     private String id;
     private JComboBox<String> comboBox;
     private JButton btnAdd;
+    private JPanel mainPanel;
 
     public AddRemovePartner(User user, UIStructure newPanel) {
         super(user, newPanel);
@@ -37,40 +38,52 @@ public class AddRemovePartner extends ContentPanelStructure {
             id = user.getId();
             idb = user.getDb();
 
-            JPanel mainPanel = new JPanel();
+            mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
+            JScrollPane scrollPane = new JScrollPane(mainPanel);
+            add(scrollPane);
+
+            loadData();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    private void loadData() {
+        try {
+            mainPanel.removeAll();
 
             ArrayList<String> onlyProj = idb.fetchColumn("select distinct projekt.pid from projekt_partner join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "'");
             for (int i = 0; i < onlyProj.size(); i++) {
                 JPanel partnerPanel = new JPanel();
                 partnerPanel.setLayout(new BoxLayout(partnerPanel, BoxLayout.Y_AXIS));
-                
+
                 String ettID = onlyProj.get(i);
-                
+
                 JTextField projectID = new JTextField("Project " + ettID);
                 projectID.setEditable(false);
                 partnerPanel.add(projectID);
 
                 ArrayList<HashMap<String, String>> onlyPart = idb.fetchRows("select projekt.pid, projektnamn, partner_pid, namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projektchef = '" + id + "' and projekt.pid = '" + ettID + "'");
                 for (HashMap<String, String> partners : onlyPart) {
-                    
+
                     String partnerId = partners.get("partner_pid");
-                    
+
                     JTextField partnername = new JTextField(partners.get("namn"), 60);
                     partnername.setEditable(false);
                     partnerPanel.add(partnername);
-                    
+
                     removeButton(ettID, partnerId, partnerPanel);
                 }
-                mainPanel.add(partnerPanel);
                 addButton(ettID, partnerPanel);
+                mainPanel.add(partnerPanel);
             }
-            JScrollPane scrollPane = new JScrollPane(mainPanel);
-            add(scrollPane);
             mainPanel.revalidate();
             mainPanel.repaint();
-        } catch (InfException e) {
-            System.out.println(e);
+        } catch (InfException error) {
+            System.out.println(error.getMessage());
         }
 
     }
@@ -103,8 +116,8 @@ public class AddRemovePartner extends ContentPanelStructure {
                                 String query = "insert into projekt_partner (pid, partner_pid) values (" + projektID + ", " + choice + ")";
                                 idb.insert(query);
                                 System.out.println("New partner is added!");
-                                partnerPanel.revalidate();
-                                partnerPanel.repaint();
+                                comboBox = null;
+                                loadData();
                             } else {
                                 System.out.println("Partner is already existing!");
                             }
@@ -135,8 +148,8 @@ public class AddRemovePartner extends ContentPanelStructure {
             try {
                 String query = "delete from projekt_partner where pid = '" + projektID + "' and partner_pid = '" + partnerID + "'";
                 idb.delete(query);
-                partnerPanel.revalidate();
-                partnerPanel.repaint();
+                System.out.println("Partner removed.");
+                loadData();
             } catch (InfException error) {
                 System.out.println(error.getMessage());
             }
