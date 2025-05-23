@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import NGO.UI.Handlaggare.ResetPassword;
 
 /**
  *
@@ -44,7 +45,7 @@ public class LoginWindow extends JPanel {
 		content.setBackground(new Color(40,40,40));
 		content.setLayout(new GridBagLayout());
 		//450, 230 correct size when no admin and hand button
-		content.setPreferredSize(new Dimension(450, 330));
+		content.setPreferredSize(new Dimension(450, 380));
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		gbc.gridx = 0;
@@ -88,7 +89,18 @@ public class LoginWindow extends JPanel {
 		gbc.insets = new Insets(10,0,0,0);
 
 		content.add(btn, gbc);
-
+                
+                JButton resetBtn = new JButton("Reset Password");
+                btn.setFont(new Font("Arial", Font.PLAIN, textSize));
+                resetBtn.setPreferredSize(new Dimension(inputWidth, 40));
+                gbc.gridx = 0;
+                gbc.gridy = 5;
+                gbc.insets = new Insets(10, 0, 0, 0);
+                content.add(resetBtn, gbc);
+                
+                resetBtn.addActionListener(e ->{
+                    
+                });
 		//Login button event
 		btn.addActionListener(e -> {
 			if (email.getText().isEmpty()) {
@@ -126,7 +138,7 @@ public class LoginWindow extends JPanel {
 		btnAdmin.setFont(new Font("Arial", Font.PLAIN, textSize));
 		btnAdmin.setPreferredSize(new Dimension(inputWidth, 40));
 		gbc.gridx = 0;
-		gbc.gridy = 5;
+		gbc.gridy = 6;
 		gbc.insets = new Insets(10,0,0,0);
 
 		content.add(btnAdmin ,gbc);
@@ -139,7 +151,7 @@ public class LoginWindow extends JPanel {
 		btnHand.setFont(new Font("Arial", Font.PLAIN, textSize));
 		btnHand.setPreferredSize(new Dimension(inputWidth, 40));
 		gbc.gridx = 0;
-		gbc.gridy = 6;
+		gbc.gridy = 7;
 		gbc.insets = new Insets(10,0,0,0);
 
 		content.add(btnHand ,gbc);

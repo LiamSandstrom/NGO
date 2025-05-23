@@ -11,6 +11,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,7 +26,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 	InfDB idb;
 	GridBagConstraints gbc;
 	RoundedPanel contentPanel;
-	HashMap<String, String> infoMap;
+	LinkedHashMap<String, String> infoMap;
 
 	public SettingsPanelFramework(User user, String id) {
 		super(user, id);
@@ -47,7 +48,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		scrollPane.setBorder(null);
 		add(scrollPane);
 
-		infoMap = new HashMap<String, String>();
+		infoMap = new LinkedHashMap<String, String>();
 	}
 
 	public void setInfo() {
