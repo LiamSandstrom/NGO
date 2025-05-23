@@ -34,9 +34,11 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
     private JTextField alterPerson;
     private JTextField alterToField;
     private String[]  alts = {"add"," remove"};
+    private JLabel feedBack;
     
     public AddRemoveHandläggareOnProject(User user, UIStructure uiStructure){
         super(user, uiStructure);
+        feedBack = new JLabel();
         val = new Validate(user);
         this.user = user;
         idb = user.getDb();
@@ -44,7 +46,7 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
         this.setLayout(new BorderLayout());
         
         pan = new JPanel();
-        pan.setBackground(Color.GRAY);
+        pan.setBackground(new Color(40, 40, 40));
         add(pan);
         theUI();
     }
@@ -69,13 +71,15 @@ public class AddRemoveHandläggareOnProject extends ContentPanelStructure{
         });
         
         addOrRemove = new JComboBox<>(alts);
-        pan.add(addOrRemove);
         
+        pan.add(addOrRemove);
         pan.add(PersText);
         pan.add(alterPerson);
         pan.add(alterToProjText);
         pan.add(alterToField);
         pan.add(executeBtn);
+        pan.add(feedBack);
+
     }
     
     private String getAlt(){
