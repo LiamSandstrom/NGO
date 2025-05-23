@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.BorderFactory;
@@ -23,14 +24,16 @@ import oru.inf.InfDB;
 
 public class SettingsPanelFramework extends SettingsPanelStructure {
 
-	InfDB idb;
-	GridBagConstraints gbc;
-	RoundedPanel contentPanel;
-	LinkedHashMap<String, String> infoMap;
+	private InfDB idb;
+	private GridBagConstraints gbc;
+	private RoundedPanel contentPanel;
+	private LinkedHashMap<String, String> infoMap;
+	private static ArrayList<JTextField> textList;
 
 	public SettingsPanelFramework(User user, String id) {
 		super(user, id);
 		idb = user.getDb();
+		textList = new ArrayList<>();
 		setLayout(new GridBagLayout());
 		gbc = new GridBagConstraints();
 		gbc.gridy = 0;
@@ -46,7 +49,11 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		scrollPane.setPreferredSize(new Dimension(550, 450)); // synlig storlek
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.setBorder(null);
-		add(scrollPane);
+
+		GridBagConstraints tempGbc = new GridBagConstraints();
+		tempGbc.gridwidth = 3;
+		tempGbc.gridx = 0;
+		add(scrollPane, tempGbc);
 
 		infoMap = new LinkedHashMap<String, String>();
 	}
@@ -105,6 +112,8 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 			valueLabel.setHorizontalAlignment(JTextField.RIGHT);
 			valueLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
+			textList.add(valueLabel);
+
 			gbc.gridx = 0;
 			gbc.anchor = GridBagConstraints.WEST;
 			gbc.insets = new Insets(10, 0, 0, 0);
@@ -121,19 +130,43 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		}
 	}
 
-	public void addSaveButton() {
+	public JButton addSaveButton() {
 		JButton btn = new JButton("Save");
 		GridBagConstraints knappGbc = new GridBagConstraints();
 		btn.setPreferredSize(new Dimension(100,60));
 		btn.setFont(new Font("Arial", Font.PLAIN, 20));
-		knappGbc.gridx = 0;
-		knappGbc.gridy = gbc.gridy; 
+		knappGbc.gridx = 1;
+		knappGbc.gridy = 1; 
 		knappGbc.gridwidth = 2;    
 		knappGbc.anchor = GridBagConstraints.CENTER;
 		knappGbc.insets = new Insets(20, 0, 10, 0);
 		knappGbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.gridx = 0;
-		contentPanel.add(btn, knappGbc);
-		gbc.gridy = gbc.gridy + 1;
+		add(btn,knappGbc);
+		return btn;
+	}
+
+	public JButton addDeleteButton() {
+		JButton btn = new JButton("Delete");
+		btn.setBackground(Color.red);
+		GridBagConstraints knappGbc = new GridBagConstraints();
+		btn.setPreferredSize(new Dimension(100,60));
+		btn.setFont(new Font("Arial", Font.PLAIN, 20));
+		knappGbc.gridx = 0;
+		knappGbc.gridy = 1; 
+		knappGbc.gridwidth = 1;    
+		knappGbc.anchor = GridBagConstraints.CENTER;
+		knappGbc.insets = new Insets(20, 0, 10, 0);
+		knappGbc.fill = GridBagConstraints.HORIZONTAL;
+		add(btn,knappGbc);
+		return btn;
+	}
+
+	public ArrayList<String> getTextInTextfields(){
+		ArrayList<String> output = new ArrayList<>();
+
+		for(JTextField field : textList){
+			output.add(field.getText());
+		}
+		return output;
 	}
 }
