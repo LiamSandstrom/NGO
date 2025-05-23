@@ -46,16 +46,15 @@ public class HandlaggarUI extends UIStructure {
                 MyPersonalInfoPanel myInfo = new MyPersonalInfoPanel(user, this);
                 addDirectLinkButton("MyInfo", myInfo);
                 
-                ShowMyProjects showMyProject = new ShowMyProjects(user, this);
-                addButton("Show my projects", showMyProject);
+                ProjectsCost costPanel = new ProjectsCost(user, this);
+                addButton("Show my projects", costPanel);
                 for(String ettID : chefId ){
                     if(ettID.equals(id)){
                         kontroll = true;
                     }
                 }
                 if(kontroll){
-                    ProjectsCost costPanel = new ProjectsCost(user, this);
-                    addButton("Show my total cost", costPanel);
+                    
                     
                     ChangeProjectInfo projInfo = new ChangeProjectInfo(user, this);
                     addButton("Change project info",  projInfo);
