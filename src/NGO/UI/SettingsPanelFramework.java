@@ -102,6 +102,7 @@ public void setInfo() {
 		keyLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 		keyLabel.setHorizontalAlignment(JLabel.RIGHT);
 
+		//TextArea för att supporta dynamic size
 		JTextArea valueLabel = new JTextArea(infoMap.get(key));
 		valueLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 		valueLabel.setLineWrap(true);
@@ -111,11 +112,12 @@ public void setInfo() {
 		valueLabel.setHighlighter(null);   
 		valueLabel.setCaretColor(new Color(0, 0, 0, 0)); 
 
+		//Dynamic size
 		valueLabel.setSize(new Dimension(250, Short.MAX_VALUE));
 		int preferredHeight = valueLabel.getPreferredSize().height;
 		cPanel.setPreferredSize(new Dimension(500, Math.max(70, preferredHeight + 20)));
 
-		// Lägg valueLabel i en panel med GridBagLayout för att centrera vertikalt
+		//Behöver vara i panel för centrering
 		JPanel valueWrapper = new JPanel(new GridBagLayout());
 		valueWrapper.setOpaque(false);
 		GridBagConstraints valueGbc = new GridBagConstraints();
