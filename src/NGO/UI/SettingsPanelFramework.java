@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import oru.inf.InfDB;
@@ -58,7 +59,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		infoMap = new LinkedHashMap<String, String>();
 	}
 
-	public void setInfo() {
+	public void setInfo2() {
 
 		for (String key : infoMap.keySet()) {
 
@@ -89,6 +90,55 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 			repaint();
 		}
 	}
+public void setInfo() {
+
+	for (String key : infoMap.keySet()) {
+
+		RoundedPanel cPanel = new RoundedPanel(10);
+		cPanel.setLayout(new BorderLayout());
+		cPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+		JLabel keyLabel = new JLabel(key + ":");
+		keyLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		keyLabel.setHorizontalAlignment(JLabel.RIGHT);
+
+		JTextArea valueLabel = new JTextArea(infoMap.get(key));
+		valueLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		valueLabel.setLineWrap(true);
+		valueLabel.setWrapStyleWord(true);
+		valueLabel.setEditable(false);
+		valueLabel.setOpaque(false);
+		valueLabel.setHighlighter(null);   
+		valueLabel.setCaretColor(new Color(0, 0, 0, 0)); 
+
+		valueLabel.setSize(new Dimension(250, Short.MAX_VALUE));
+		int preferredHeight = valueLabel.getPreferredSize().height;
+		cPanel.setPreferredSize(new Dimension(500, Math.max(70, preferredHeight + 20)));
+
+		// Lägg valueLabel i en panel med GridBagLayout för att centrera vertikalt
+		JPanel valueWrapper = new JPanel(new GridBagLayout());
+		valueWrapper.setOpaque(false);
+		GridBagConstraints valueGbc = new GridBagConstraints();
+		valueGbc.anchor = GridBagConstraints.CENTER;
+		valueWrapper.add(valueLabel, valueGbc);
+
+		gbc.gridx = 0;
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.insets = new Insets(10, 0, 0, 0);
+		cPanel.add(keyLabel, BorderLayout.WEST);
+
+		gbc.gridx = 1;
+		gbc.anchor = GridBagConstraints.EAST;
+		cPanel.add(valueWrapper, BorderLayout.EAST);
+
+		contentPanel.add(cPanel, gbc);
+		gbc.gridy = gbc.gridy + 1;
+
+		revalidate();
+		repaint();
+	}
+}
+
 
 	public void addInfo(String titel, String info) {
 		infoMap.put(titel, info);
@@ -109,7 +159,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 
 			JTextField valueLabel = new JTextField(infoMap.get(key));
 			valueLabel.setPreferredSize(new Dimension(250, 60));
-			valueLabel.setHorizontalAlignment(JTextField.RIGHT);
+			valueLabel.setHorizontalAlignment(JTextField.LEFT);
 			valueLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
 			textList.add(valueLabel);
