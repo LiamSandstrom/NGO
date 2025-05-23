@@ -67,8 +67,8 @@ public class AddRemovePartner extends ContentPanelStructure {
             }
             JScrollPane scrollPane = new JScrollPane(mainPanel);
             add(scrollPane);
-            revalidate();
-            repaint();
+            mainPanel.revalidate();
+            mainPanel.repaint();
         } catch (InfException e) {
             System.out.println(e);
         }
@@ -103,6 +103,8 @@ public class AddRemovePartner extends ContentPanelStructure {
                                 String query = "insert into projekt_partner (pid, partner_pid) values (" + projektID + ", " + choice + ")";
                                 idb.insert(query);
                                 System.out.println("New partner is added!");
+                                partnerPanel.revalidate();
+                                partnerPanel.repaint();
                             } else {
                                 System.out.println("Partner is already existing!");
                             }
@@ -133,8 +135,8 @@ public class AddRemovePartner extends ContentPanelStructure {
             try {
                 String query = "delete from projekt_partner where pid = '" + projektID + "' and partner_pid = '" + partnerID + "'";
                 idb.delete(query);
-                revalidate();
-                repaint();
+                partnerPanel.revalidate();
+                partnerPanel.repaint();
             } catch (InfException error) {
                 System.out.println(error.getMessage());
             }
