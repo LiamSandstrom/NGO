@@ -71,9 +71,11 @@ public class ProjectsCost extends ContentPanelStructure {
             gbc.fill = GridBagConstraints.BOTH;
             createList("select * from projekt where projektchef = " + id + ";");
         }
+        else{
         createList("select * from projekt where pid in (select pid from ans_proj where aid in (select aid from anstalld where avdelning = (select avdelning from anstalld where aid = '" + id + "')))");
+        }
     }
-
+        
     public void createList(String query) {
         if (cardList != null) {
             remove(cardList);
