@@ -98,7 +98,7 @@ public class ProjWin extends ContentPanelStructure {
         from.setForeground(Color.BLACK);
         searchPan.add(from);
         //Datum från
-        searchFieldFrom = new JTextField("2023-01-02");
+        searchFieldFrom = new JTextField("Date");
         searchFieldFrom.setPreferredSize(new Dimension(150, 30));
         searchPan.add(searchFieldFrom);
         searchFieldFrom.setVisible(true);
@@ -109,7 +109,7 @@ public class ProjWin extends ContentPanelStructure {
         to.setForeground(Color.BLACK);
         searchPan.add(to);
         //Datum till
-        searchFieldTo = new JTextField("2024-01-01");
+        searchFieldTo = new JTextField("Date");
         searchFieldTo.setPreferredSize(new Dimension(150, 30));
         searchPan.add(searchFieldTo);
         searchFieldTo.setVisible(true);

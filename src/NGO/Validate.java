@@ -17,6 +17,9 @@ import oru.inf.InfException;
 public class Validate {
     private User user;
     private InfDB idb;
+    
+    public Validate(){}//Överlagring av konstruktor vid behov av validering utan relation till databas
+    
     public Validate(User user){
         this.user = user;
         this.idb = user.getDb();
@@ -203,27 +206,27 @@ public class Validate {
         }
         return isCorrect;
     }
-    
-        public boolean isInMyAuthority(String pid){
+
+    public boolean isInMyAuthority(String pid) {
         boolean inMyAuthority = false;
-        try{
+        try {
             String query = "select ans_proj.pid from projekt join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid where projektchef = '" + user.getId() + "';";
             ArrayList<HashMap<String, String>> projsAndWorkers = idb.fetchRows(query);
-            for(HashMap<String, String> aWorkerOnProj : projsAndWorkers){
-                for(String idColumn: aWorkerOnProj.keySet()){
+            for (HashMap<String, String> aWorkerOnProj : projsAndWorkers) {
+                for (String idColumn : aWorkerOnProj.keySet()) {
                     String pidInDb = aWorkerOnProj.get(idColumn);
-                    if(pidInDb.equals(pid)){
+                    if (pidInDb.equals(pid)) {
                         inMyAuthority = true;
                     }
                 }
             }
-            if(!inMyAuthority){//För att skriva ut felmeddelande
+            if (!inMyAuthority) {//För att skriva ut felmeddelande
                 JOptionPane.showMessageDialog(null, "You do not have authority over this project");
             }
-        }catch(InfException e){
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
         return inMyAuthority;
     }
 }

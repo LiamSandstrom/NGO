@@ -4,6 +4,7 @@
  */
 package NGO.UI;
 
+import NGO.UI.SettingsJFrameHandler;
 import NGO.listeners.LoginListener;
 import com.mysql.cj.util.StringUtils;
 import java.awt.BorderLayout;
@@ -20,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import oru.inf.InfDB;
 import oru.inf.InfException;
-import NGO.UI.Handlaggare.ResetPassword;
+import static NGO.UI.SettingsJFrameHandler.createFrame;
 
 /**
  *
@@ -99,7 +100,13 @@ public class LoginWindow extends JPanel {
                 content.add(resetBtn, gbc);
                 
                 resetBtn.addActionListener(e ->{
+                    ResetPassword resetFrame = new ResetPassword(idb, inputWidth, inputHeight, textSize);
                     
+                    //createFrame();
+                    resetFrame.setLocation(370, 200);
+                    resetFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    resetFrame.setSize(800, 700);
+                    resetFrame.setVisible(true);
                 });
 		//Login button event
 		btn.addActionListener(e -> {
