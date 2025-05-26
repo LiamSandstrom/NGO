@@ -43,6 +43,7 @@ public class ProjWin extends ContentPanelStructure {
     //Databas
     private InfDB idb;
     private User user;
+    private boolean buttonClicked = false;
     private String id;
     private String[] alternatives = {"Unspecified", "Pågående", "Planerat", "Avslutat"};
     private Validate val;
@@ -73,10 +74,22 @@ public class ProjWin extends ContentPanelStructure {
         //Metod Anrop ---- resPan
         resultDisplay(false);
         //Metod Anrop ---- searchPan
+        allProjBtn();
         createStatusComboBox();
         searchFields();
         searchButton();
         val = new Validate(user);
+    }
+    
+    private void allProjBtn(){
+        JButton allProjBtn = new JButton("Section projects");
+        allProjBtn.setPreferredSize(new Dimension(120, 40));
+        allProjBtn.setFont(new Font("Arial", Font.PLAIN, 11));
+        searchPan.add(allProjBtn);
+        allProjBtn.addActionListener(e ->{
+            resPan.removeAll();
+            resultDisplay(false);
+        });
     }
     
     private void createStatusComboBox(){
