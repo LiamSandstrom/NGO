@@ -46,6 +46,10 @@ public class HandlaggarUI extends UIStructure {
                 
                 ProjectsCost costPanel = new ProjectsCost(user, this);
                 addButton("Show my projects", costPanel);
+                
+                ProjPart projektsPartners = new ProjPart(user, this);
+                addButton("Project Partners", projektsPartners);
+                
                 for(String ettID : chefId ){
                     if(ettID.equals(id)){
                         kontroll = true;
