@@ -229,4 +229,13 @@ public class Validate {
 
         return inMyAuthority;
     }
+    
+    public static boolean projectName(String namn){
+        boolean isCorrect = false;
+        if(namn.length() > 1 && namn.length() <= 25){
+            isCorrect = true;
+        }
+        return isCorrect;
+    }
+    
 }
