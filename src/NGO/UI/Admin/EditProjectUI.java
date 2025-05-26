@@ -7,6 +7,7 @@ package NGO.UI.Admin;
 import NGO.UI.Cards.ProjektCard;
 import NGO.UI.ContentPanelStructure;
 import NGO.UI.ScrollListPanel;
+import NGO.UI.SettingsJFrameHandler;
 import NGO.UI.UIStructure;
 import NGO.User;
 import java.awt.BorderLayout;
@@ -43,12 +44,25 @@ public class EditProjectUI extends ContentPanelStructure {
 		GridBagConstraints gbc = new GridBagConstraints();
 		idb = user.getDb();
 
+		JButton addBtn = new JButton("Add Project");
+		addBtn.setPreferredSize(new Dimension(200, 43));
+		gbc.anchor = GridBagConstraints.EAST;
+		gbc.insets = new Insets(0, 0, 0, 105);
+		add(addBtn, gbc);
+
+		gbc.insets = new Insets(0, 0, 0, 0);
+		gbc.gridy = 1;
+
+		addBtn.addActionListener(e -> {
+			SettingsJFrameHandler.addPanel(new addProject(user, "none"));
+		});
+
 		try {
 			ArrayList<String> projects = idb.fetchColumn("select pid from projekt;");
 
 			ScrollListPanel cardList = new ScrollListPanel(projects,
 				() -> new ProjektCard(20, user));
-			add(cardList);
+			add(cardList, gbc);
 
 		} catch (Exception e) {
 

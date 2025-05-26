@@ -18,28 +18,15 @@ public class AddAnstalld extends SettingsPanelFramework {
 		Validate n = new Validate(user);
 		idb = user.getDb();
 
-		String fornamn = "";
-		String efternamn = "";
-		String adress = "";
-		String epost = "";
-		String telefonnummer = "";
-		String anstDatum = "";
-		String losenord = "";
-		String avdelning = "";
-
-		try {
-			addInfo("aid", "");
-			addInfo("First name", fornamn);
-			addInfo("Last name", efternamn);
-			addInfo("Adress", adress);
-			addInfo("Epost", epost);
-			addInfo("Phone number", telefonnummer);
-			addInfo("Employed date", anstDatum);
-			addInfo("Password", losenord);
-			addInfo("Department", avdelning);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		addInfo("aid", "");
+		addInfo("First name", "");
+		addInfo("Last name", "");
+		addInfo("Adress", "");
+		addInfo("Epost", "");
+		addInfo("Phone number", "");
+		addInfo("Employed date", "");
+		addInfo("Password", "");
+		addInfo("Department", "");
 
 		setEditInfo();
 		JButton saveBtnRef = addSaveButton();
