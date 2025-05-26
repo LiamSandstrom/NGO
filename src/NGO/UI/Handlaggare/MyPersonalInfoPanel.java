@@ -4,10 +4,12 @@
  */
 package NGO.UI.Handlaggare;
 import NGO.UI.ContentPanelStructure;
+import NGO.UI.SettingsPanelFramework;
 import NGO.UI.UIStructure;
 import NGO.Validate;
 import NGO.User;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.*;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -16,70 +18,88 @@ import oru.inf.InfException;
  *
  * @author rostykmalanchuk
  */
-public class MyPersonalInfoPanel extends ContentPanelStructure{
-    private String id;
+public class MyPersonalInfoPanel extends SettingsPanelFramework{
+    
     private InfDB idb;
     
-    public MyPersonalInfoPanel(User user, UIStructure onePanel){
-        super(user, onePanel);
+    public MyPersonalInfoPanel(User user, String id){
+        super(user, id);
         Validate n = new Validate(user);
-        try{
-            setBackground(Color.gray);
-            id = user.getId();
-            idb = user.getDb();
-            
-            JTextField firstname = new JTextField(60);
-            JTextField lastname = new JTextField(60);
-            JTextField addres = new JTextField(60);
-            JTextField email = new JTextField(60);
-            JTextField phone = new JTextField(60);
-            JTextField password = new JTextField(60);
-            
-            firstname.setText(idb.fetchSingle("select fornamn from anstalld where aid = '" + id + "'"));
-            lastname.setText(idb.fetchSingle("select efternamn from anstalld where aid = '" + id + "'"));
-            addres.setText(idb.fetchSingle("select adress from anstalld where aid = '" + id + "'"));
-            email.setText(idb.fetchSingle("select epost from anstalld where aid = '" + id + "'"));
-            phone.setText(idb.fetchSingle("select telefon from anstalld where aid = '" + id + "'"));
-            password.setText(idb.fetchSingle("select losenord from anstalld where aid = '" + id + "'"));
-            
-            add(firstname);
-            add(lastname);
-            add(addres);
-            add(email);
-            add(phone);
-            add(password);
-            
-            JButton btnSave = new JButton("Save my changes");
-            add(btnSave);
-            btnSave.addActionListener(e -> {
-                
-                try{
-                    String newFirstname = firstname.getText();
-                    String newLastname = lastname.getText();
-                    String newAddres = addres.getText();
-                    String newEmail = email.getText();
-                    String newPhone = phone.getText();
-                    String newPassword = password.getText();
-                    if (n.epost(newEmail) && n.adress(newAddres) && n.telefon(newPhone) && n.pass(newPassword) && n.firstName(newFirstname) && n.lastName(newLastname)) {
-                        idb.update("update anstalld set fornamn = '"
-                                + newFirstname + "', efternamn = '"
-                                + newLastname + "', adress = '"
-                                + newAddres + "', epost = '"
-                                + newEmail + "', telefon = '"
-                                + newPhone + "', losenord = '"
-                                + newPassword + "' where aid = '" + id + "'");
-                    }
-                }catch(InfException error){
-                    System.out.println(error.getMessage());
-                }
-            });
-            
-            revalidate();
-            repaint();
-            
-        }catch(InfException e){
-            System.out.println(e.getMessage());
-        }
-    }
-    
+		idb = user.getDb();
+
+		String fornamn = "";
+		String efternamn = "";
+		String adress = "";
+		String epost = "";
+		String telefonnummer = "";
+		String losenord = "";
+		
+
+		try {
+			fornamn = idb.fetchSingle("select fornamn from anstalld where aid = " + id + ";");
+			addInfo("First name", fornamn);
+
+			efternamn = idb.fetchSingle("select efternamn from anstalld where aid = " + id + ";");
+			addInfo("Last name", efternamn);
+
+			adress = idb.fetchSingle("select adress from anstalld where aid = " + id + ";");
+			addInfo("Adress", adress);
+
+			epost = idb.fetchSingle("select epost from anstalld where aid = " + id + ";");
+			addInfo("Epost", epost);
+
+			telefonnummer = idb.fetchSingle("select telefon from anstalld where aid = " + id + ";");
+			addInfo("Phone number", telefonnummer);
+
+			losenord = idb.fetchSingle("select losenord from anstalld where aid = " + id + ";");
+			addInfo("Password", losenord);
+
+			
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		setEditInfo();
+		JButton saveBtnRef = addSaveButton();
+		saveBtnRef.addActionListener(e -> {
+
+			ArrayList<String> listRef = getTextInTextfields();
+			String newFornamn = listRef.get(0);
+			String newEfternamn = listRef.get(1);
+			String newAdress = listRef.get(2);
+			String newEpost = listRef.get(3);
+			String newTelefon = listRef.get(4);
+			String newLosenord = listRef.get(5);
+			
+                        boolean newDep = false;
+			try {
+				newDep = true;
+			} catch (Exception ex) {
+				System.out.println(ex);
+			}
+
+			if (n.epost(newEpost)
+				&& n.firstName(newFornamn)
+				&& n.lastName(newEfternamn)
+				&& n.adress(newAdress)
+				&& n.epost(newEpost)
+				&& n.telefon(newTelefon)
+				&& n.pass(newLosenord)
+				&& newDep == true) {
+				try {
+					idb.update("update anstalld set fornamn = '"
+						+ newFornamn + "', efternamn = '"
+						+ newEfternamn + "', adress = '"
+						+ newAdress + "', epost = '"
+						+ newEpost + "', telefon = '"
+						+ newTelefon + "', losenord = '"
+						+ newLosenord + "' where aid = '" + id + "'");
+
+				System.out.println("SAVED");
+				} catch (Exception ex) {
+				}
+			}
+		});
+	}
 }
