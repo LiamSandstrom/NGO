@@ -4,6 +4,7 @@
  */
 package NGO.UI;
 
+import NGO.UI.Handlaggare.AddRemovePartCard;
 import NGO.UI.Handlaggare.ProjWin;
 import NGO.UI.Handlaggare.MyPersonalInfoPanel;
 import NGO.UI.Handlaggare.ChangeProjectInfo;
@@ -59,7 +60,7 @@ public class HandlaggarUI extends UIStructure {
                     ChangeProjectInfo projInfo = new ChangeProjectInfo(user, this);
                     addButton("Change project info",  projInfo);
                     
-                    AddRemovePartner partnerInfo = new AddRemovePartner(user, this);
+                    AddRemovePartCard partnerInfo = new AddRemovePartCard(user, this);
                     addButton("Add/Remove partner", partnerInfo);
                     
                     AddRemoveHandläggareOnProject handOnProj = new AddRemoveHandläggareOnProject(user, this);

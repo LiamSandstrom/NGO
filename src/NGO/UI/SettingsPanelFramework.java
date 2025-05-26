@@ -221,4 +221,12 @@ public void setInfo() {
 		}
 		return output;
 	}
+        
+        public JPanel getContentPanel(){
+            return contentPanel;
+        }
+        
+        public HashMap<String, String> getInfoMap(){
+            return infoMap;
+        }
 }

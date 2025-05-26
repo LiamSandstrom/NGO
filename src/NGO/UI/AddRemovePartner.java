@@ -23,7 +23,7 @@ import oru.inf.InfException;
  *
  * @author rostykmalanchuk
  */
-public class AddRemovePartner extends ContentPanelStructure {
+public class AddRemovePartner extends SettingsPanelFramework {
 
     private InfDB idb;
     private String id;
@@ -31,11 +31,11 @@ public class AddRemovePartner extends ContentPanelStructure {
     private JButton btnAdd;
     private JPanel mainPanel;
 
-    public AddRemovePartner(User user, UIStructure newPanel) {
-        super(user, newPanel);
+    public AddRemovePartner(User user, String id) {
+        super(user, id);
         try {
             setBackground(Color.gray);
-            id = user.getId();
+            this.id = id;
             idb = user.getDb();
 
             mainPanel = new JPanel();
@@ -70,6 +70,8 @@ public class AddRemovePartner extends ContentPanelStructure {
                 for (HashMap<String, String> partners : onlyPart) {
 
                     String partnerId = partners.get("partner_pid");
+                    String namn = partners.get("namn");
+                    addInfo("Partner name: ", namn);
 
                     JTextField partnername = new JTextField(partners.get("namn"), 60);
                     partnername.setEditable(false);
