@@ -172,7 +172,12 @@ public class ProjWin extends ContentPanelStructure {
             if (buttonClicked) {//Pågående projekt inom sökt datum spann
                 String fom = searchFieldFrom.getText();
                 String to = searchFieldTo.getText();
-                if (val.date(fom) && val.date(to)) {
+                if((fom.isEmpty() && to.isEmpty() && !(getStatusChoice().equals("Unspecified"))) || (fom.equals("Date") && to.equals("Date") && !(getStatusChoice().equals("Unspecified")))){
+                    avdelningsProjQuery = "select * from projekt "
+                            + "where pid in (select distinct ap.pid from ans_proj ap "
+                            + "join anstalld a on ap.aid = a.aid "
+                            + "where a.avdelning = "+ avdelningsIdQuery + ")" + getStatusChoice() + ";";
+                }else if ((val.date(fom) && val.date(to))) {
                     avdelningsProjQuery = "select * from projekt"
                             + " where pid in (select distinct ap.pid from ans_proj ap join anstalld a on ap.aid = a.aid "
                             + "where a.avdelning = '" + avdelningsIdQuery + "') "
