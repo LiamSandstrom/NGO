@@ -59,7 +59,7 @@ public class ProjWin extends ContentPanelStructure {
         //Panel i SOUTH
         resPan = new JPanel();
         resPan.setPreferredSize(new Dimension(780, 600));
-        resPan.setBackground(Color.GRAY);
+        resPan.setBackground(new Color(40, 40, 40));
         //resPan.setLayout(new BorderLayout());
         //resPan.setLayout(new BorderLayout());
         add(resPan, BorderLayout.SOUTH);
@@ -68,7 +68,7 @@ public class ProjWin extends ContentPanelStructure {
         searchPan = new JPanel();
         searchPan.setPreferredSize(new Dimension(680, 100));
         add(searchPan, BorderLayout.NORTH);
-        searchPan.setBackground(Color.GRAY);
+        searchPan.setBackground(new Color(40, 40, 40));
         
         //Metod Anrop ---- resPan
         resultDisplay(false);
@@ -95,7 +95,7 @@ public class ProjWin extends ContentPanelStructure {
     public void searchFields(){//Skapa fälten
         //From Label
         JLabel from = new JLabel("Date from:");
-        from.setForeground(Color.BLACK);
+        from.setForeground(Color.WHITE);
         searchPan.add(from);
         //Datum från
         searchFieldFrom = new JTextField("Date");
@@ -106,7 +106,7 @@ public class ProjWin extends ContentPanelStructure {
         
         //To Label
         JLabel to = new JLabel("To:");
-        to.setForeground(Color.BLACK);
+        to.setForeground(Color.WHITE);
         searchPan.add(to);
         //Datum till
         searchFieldTo = new JTextField("Date");
@@ -117,7 +117,7 @@ public class ProjWin extends ContentPanelStructure {
     }
     
     private void removeTextInField(JTextField aField){//Set texten i text fält till empty string när man klickar på det
-        aField.addMouseListener(new java.awt.event.MouseAdapter() {
+        aField.addMouseListener(new java.awt.event.MouseAdapter() {//
             boolean fieldIsClicked = false;
             public void mouseClicked(java.awt.event.MouseEvent e){
                 if(!fieldIsClicked){
