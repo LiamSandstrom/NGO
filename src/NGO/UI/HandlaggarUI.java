@@ -6,11 +6,9 @@ package NGO.UI;
 
 import NGO.UI.Handlaggare.ProjWin;
 import NGO.UI.Handlaggare.MyPersonalInfoPanel;
-import NGO.UI.Handlaggare.ChangeProjectInfo;
 import NGO.UI.Handlaggare.GlobalGoals;
 import NGO.UI.Handlaggare.ProjectsCost;
 import NGO.UI.Handlaggare.SearchHandlaggare;
-import NGO.UI.Handlaggare.ShowMyProjects;
 import NGO.User;
 import java.util.ArrayList;
 import oru.inf.InfDB;
@@ -48,6 +46,10 @@ public class HandlaggarUI extends UIStructure {
                 
                 ProjectsCost costPanel = new ProjectsCost(user, this);
                 addButton("Show my projects", costPanel);
+                
+                ProjPart projektsPartners = new ProjPart(user, this);
+                addButton("Project Partners", projektsPartners);
+                
                 for(String ettID : chefId ){
                     if(ettID.equals(id)){
                         kontroll = true;
@@ -55,9 +57,6 @@ public class HandlaggarUI extends UIStructure {
                 }
                 if(kontroll){
                     
-                    
-                    ChangeProjectInfo projInfo = new ChangeProjectInfo(user, this);
-                    addButton("Change project info",  projInfo);
                     
                     AddRemovePartner partnerInfo = new AddRemovePartner(user, this);
                     addButton("Add/Remove partner", partnerInfo);

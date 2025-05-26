@@ -36,7 +36,7 @@ public class ProjectsCostInfoPanel extends SettingsPanelFramework{
         addInfo("Cost", cost);
         addInfo("Status", status);
         addInfo("Priority", priority);
-
+        
         setInfo();
     }
 
