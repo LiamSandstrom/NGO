@@ -75,14 +75,14 @@ public class Validate {
         }
         return isCorrect;
     }*/
-    private static boolean city(String city){
+    public static boolean city(String city){
         boolean isCorrect = false;
         if(city.matches("^ [A-Za-z]+$")){ //city ska innehålla bara bokstäver och börja på mellanslag ,får innehålla mellanslag
             isCorrect = true;
         }
         return isCorrect;
     }
-    private static boolean street(String street){
+    public static boolean street(String street){
         boolean isCorrect = false;
         if(street.matches("^ [A-Za-z ]+$")){ //Street ska innehålla bara bokstäver och börja på mellanslag, får innehålla mellanslag
             isCorrect = true;
@@ -90,7 +90,7 @@ public class Validate {
         return isCorrect;
     }
     
-    private static boolean zip(String zip){
+    public static boolean zip(String zip){
         boolean isCorrect = false;
         if(zip.matches("^\\d{3}")){ // om zip är 3 siffror
             isCorrect = true;
