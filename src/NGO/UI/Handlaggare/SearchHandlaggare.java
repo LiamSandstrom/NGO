@@ -81,8 +81,6 @@ public class SearchHandlaggare extends ContentPanelStructure {
         add(searchButton, gbc);
 
         createList("select * from anstalld;");
-        gbc.gridy = 0;
-        gbc.gridx = 1;
     }
 
     public void createList(String query) {
