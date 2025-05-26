@@ -6,11 +6,9 @@ package NGO.UI;
 
 import NGO.UI.Handlaggare.ProjWin;
 import NGO.UI.Handlaggare.MyPersonalInfoPanel;
-import NGO.UI.Handlaggare.ChangeProjectInfo;
 import NGO.UI.Handlaggare.GlobalGoals;
 import NGO.UI.Handlaggare.ProjectsCost;
 import NGO.UI.Handlaggare.SearchHandlaggare;
-import NGO.UI.Handlaggare.ShowMyProjects;
 import NGO.User;
 import java.util.ArrayList;
 import oru.inf.InfDB;
@@ -55,9 +53,6 @@ public class HandlaggarUI extends UIStructure {
                 }
                 if(kontroll){
                     
-                    
-                    ChangeProjectInfo projInfo = new ChangeProjectInfo(user, this);
-                    addButton("Change project info",  projInfo);
                     
                     AddRemovePartner partnerInfo = new AddRemovePartner(user, this);
                     addButton("Add/Remove partner", partnerInfo);
