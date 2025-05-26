@@ -43,7 +43,7 @@ public class HandlaggarUI extends UIStructure {
                 ProjWin coolPanel = new ProjWin(user, this);
                 addButton("Project", coolPanel);
 
-                MyPersonalInfoPanel myInfo = new MyPersonalInfoPanel(user, this);
+                MyPersonalInfoPanel myInfo = new MyPersonalInfoPanel(user, id);
                 addDirectLinkButton("MyInfo", myInfo);
                 
                 ProjectsCost costPanel = new ProjectsCost(user, this);
