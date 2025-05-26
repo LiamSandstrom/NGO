@@ -39,13 +39,12 @@ public class ResetPassword extends JFrame{
     private InfDB idb;
     
     public ResetPassword(InfDB idb, int inputWidth, int inputHeight, int textSize){
-        val = new Validate();
+        val = new Validate(); 
         this.idb = idb;
         this.inputWidth = inputWidth;
         this.inputHeight = inputHeight;
         this.textSize = textSize;
         setTitle("Reset Password");
-        setLocation(0, 0);
         
 //Hela gridden
         pan = new JPanel();
@@ -56,7 +55,7 @@ public class ResetPassword extends JFrame{
         
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.anchor = GridBagConstraints.CENTER;
         add(pan);
         
         
@@ -111,11 +110,11 @@ public class ResetPassword extends JFrame{
         pan.add(resetbtn, gbc);
         
         resetbtn.addActionListener(e -> {
-            findTheUser();
+            executeReset();
         });
     }
     
-    private void findTheUser(){
+    private void executeReset(){
         String email = epostField.getText();
         String newPassword = newPass.getText();
         String confPass = passConfirm.getText();
