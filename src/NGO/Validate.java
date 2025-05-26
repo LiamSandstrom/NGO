@@ -199,10 +199,10 @@ public class Validate {
     
     public static boolean id(String id){
         boolean isCorrect = false;
-        if(id.matches("^\\d+")){ //Id måste vara endast siffror, kan vara 0
+        if(id.matches("^\\d+")){ //Id måste vara endast siffror, kan vara 0, men ej tom
             isCorrect = true;
         }else{
-            JOptionPane.showMessageDialog(null, "Id must be only numbers, ex '''123''");
+            JOptionPane.showMessageDialog(null, "Id must be only numbers and cannot be empty, ex ''123''");
         }
         return isCorrect;
     }
@@ -234,6 +234,8 @@ public class Validate {
         boolean isCorrect = false;
         if(namn.length() > 1 && namn.length() <= 25){
             isCorrect = true;
+        }else{
+            JOptionPane.showMessageDialog(null, "Project name must be 2-25 character, ex ''Project A''");
         }
         return isCorrect;
     }

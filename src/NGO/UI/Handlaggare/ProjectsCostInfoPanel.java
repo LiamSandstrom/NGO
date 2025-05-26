@@ -38,7 +38,6 @@ public class ProjectsCostInfoPanel extends SettingsPanelFramework{
         idb = user.getDb();
 
         getInfo(id);
-        addInfo("ID", pid);
         addInfo("Name", projectname);
         addInfo("Descripton", description);
         addInfo("Start date", startdate);
@@ -53,13 +52,13 @@ public class ProjectsCostInfoPanel extends SettingsPanelFramework{
             JButton savebtn = addSaveButton();
             savebtn.addActionListener(e -> {
                 ArrayList<String> projValues = getTextInTextfields();
-                String newNamn = projValues.get(1);
-                String newDesc = projValues.get(2);
-                String newStart = projValues.get(3);
-                String newEnd = projValues.get(4);
-                String newCost = projValues.get(5);
-                String newStatus = projValues.get(6);
-                String newPrio = projValues.get(7);
+                String newNamn = projValues.get(0);
+                String newDesc = projValues.get(1);
+                String newStart = projValues.get(2);
+                String newEnd = projValues.get(3);
+                String newCost = projValues.get(4);
+                String newStatus = projValues.get(5);
+                String newPrio = projValues.get(6);
                 String a = "update projekt set projektnamn = '" 
                                 + newNamn + "', beskrivning = '" 
                                 + newDesc + "', startdatum = '" 
@@ -68,7 +67,7 @@ public class ProjectsCostInfoPanel extends SettingsPanelFramework{
                                 + newCost + "', status = '" 
                                 + newStatus + "', prioritet = '"
                                 + newPrio;
-                System.out.println(a);
+                
                 if(val.projectName(newNamn)
                         && val.description(newDesc)
                         && val.date(newStart)
