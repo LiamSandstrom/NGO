@@ -4,6 +4,7 @@ import NGO.Admin;
 import NGO.User;
 import NGO.Validate;
 import java.util.ArrayList;
+import javax.management.relation.Role;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -74,7 +75,6 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 			String newLosenord = listRef.get(6);
 			String newDepartment = listRef.get(7);
 
-
 			if (n.epost(newEpost)
 				&& n.firstName(newFornamn)
 				&& n.lastName(newEfternamn)
@@ -94,8 +94,8 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 						+ newDepartment + "', losenord = '"
 						+ newLosenord + "' where aid = '" + id + "'");
 
-				System.out.println("SAVED");
-				JOptionPane.showMessageDialog(null, "Saved!");
+					System.out.println("SAVED");
+					JOptionPane.showMessageDialog(null, "Saved!");
 				} catch (Exception ex) {
 				}
 			}
@@ -103,15 +103,20 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 
 		deleteBtnRef.addActionListener(e -> {
 			try {
-				String query = "delete from anstalld where aid = " + id + ";";
-				System.out.println(query);
-				idb.delete(query);
+				idb.update("update handlaggare set mentor = NULL where mentor = " + id + ";");
+				idb.update("update avdelning set chef = NULL where chef = " + id + ";");
+				idb.delete("delete from ans_proj where aid = " + id + ";");
+
+				idb.delete("delete from handlaggare where aid = " + id + ";");
+				idb.delete("delete from admin where aid = " + id + ";");
+
+				idb.delete("delete from anstalld where aid = " + id + ";");
+
 				JOptionPane.showMessageDialog(null, "Deleted!");
 			} catch (Exception ex) {
 				System.out.println(ex);
 			}
 		});
-
 
 		passwordBtnRef.addActionListener(e -> {
 
