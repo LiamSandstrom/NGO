@@ -194,41 +194,24 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 			for (String id : alternativ.keySet()) {
 				if (alternativ.get(id).equals(valtNamn)) {
 					comboId = id;
-					System.out.println("Skapar panel för id: " + id);
 					Settings2JFrameHandler.createFrame(panelCreator.apply(id));
 					break;
 				}
 			}
 
-			System.out.println("Valt namn: " + valtNamn);
-			System.out.println("Tillhörande ID: " + comboId);
 
 		});
-
-		comboBox.addActionListener(e -> {
-			String valtNamn = (String) comboBox.getSelectedItem();
-			System.out.println("in");
-			for (String id : alternativ.keySet()) {
-				if (alternativ.get(id).equals(valtNamn)) {
-					textList.get(listIndex - 1).setText(id);
-					System.out.println("Hi:" + textList.get(listIndex - 1).getText());
-					break;
-				}
-			}
-		});
-
-		JTextField doldFält = new JTextField(valtId);
-		textList.add(doldFält);
 
 		comboBox.addActionListener(e -> {
 			String valtNamn = (String) comboBox.getSelectedItem();
 			for (String id : alternativ.keySet()) {
 				if (alternativ.get(id).equals(valtNamn)) {
-					doldFält.setText(id);
+					textList.get(listIndex - 1).setText(id);
 					break;
 				}
 			}
 		});
+
 	}
 
 	public void addInfo(String titel, String info) {
