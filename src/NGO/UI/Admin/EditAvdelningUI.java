@@ -7,6 +7,7 @@ package NGO.UI.Admin;
 import NGO.UI.Cards.AvdelningCard;
 import NGO.UI.ContentPanelStructure;
 import NGO.UI.ScrollListPanel;
+import NGO.UI.SettingsJFrameHandler;
 import NGO.UI.UIStructure;
 import NGO.User;
 import java.awt.BorderLayout;
@@ -36,15 +37,30 @@ public class EditAvdelningUI extends ContentPanelStructure {
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
+
+		JButton addBtn = new JButton("Add");
+		addBtn.setPreferredSize(new Dimension(200, 43));
+		gbc.anchor = GridBagConstraints.EAST;
+		gbc.insets = new Insets(0, 0, 0, 105);
+                gbc.gridy = 0;
+		add(addBtn, gbc);
+
+		gbc.insets = new Insets(0, 0, 0, 0);
+		gbc.gridy = 1;
+
+		addBtn.addActionListener(e -> {
+			SettingsJFrameHandler.addPanel(new AddDepartment(user, "none"));
+		});
+
 		idb = user.getDb();
 
 		try {
-			ArrayList<String> workers = idb.fetchColumn("select avdid from avdelning;");
+			ArrayList<String> departments = idb.fetchColumn("select avdid from avdelning;");
 
 			ScrollListPanel cardList = new ScrollListPanel(
-				workers,
+				departments,
 				() -> new AvdelningCard(20, user));
-			add(cardList);
+			add(cardList, gbc);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

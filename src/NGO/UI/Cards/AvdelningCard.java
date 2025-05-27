@@ -4,6 +4,8 @@
  */
 package NGO.UI.Cards;
 import NGO.UI.CardStructure;
+import NGO.UI.DepartmentSettingsUI;
+import NGO.UI.SettingsJFrameHandler;
 import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,7 +37,16 @@ public class AvdelningCard extends CardStructure {
 			JLabel nameLabel = new JLabel(name);
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 			add(nameLabel, BorderLayout.CENTER);
+                        
+                        JButton editBtn = new JButton("Edit");
+			editBtn.setPreferredSize(new Dimension(100, 33));
+			editBtn.setFont(new Font("Arial", Font.PLAIN, 16));
+			editBtn.setBackground(new Color(63, 81, 181));
+			add(editBtn, BorderLayout.EAST);
 
+			editBtn.addActionListener(e -> {
+				SettingsJFrameHandler.addPanel(new DepartmentSettingsUI(user, id));
+			});
 
 		} catch (Exception e) {
 			e.printStackTrace();
