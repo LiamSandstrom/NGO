@@ -98,7 +98,7 @@ public class PartnerSettingsUI extends SettingsPanelFramework {
 
 		deleteBtnRef.addActionListener(e -> {
 			try {
-				idb.delete("DELETE FROM projekt WHERE pid = " + id + ";");
+				idb.delete("DELETE FROM partner WHERE pid = " + id + ";");
 				System.out.println("DELETED id: " + id);
 			} catch (Exception ex) {
 				System.out.println("Delete fail: " + ex);

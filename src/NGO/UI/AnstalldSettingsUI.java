@@ -1,5 +1,6 @@
 package NGO.UI;
 
+import NGO.Admin;
 import NGO.User;
 import NGO.Validate;
 import java.util.ArrayList;
@@ -57,8 +58,10 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 		}
 
 		setEditInfo();
-		JButton saveBtnRef = addSaveButton();
+		JButton saveBtnRef = addSaveButtonAnstalld();
 		JButton deleteBtnRef = addDeleteButton();
+		JButton passwordBtnRef = addPasswordButton();
+
 		saveBtnRef.addActionListener(e -> {
 
 			ArrayList<String> listRef = getTextInTextfields();
@@ -107,6 +110,14 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 			} catch (Exception ex) {
 				System.out.println(ex);
 			}
+		});
+
+
+		passwordBtnRef.addActionListener(e -> {
+
+			Admin admin = (Admin) user;
+			String rand = admin.generateRandomPassword(10);
+			getTextField(6).setText(rand);
 		});
 	}
 
