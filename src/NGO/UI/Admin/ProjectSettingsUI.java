@@ -9,6 +9,7 @@ import NGO.User;
 import NGO.Validate;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 
 /**
@@ -75,15 +76,6 @@ public class ProjectSettingsUI extends SettingsPanelFramework {
 			String newProjektchef = listRef.get(7);
 			String newLand = listRef.get(8);
 
-			boolean projektFinns = true;
-
-			try {
-				idb.fetchSingle("SELECT * FROM anstalld WHERE aid = " + newProjektchef + ";");
-				projektFinns = true;
-			} catch (Exception ex) {
-				System.out.println("Projekt finns inte: " + ex);
-			}
-
 			if (n.projName(newNamn)
 				&& n.description(newBeskrivning)
 				&& n.date(newStartdatum)
@@ -91,7 +83,8 @@ public class ProjectSettingsUI extends SettingsPanelFramework {
 				&& n.cost(newKostnad)
 				&& n.status(newStatus)
 				&& n.prio(newPrioritet)
-				&& projektFinns) {
+				&& n.idExists(newProjektchef, "aid","handlaggare")
+				&& n.idExists(newLand, "lid", "land")) {
 				try {
 					idb.update("UPDATE projekt SET "
 						+ "projektnamn = '" + newNamn + "', "
@@ -106,6 +99,7 @@ public class ProjectSettingsUI extends SettingsPanelFramework {
 						+ "WHERE pid = '" + id + "';");
 
 					System.out.println("SAVED");
+				JOptionPane.showMessageDialog(null, "Saved!");
 				} catch (Exception ex) {
 					System.out.println("Uppdatering misslyckades: " + ex);
 				}
