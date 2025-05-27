@@ -6,6 +6,7 @@ import NGO.UI.Admin.EditLandUI;
 import NGO.UI.Admin.EditProjectUI;
 import NGO.UI.Admin.EditAvdelningUI;
 import NGO.Admin;
+import NGO.UI.Admin.EditGlobalGoalsUI;
 import NGO.User;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -37,6 +38,9 @@ public class AdminUI extends UIStructure {
 		EditAvdelningUI avdelningUI = new EditAvdelningUI(admin, this);
 		addButton("Departments", avdelningUI);
 		
+                EditGlobalGoalsUI målUI = new EditGlobalGoalsUI(admin, this);
+                addButton("Global Goals", målUI);
+                
 		bottomMargin();
 	}
 }
