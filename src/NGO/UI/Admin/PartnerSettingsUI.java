@@ -68,7 +68,7 @@ public class PartnerSettingsUI extends SettingsPanelFramework {
 			String newBranch = listRef.get(5);
 			String newStad = listRef.get(6);
 
-			if (n.projName(newNamn)
+			if (n.validateString(newNamn)
 				&& n.validateString(newKontaktperson)
 				&& n.validateEpost(newKontaktepost)
 				&& n.validateTelefon(newTelefon)

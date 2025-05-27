@@ -246,10 +246,9 @@ public class Validate {
 	}
 
 	public static boolean idExists(String id, String idName, String table) {
-		String val = " ";
 		try {
-			val = idb.fetchSingle("select " + idName + " from " + table + " where " + idName + " = " + id + ";");
-			if (val.equals(id)) {
+			String val = idb.fetchSingle("select " + idName + " from " + table + " where " + idName + " = '" + id + "';");
+			if (val != null && val.equals(id)) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -260,10 +259,9 @@ public class Validate {
 	}
 
 	public static boolean idNotExists(String id, String idName, String table) {
-		String val = " ";
 		try {
-			val = idb.fetchSingle("select " + idName + " from " + table + " where " + idName + " = " + id + ";");
-			if (val.equals(id)) {
+			String val = idb.fetchSingle("select " + idName + " from " + table + " where " + idName + " = '" + id + "';");
+			if (val != null && val.equals(id)) {
 				JOptionPane.showMessageDialog(null, idName + " " + id + " already exists!");
 				return false;
 			}
@@ -284,7 +282,7 @@ public class Validate {
 
 	}
 
-	public static boolean validateString(String name){
+	public static boolean validateString(String name) {
 
 		if (name.matches("^[A-ZÅÄÖ][a-zA-ZåäöÅÄÖ ]{1,30}$")) {
 			return true;
@@ -294,31 +292,28 @@ public class Validate {
 		}
 	}
 
-	public static boolean validateEpost(String epost){
-		if(epost.matches("^(?=[^\\s]{3,25}$)[^\\s@]+@([^\\s@]+\\.)+[^\\s@]+$")){
+	public static boolean validateEpost(String epost) {
+		if (epost.matches("^(?=[^\\s]{3,25}$)[^\\s@]+@([^\\s@]+\\.)+[^\\s@]+$")) {
 			return true;
-		}
-		else{
+		} else {
 			JOptionPane.showMessageDialog(null, "Epost must be 3-25 characters! ex 'test@example.com'");
 			return false;
 		}
 	}
 
-	public static boolean validateTelefon(String nummer){
-		if(nummer.matches("^(\\+\\d{7,15}|\\d{3}-\\d{3}-\\d{4})$")){
+	public static boolean validateTelefon(String nummer) {
+		if (nummer.matches("^(\\+\\d{7,15}|\\d{3}-\\d{3}-\\d{4})$")) {
 			return true;
-		}
-		else{
+		} else {
 			JOptionPane.showMessageDialog(null, "Wrong Phone number format! ex +1234567890 or 123-456-7890");
 			return false;
 		}
 	}
 
-	public static boolean validateAdress(String adress){
-		if(adress.matches("^[a-zA-Z0-9åäöÅÄÖ ,./-]{5,50}$")){
+	public static boolean validateAdress(String adress) {
+		if (adress.matches("^[a-zA-Z0-9åäöÅÄÖ ,./-]{5,50}$")) {
 			return true;
-		}
-		else{
+		} else {
 			JOptionPane.showMessageDialog(null, "Wrong adress format! 5-50 characters!");
 			return false;
 		}
