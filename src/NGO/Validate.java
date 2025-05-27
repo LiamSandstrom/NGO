@@ -272,4 +272,55 @@ public class Validate {
 		}
 		return true;
 	}
+
+	public static boolean branch(String name) {
+
+		if (name.matches("^[A-ZÅÄÖ][a-zA-ZåäöÅÄÖ ]{1,30}$")) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null, "Sector must be 2-30 characters! ex 'Ren energi'");
+			return false;
+		}
+
+	}
+
+	public static boolean validateString(String name){
+
+		if (name.matches("^[A-ZÅÄÖ][a-zA-ZåäöÅÄÖ ]{1,30}$")) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null, "String: " + name + " must be 2-30 characters! ex 'Big company'");
+			return false;
+		}
+	}
+
+	public static boolean validateEpost(String epost){
+		if(epost.matches("^(?=[^\\s]{3,25}$)[^\\s@]+@([^\\s@]+\\.)+[^\\s@]+$")){
+			return true;
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "Epost must be 3-25 characters! ex 'test@example.com'");
+			return false;
+		}
+	}
+
+	public static boolean validateTelefon(String nummer){
+		if(nummer.matches("^(\\+\\d{7,15}|\\d{3}-\\d{3}-\\d{4})$")){
+			return true;
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "Wrong Phone number format! ex +1234567890 or 123-456-7890");
+			return false;
+		}
+	}
+
+	public static boolean validateAdress(String adress){
+		if(adress.matches("^[a-zA-Z0-9åäöÅÄÖ ,./-]{5,50}$")){
+			return true;
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "Wrong adress format! 5-50 characters!");
+			return false;
+		}
+	}
 }

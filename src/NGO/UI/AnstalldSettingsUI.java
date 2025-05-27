@@ -100,10 +100,12 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 
 		deleteBtnRef.addActionListener(e -> {
 			try {
-				idb.delete("delete from anstalld where aid=" + id + ";");
-				System.out.println("DELETED id: " + id);
+				String query = "delete from anstalld where aid = " + id + ";";
+				System.out.println(query);
+				idb.delete(query);
+				JOptionPane.showMessageDialog(null, "Deleted!");
 			} catch (Exception ex) {
-				System.out.println("delete fail");
+				System.out.println(ex);
 			}
 		});
 	}
