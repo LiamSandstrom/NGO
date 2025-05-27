@@ -30,6 +30,8 @@ public class SettingsJFrameHandler {
 		}
 		System.out.println(frame);
 		frame.add(panel);
+		frame.revalidate();  
+		frame.repaint();
 	}
 
 	public static void createFrame() {
@@ -43,7 +45,7 @@ public class SettingsJFrameHandler {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
-				frame = null; 
+				frame = null;
 			}
 		});
 

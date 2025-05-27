@@ -13,8 +13,12 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,7 +33,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 	private GridBagConstraints gbc;
 	private RoundedPanel contentPanel;
 	private LinkedHashMap<String, String> infoMap;
-	private static ArrayList<JTextField> textList;
+	private  ArrayList<JTextField> textList;
 
 	public SettingsPanelFramework(User user, String id) {
 		super(user, id);
@@ -143,6 +147,90 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		}
 	}
 
+	public void addLinkEditInfo(String titel, HashMap<String, String> alternativ, Function<String, SettingsPanelStructure> panelCreator, String förvaltNamn) {
+
+		RoundedPanel cPanel = new RoundedPanel(10);
+		cPanel.setLayout(new BorderLayout());
+		cPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 20));
+
+		JComboBox<String> comboBox = new JComboBox<>(alternativ.values().toArray(new String[0]));
+		comboBox.setPreferredSize(new Dimension(250, 50));
+		comboBox.setFont(new Font("Arial", Font.PLAIN, 14));
+
+		int preferredHeight = comboBox.getPreferredSize().height;
+		cPanel.setPreferredSize(new Dimension(500, Math.max(70, preferredHeight + 20)));
+
+		JButton btn = new JButton(titel + ":");
+		btn.setFont(new Font("Arial", Font.PLAIN, 20));
+		btn.setHorizontalAlignment(JLabel.RIGHT);
+
+		cPanel.add(btn, BorderLayout.WEST);
+		cPanel.add(comboBox, BorderLayout.EAST);
+
+		contentPanel.add(cPanel, gbc);
+		gbc.gridy++;
+
+		revalidate();
+		repaint();
+
+		String valtId = "";
+		String comboNamn = (String) comboBox.getSelectedItem();
+		for (String i : alternativ.keySet()) {
+			if (alternativ.get(i).equals(comboNamn)) {
+				valtId = i;
+				textList.add(new JTextField(valtId));
+				break;
+			}
+		}
+
+		comboBox.setSelectedItem(förvaltNamn);
+		int listIndex = textList.size();
+
+		btn.addActionListener(e -> {
+			String comboId = "";
+			String valtNamn = (String) comboBox.getSelectedItem();
+
+			// Sök i alternativ (där key = id, value = namn)
+			for (String id : alternativ.keySet()) {
+				if (alternativ.get(id).equals(valtNamn)) {
+					comboId = id;
+					System.out.println("Skapar panel för id: " + id);
+					Settings2JFrameHandler.createFrame(panelCreator.apply(id));
+					break;
+				}
+			}
+
+			System.out.println("Valt namn: " + valtNamn);
+			System.out.println("Tillhörande ID: " + comboId);
+
+		});
+
+		comboBox.addActionListener(e -> {
+			String valtNamn = (String) comboBox.getSelectedItem();
+			System.out.println("in");
+			for (String id : alternativ.keySet()) {
+				if (alternativ.get(id).equals(valtNamn)) {
+					textList.get(listIndex - 1).setText(id);
+					System.out.println("Hi:" + textList.get(listIndex - 1).getText());
+					break;
+				}
+			}
+		});
+
+		JTextField doldFält = new JTextField(valtId);
+		textList.add(doldFält);
+
+		comboBox.addActionListener(e -> {
+			String valtNamn = (String) comboBox.getSelectedItem();
+			for (String id : alternativ.keySet()) {
+				if (alternativ.get(id).equals(valtNamn)) {
+					doldFält.setText(id);
+					break;
+				}
+			}
+		});
+	}
+
 	public void addInfo(String titel, String info) {
 		infoMap.put(titel, info);
 	}
@@ -252,7 +340,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		return output;
 	}
 
-	public JTextField getTextField(int i){
+	public JTextField getTextField(int i) {
 		return textList.get(i);
 	}
 }

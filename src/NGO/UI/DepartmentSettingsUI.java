@@ -4,7 +4,6 @@
  */
 package NGO.UI;
 
-import NGO.Admin;
 import NGO.User;
 import NGO.Validate;
 import java.util.ArrayList;
