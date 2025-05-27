@@ -12,8 +12,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import oru.inf.InfException;
 
 /**
  *
@@ -27,7 +31,7 @@ public class CostCard extends CardStructure {
         super(radius, user);
         this.user = user;
     }
-
+    
     @Override
     public void initCard(String id) {
         try {
@@ -52,7 +56,11 @@ public class CostCard extends CardStructure {
             add(infoBtn, BorderLayout.EAST);
 
             infoBtn.addActionListener(e -> {
-                SettingsJFrameHandler.addPanel(new ProjectsCostInfoPanel(user, id));
+                try{
+                    SettingsJFrameHandler.addPanel(new ProjectsCostInfoPanel(user, id));
+                }catch(InfException ex){
+                    ex.printError();
+                }
             });
 
         } catch (Exception e) {

@@ -90,57 +90,58 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 			repaint();
 		}
 	}
-public void setInfo() {
 
-	for (String key : infoMap.keySet()) {
+	public void setInfo() {
 
-		RoundedPanel cPanel = new RoundedPanel(10);
-		cPanel.setLayout(new BorderLayout());
-		cPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+		for (String key : infoMap.keySet()) {
 
-		JLabel keyLabel = new JLabel(key + ":");
-		keyLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-		keyLabel.setHorizontalAlignment(JLabel.RIGHT);
+			RoundedPanel cPanel = new RoundedPanel(10);
+			cPanel.setLayout(new BorderLayout());
+			cPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-		//TextArea för att supporta dynamic size
-		JTextArea valueLabel = new JTextArea(infoMap.get(key));
-		valueLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-		valueLabel.setLineWrap(true);
-		valueLabel.setWrapStyleWord(true);
-		valueLabel.setEditable(false);
-		valueLabel.setOpaque(false);
-		valueLabel.setHighlighter(null);   
-		valueLabel.setCaretColor(new Color(0, 0, 0, 0)); 
+			JLabel keyLabel = new JLabel(key + ":");
+			keyLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+			keyLabel.setHorizontalAlignment(JLabel.RIGHT);
 
-		//Dynamic size
-		valueLabel.setSize(new Dimension(250, Short.MAX_VALUE));
-		int preferredHeight = valueLabel.getPreferredSize().height;
-		cPanel.setPreferredSize(new Dimension(500, Math.max(70, preferredHeight + 20)));
+			//TextArea för att supporta dynamic size
+			JTextArea valueLabel = new JTextArea(infoMap.get(key));
+			valueLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+			valueLabel.setLineWrap(true);
+			valueLabel.setWrapStyleWord(true);
+			valueLabel.setEditable(false);
+			valueLabel.setOpaque(false);
+			valueLabel.setHighlighter(null);
+			valueLabel.setCaretColor(new Color(0, 0, 0, 0));
 
-		//Behöver vara i panel för centrering
-		JPanel valueWrapper = new JPanel(new GridBagLayout());
-		valueWrapper.setOpaque(false);
-		GridBagConstraints valueGbc = new GridBagConstraints();
-		valueGbc.anchor = GridBagConstraints.CENTER;
-		valueWrapper.add(valueLabel, valueGbc);
+			//Dynamic size
+			valueLabel.setSize(new Dimension(250, Short.MAX_VALUE));
+			int preferredHeight = valueLabel.getPreferredSize().height;
+			cPanel.setPreferredSize(new Dimension(500, Math.max(70, preferredHeight + 20)));
 
-		gbc.gridx = 0;
-		gbc.anchor = GridBagConstraints.WEST;
-		gbc.insets = new Insets(10, 0, 0, 0);
-		cPanel.add(keyLabel, BorderLayout.WEST);
+			//Behöver vara i panel för centrering
+			JPanel valueWrapper = new JPanel(new GridBagLayout());
+			valueWrapper.setOpaque(false);
+			GridBagConstraints valueGbc = new GridBagConstraints();
+			valueGbc.anchor = GridBagConstraints.CENTER;
+			valueWrapper.add(valueLabel, valueGbc);
 
-		gbc.gridx = 1;
-		gbc.anchor = GridBagConstraints.EAST;
-		cPanel.add(valueWrapper, BorderLayout.EAST);
+			gbc.gridx = 0;
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.insets = new Insets(10, 0, 0, 0);
+			cPanel.add(keyLabel, BorderLayout.WEST);
 
-		contentPanel.add(cPanel, gbc);
-		gbc.gridy = gbc.gridy + 1;
+			gbc.gridx = 0;
+			gbc.weightx = 6;
+			gbc.anchor = GridBagConstraints.EAST;
+			cPanel.add(valueWrapper, BorderLayout.EAST);
 
-		revalidate();
-		repaint();
+			contentPanel.add(cPanel, gbc);
+			gbc.gridy = gbc.gridy + 1;
+
+			revalidate();
+			repaint();
+		}
 	}
-}
-
 
 	public void addInfo(String titel, String info) {
 		infoMap.put(titel, info);
@@ -185,15 +186,30 @@ public void setInfo() {
 	public JButton addSaveButton() {
 		JButton btn = new JButton("Save");
 		GridBagConstraints knappGbc = new GridBagConstraints();
-		btn.setPreferredSize(new Dimension(100,60));
+		btn.setPreferredSize(new Dimension(100, 60));
+		btn.setFont(new Font("Arial", Font.PLAIN, 20));
+		knappGbc.gridx = 2;
+		knappGbc.gridy = 1;
+		knappGbc.gridwidth = 1;
+		knappGbc.anchor = GridBagConstraints.CENTER;
+		knappGbc.fill = GridBagConstraints.HORIZONTAL;
+		knappGbc.insets = new Insets(20, 0, 10, 0);
+		add(btn, knappGbc);
+		return btn;
+	}
+
+	public JButton addSaveButtonAnstalld() {
+		JButton btn = new JButton("Save");
+		GridBagConstraints knappGbc = new GridBagConstraints();
+		btn.setPreferredSize(new Dimension(100, 60));
 		btn.setFont(new Font("Arial", Font.PLAIN, 20));
 		knappGbc.gridx = 1;
-		knappGbc.gridy = 1; 
-		knappGbc.gridwidth = 2;    
+		knappGbc.gridy = 1;
+		knappGbc.gridwidth = 1;
 		knappGbc.anchor = GridBagConstraints.CENTER;
-		knappGbc.insets = new Insets(20, 0, 10, 0);
 		knappGbc.fill = GridBagConstraints.HORIZONTAL;
-		add(btn,knappGbc);
+		knappGbc.insets = new Insets(20, 0, 10, 0);
+		add(btn, knappGbc);
 		return btn;
 	}
 
@@ -201,24 +217,42 @@ public void setInfo() {
 		JButton btn = new JButton("Delete");
 		btn.setBackground(Color.red);
 		GridBagConstraints knappGbc = new GridBagConstraints();
-		btn.setPreferredSize(new Dimension(100,60));
+		btn.setPreferredSize(new Dimension(100, 60));
 		btn.setFont(new Font("Arial", Font.PLAIN, 20));
 		knappGbc.gridx = 0;
-		knappGbc.gridy = 1; 
-		knappGbc.gridwidth = 1;    
+		knappGbc.gridy = 1;
+		knappGbc.gridwidth = 1;
 		knappGbc.anchor = GridBagConstraints.CENTER;
 		knappGbc.insets = new Insets(20, 0, 10, 0);
-		knappGbc.fill = GridBagConstraints.HORIZONTAL;
-		add(btn,knappGbc);
+		add(btn, knappGbc);
 		return btn;
 	}
 
-	public ArrayList<String> getTextInTextfields(){
+	public JButton addPasswordButton() {
+		JButton btn = new JButton("Random Password");
+		GridBagConstraints knappGbc = new GridBagConstraints();
+		btn.setPreferredSize(new Dimension(100, 60));
+		btn.setFont(new Font("Arial", Font.PLAIN, 20));
+		knappGbc.gridx = 2;
+		knappGbc.gridy = 1;
+		knappGbc.gridwidth = 1;
+		knappGbc.anchor = GridBagConstraints.CENTER;
+		knappGbc.fill = GridBagConstraints.HORIZONTAL;
+		knappGbc.insets = new Insets(20, 0, 10, 0);
+		add(btn, knappGbc);
+		return btn;
+	}
+
+	public ArrayList<String> getTextInTextfields() {
 		ArrayList<String> output = new ArrayList<>();
 
-		for(JTextField field : textList){
+		for (JTextField field : textList) {
 			output.add(field.getText());
 		}
 		return output;
+	}
+
+	public JTextField getTextField(int i){
+		return textList.get(i);
 	}
 }

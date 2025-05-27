@@ -8,9 +8,11 @@ import NGO.UI.Cards.ProjektPartnerCard;
 import NGO.UI.ContentPanelStructure;
 import NGO.UI.UIStructure;
 import NGO.User;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -30,13 +32,19 @@ public class ProjPart extends ContentPanelStructure{
         
         idb = user.getDb();
         try{
-            ArrayList<String> avdProjIdn = idb.fetchColumn("select projekt.pid from projekt "
+            ArrayList<String> projIdn = idb.fetchColumn("select projekt.pid from projekt "
                     + "join ans_proj on projekt.pid = ans_proj.pid "
                     + "join anstalld on ans_proj.aid = anstalld.aid where anstalld.aid = '" + user.getId() +"';");
-            ScrollListPanel cardList = new ScrollListPanel(
-                    avdProjIdn,
-                    () -> new ProjektPartnerCard(20, user));
-            add(cardList);
+            if (projIdn.size() > 0) {
+                ScrollListPanel cardList = new ScrollListPanel(
+                        projIdn,
+                        () -> new ProjektPartnerCard(20, user));
+                add(cardList);
+            }else{
+                JLabel noProjs = new JLabel("This user does not have any projects");
+                noProjs.setFont(new Font("Arial", Font.PLAIN, 20));
+                add(noProjs);
+            }
             
         }catch(InfException e){
             e.printError();

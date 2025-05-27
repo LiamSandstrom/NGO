@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package NGO.UI.Handlaggare;
 
 import NGO.UI.Cards.SearchHandlaggareCard;
@@ -14,13 +10,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import oru.inf.InfDB;
 
-/**
- *
- * @author Pontus
- */
 public class SearchHandlaggare extends ContentPanelStructure {
 
     InfDB idb;
@@ -38,51 +32,68 @@ public class SearchHandlaggare extends ContentPanelStructure {
         idb = user.getDb();
         query = "";
 
+        JPanel inputPanel = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 0));
+        JTextField searchField = new JTextField();
+        searchField.setPreferredSize(new Dimension(100, 25));
+        JCheckBox departmentFilter = new JCheckBox("My department");
+        departmentFilter.setSelected(true);
+        inputPanel.add(searchField);
+        inputPanel.add(departmentFilter);
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weightx = 0;
+        add(inputPanel, gbc);
 
-        JTextField searchField = new JTextField();
-        searchField.setPreferredSize(new Dimension(100, 25));
-
-        add(searchField, gbc);
+        gbc.gridx = 0;
         gbc.gridy = 1;
+        gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
-        JButton searchButton = new JButton("Search handlaggare");
+        JButton searchButton = new JButton("Search handläggare");
 
         searchButton.addActionListener(e -> {
             String searchText = searchField.getText().trim();
+            boolean filterDepartment = departmentFilter.isSelected();
+
+            String baseQuery = "select * from anstalld";
+            String addition = "";
+
             if (!searchText.isEmpty()) {
                 if (searchText.contains("@")) {
-                    query = "select aid,fornamn,efternamn,adress,epost,telefon,anstallningsdatum,avdelning from anstalld where epost like '" + searchText + "%'";
-                    createList(query);
+                    addition = " where epost like '" + searchText + "%'";
                 } else {
-                    String[] name = searchText.trim().split(" ");
+                    String[] name = searchText.split(" ");
                     if (name.length >= 2) {
-                        String firstName = name[0];
-                        String lastName = name[1];
-                        query = "select aid,fornamn,efternamn,adress,epost,telefon,anstallningsdatum,avdelning from anstalld where fornamn like '" + firstName + "%' and efternamn like '" + lastName + "%'";
-                        createList(query);
+                        addition = " where fornamn like '" + name[0] + "%' and efternamn like '" + name[1] + "%'";
                     } else {
-                        String firstOrLastName = searchText;
-                        query = "select aid,fornamn,efternamn,adress,epost,telefon,anstallningsdatum,avdelning from anstalld where fornamn like '" + firstOrLastName + "%' or efternamn like '" + firstOrLastName + "%'";
-                        createList(query);
+                        addition = " where fornamn like '" + searchText + "%' or efternamn like '" + searchText + "%'";
                     }
                 }
-            } else {
-                createList("select * from anstalld;");
             }
+
+            if (filterDepartment) {
+                String avd = user.getAvdelning();
+                if (addition.isEmpty()) {
+                    addition = " where avdelning = '" + avd + "'";
+                } else {
+                    addition += " and avdelning = '" + avd + "'";
+                }
+            }
+
+            createList(baseQuery + addition + ";");
         });
 
         add(searchButton, gbc);
 
-        createList("select * from anstalld;");
-        gbc.gridy = 0;
-        gbc.gridx = 1;
+        String startQuery = "select * from anstalld";
+        if (departmentFilter.isSelected()) {
+            startQuery += " where avdelning = '" + user.getAvdelning() + "'";
+        }
+        createList(startQuery);
     }
 
     public void createList(String query) {
@@ -91,7 +102,6 @@ public class SearchHandlaggare extends ContentPanelStructure {
             cardList = null;
         }
         try {
-
             ArrayList<String> handlaggare = idb.fetchColumn(query);
 
             cardList = new ScrollListPanel(
@@ -110,5 +120,4 @@ public class SearchHandlaggare extends ContentPanelStructure {
             System.out.println(e);
         }
     }
-
 }

@@ -8,7 +8,7 @@ import oru.inf.InfException;
 
 public class User {
 
-	enum Role {
+	public enum Role {
 		HANDLAGGARE,
 		ADMIN
 	}

@@ -1,9 +1,12 @@
 package NGO.UI;
 
+import NGO.Admin;
 import NGO.User;
 import NGO.Validate;
 import java.util.ArrayList;
+import javax.management.relation.Role;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import oru.inf.InfDB;
 
@@ -56,8 +59,10 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 		}
 
 		setEditInfo();
-		JButton saveBtnRef = addSaveButton();
+		JButton saveBtnRef = addSaveButtonAnstalld();
 		JButton deleteBtnRef = addDeleteButton();
+		JButton passwordBtnRef = addPasswordButton();
+
 		saveBtnRef.addActionListener(e -> {
 
 			ArrayList<String> listRef = getTextInTextfields();
@@ -70,23 +75,14 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 			String newLosenord = listRef.get(6);
 			String newDepartment = listRef.get(7);
 
-			boolean newDep = false;
-			try {
-				idb.fetchSingle("select * from avdelning where avdid = " + newDepartment + ";");
-				newDep = true;
-			} catch (Exception ex) {
-				System.out.println(ex);
-			}
-
 			if (n.epost(newEpost)
 				&& n.firstName(newFornamn)
 				&& n.lastName(newEfternamn)
 				&& n.adress(newAdress)
-				&& n.epost(newEpost)
 				&& n.telefon(newTelefon)
 				&& n.date(newEmpDate)
 				&& n.pass(newLosenord)
-				&& newDep == true) {
+				&& n.idExists(newDepartment, "avdid", "avdelning")) {
 				try {
 					idb.update("update anstalld set fornamn = '"
 						+ newFornamn + "', efternamn = '"
@@ -98,7 +94,8 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 						+ newDepartment + "', losenord = '"
 						+ newLosenord + "' where aid = '" + id + "'");
 
-				System.out.println("SAVED");
+					System.out.println("SAVED");
+					JOptionPane.showMessageDialog(null, "Saved!");
 				} catch (Exception ex) {
 				}
 			}
@@ -106,11 +103,26 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 
 		deleteBtnRef.addActionListener(e -> {
 			try {
-				idb.delete("delete from anstalld where aid=" + id + ";");
-				System.out.println("DELETED id: " + id);
+				idb.update("update handlaggare set mentor = NULL where mentor = " + id + ";");
+				idb.update("update avdelning set chef = NULL where chef = " + id + ";");
+				idb.delete("delete from ans_proj where aid = " + id + ";");
+
+				idb.delete("delete from handlaggare where aid = " + id + ";");
+				idb.delete("delete from admin where aid = " + id + ";");
+
+				idb.delete("delete from anstalld where aid = " + id + ";");
+
+				JOptionPane.showMessageDialog(null, "Deleted!");
 			} catch (Exception ex) {
-				System.out.println("delete fail");
+				System.out.println(ex);
 			}
+		});
+
+		passwordBtnRef.addActionListener(e -> {
+
+			Admin admin = (Admin) user;
+			String rand = admin.generateRandomPassword(10);
+			getTextField(6).setText(rand);
 		});
 	}
 

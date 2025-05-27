@@ -22,18 +22,44 @@ public class ProjektPartnerUI extends SettingsPanelFramework{
         super(user, id);
         this.user = user;
         this.idb = user.getDb();
-        infoDisplay();
+        //infoDisplay();
+        showPartnerInfo();
     }
 
-    private void infoDisplay(){
-        try{
-            String queryProjNamn = "select distinct projekt.projektnamn from projekt "
+    private void showPartnerInfo() {// Med all info om partner
+        try {
+
+            String queryPartnerNamn = "select distinct partner.namn from projekt "
                     + "join ans_proj on projekt.pid = ans_proj.pid "
                     + "join anstalld on ans_proj.aid = anstalld.aid "
                     + "join projekt_partner on projekt.pid = projekt_partner.pid "
                     + "join partner on projekt_partner.partner_pid = partner.pid "
-                    + "where anstalld.avdelning = '" + user.getAvdelning()+ "';";
-            String projNamn = idb.fetchSingle(queryProjNamn);
+                    + "where anstalld.avdelning = '" + user.getAvdelning() + "';";
+            String partnerNamn = idb.fetchSingle(queryPartnerNamn);
+
+            String queryPartnerInfo = "";
+            HashMap<String, String> aPartnersInfo = idb.fetchRow("select * from partner where namn = '" + partnerNamn +"'");
+            
+            for(String attribute : aPartnersInfo.keySet()){
+                addInfo(attribute, aPartnersInfo.get(attribute));
+            }
+            
+            setInfo();
+        } catch (InfException e) {
+            e.printError();
+        }
+
+    }
+    
+    private void infoDisplay(){
+        try{
+            /*String queryProjNamn = "select distinct projekt.projektnamn from projekt "
+                    + "join ans_proj on projekt.pid = ans_proj.pid "
+                    + "join anstalld on ans_proj.aid = anstalld.aid "
+                    + "join projekt_partner on projekt.pid = projekt_partner.pid "
+                    + "join partner on projekt_partner.partner_pid = partner.pid "
+                    + "where anstalld.avdelning = '" + user.getAvdelning()+ "' and anstalld = '" + user.getId() +"';";
+            //String projNamn = idb.fetchSingle(queryProjNamn);*/
             
             String queryPartnerNamn = "select distinct partner.namn from projekt "
                     + "join ans_proj on projekt.pid = ans_proj.pid "
@@ -42,20 +68,9 @@ public class ProjektPartnerUI extends SettingsPanelFramework{
                     + "join partner on projekt_partner.partner_pid = partner.pid "
                     + "where anstalld.avdelning = '" + user.getAvdelning() + "';";
             String partnerNamn = idb.fetchSingle(queryPartnerNamn);
-            addInfo(projNamn, partnerNamn);
-            
+
+            addInfo("Partner", partnerNamn);
             setInfo();
-            /*
-            ArrayList<HashMap<String, String>> partnersOnProj = idb.fetchRows(query); //Alla potentiella partners för ett projekt
-            
-            for(HashMap<String, String> enPartnerOnProj : partnersOnProj){
-                for(String ettNamn : enPartnerOnProj.keySet()){
-                    String projektNamn = enPartnerOnProj.get("projektnamn");
-                    String partnerNamn = enPartnerOnProj.get("namn");
-                    
-                    addInfo(projektNamn, partnerNamn);
-                }
-            }*/
         }catch(InfException e){
             e.printError();
         }

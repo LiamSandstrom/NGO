@@ -134,7 +134,7 @@ public class ResetPassword extends JFrame{
                     }
                     if(aUserFound){
                         idb.update("update anstalld set losenord = '" + newPassword + "' where aid = '" + accId + "'");
-                        JOptionPane.showMessageDialog(null, "Password was successfully reset!! \nPlease close the application before logging in.");
+                        JOptionPane.showMessageDialog(null, "Password was successfully reset!");
                     }
                 }catch(InfException e){
                     e.printError();

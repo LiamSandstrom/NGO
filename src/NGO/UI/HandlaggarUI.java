@@ -4,9 +4,9 @@
  */
 package NGO.UI;
 
-import NGO.UI.Handlaggare.ProjWin;
 import NGO.UI.Handlaggare.MyPersonalInfoPanel;
 import NGO.UI.Handlaggare.GlobalGoals;
+import NGO.UI.Handlaggare.Projects;
 import NGO.UI.Handlaggare.ProjectsCost;
 import NGO.UI.Handlaggare.SearchHandlaggare;
 import NGO.User;
@@ -38,14 +38,14 @@ public class HandlaggarUI extends UIStructure {
 		changeContentPanel(new WelcomePanel(user, this));
 		
                 //ProjectWindow coolPanel = new ProjectWindow(user, this);
-                ProjWin coolPanel = new ProjWin(user, this);
-                addButton("Project", coolPanel);
+                Projects projects = new Projects(user, this);
+                addButton("Project", projects);
 
                 MyPersonalInfoPanel myInfo = new MyPersonalInfoPanel(user, id);
                 addDirectLinkButton("MyInfo", myInfo);
                 
                 ProjectsCost costPanel = new ProjectsCost(user, this);
-                addButton("Show my projects", costPanel);
+                addButton("Department Projects", costPanel);
                 
                 ProjPart projektsPartners = new ProjPart(user, this);
                 addButton("Project Partners", projektsPartners);
@@ -61,8 +61,7 @@ public class HandlaggarUI extends UIStructure {
                     AddRemovePartner partnerInfo = new AddRemovePartner(user, this);
                     addButton("Add/Remove partner", partnerInfo);
                     
-                    AddRemoveHandläggareOnProject handOnProj = new AddRemoveHandläggareOnProject(user, this);
-                    addButton("Add/Remove Handläggare", handOnProj);
+                    
                 }
             }catch(InfException e){
                 System.out.println(e);

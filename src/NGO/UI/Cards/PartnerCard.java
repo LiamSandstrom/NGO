@@ -1,5 +1,8 @@
 package NGO.UI.Cards;
+import NGO.UI.Admin.EditPartnerUI;
+import NGO.UI.Admin.PartnerSettingsUI;
 import NGO.UI.CardStructure;
+import NGO.UI.SettingsJFrameHandler;
 import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,6 +31,15 @@ public class PartnerCard extends CardStructure {
 			nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 			add(nameLabel, BorderLayout.CENTER);
 
+			JButton editBtn = new JButton("Edit");
+			editBtn.setPreferredSize(new Dimension(100, 33));
+			editBtn.setFont(new Font("Arial", Font.PLAIN, 16));
+			editBtn.setBackground(new Color(63, 81, 181));
+			add(editBtn, BorderLayout.EAST);
+
+			editBtn.addActionListener(e -> {
+				SettingsJFrameHandler.addPanel(new PartnerSettingsUI(user, id));
+			});
 
 		} catch (Exception e) {
 			e.printStackTrace();
