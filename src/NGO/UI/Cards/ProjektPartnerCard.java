@@ -23,35 +23,37 @@ import oru.inf.InfException;
  *
  * @author david
  */
-public class ProjektPartnerCard extends CardStructure{
+public class ProjektPartnerCard extends CardStructure {
+
     private User user;
     private InfDB idb;
-    public ProjektPartnerCard(int radie, User user){
+
+    public ProjektPartnerCard(int radie, User user) {
         super(radie, user);
         this.user = user;
         this.idb = user.getDb();
     }
-    
+
     @Override
-    public void initCard(String id){
-        try{
+    public void initCard(String id) {
+        try {
             //Projekt som jag är tilldelad
             String projNamn = idb.fetchSingle("select projekt.projektnamn from projekt join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid where anstalld.aid = '" + id + "';");
-            
+
             JLabel cardRbr = new JLabel(projNamn);
             cardRbr.setFont(new Font("Arial", Font.PLAIN, 20));
             add(cardRbr, BorderLayout.CENTER);
-            
+
             JButton infoBtn = new JButton("Info");
             infoBtn.setPreferredSize(new Dimension(100, 33));
             infoBtn.setFont(new Font("Arial", Font.PLAIN, 16));
             infoBtn.setBackground(new Color(63, 81, 181));
             add(infoBtn, BorderLayout.EAST);
-            
+
             infoBtn.addActionListener(e -> {
                 SettingsJFrameHandler.addPanel(new ProjektPartnerUI(user, id));
             });
-            
+
         } catch (InfException e) {
             e.printError();
         }

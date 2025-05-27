@@ -32,7 +32,7 @@ public class ProjektPartnerUI extends SettingsPanelFramework{
                     + "join anstalld on ans_proj.aid = anstalld.aid "
                     + "join projekt_partner on projekt.pid = projekt_partner.pid "
                     + "join partner on projekt_partner.partner_pid = partner.pid "
-                    + "where anstalld.avdelning = '" + user.getAvdelning()+ "';";
+                    + "where anstalld.avdelning = '" + user.getAvdelning()+ "' and anstalld = '" + user +"';";
             String projNamn = idb.fetchSingle(queryProjNamn);
             
             String queryPartnerNamn = "select distinct partner.namn from projekt "
@@ -42,20 +42,9 @@ public class ProjektPartnerUI extends SettingsPanelFramework{
                     + "join partner on projekt_partner.partner_pid = partner.pid "
                     + "where anstalld.avdelning = '" + user.getAvdelning() + "';";
             String partnerNamn = idb.fetchSingle(queryPartnerNamn);
+
             addInfo(projNamn, partnerNamn);
-            
             setInfo();
-            /*
-            ArrayList<HashMap<String, String>> partnersOnProj = idb.fetchRows(query); //Alla potentiella partners för ett projekt
-            
-            for(HashMap<String, String> enPartnerOnProj : partnersOnProj){
-                for(String ettNamn : enPartnerOnProj.keySet()){
-                    String projektNamn = enPartnerOnProj.get("projektnamn");
-                    String partnerNamn = enPartnerOnProj.get("namn");
-                    
-                    addInfo(projektNamn, partnerNamn);
-                }
-            }*/
         }catch(InfException e){
             e.printError();
         }
