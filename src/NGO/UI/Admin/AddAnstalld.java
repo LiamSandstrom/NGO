@@ -5,6 +5,7 @@ import NGO.User;
 import NGO.Validate;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 
 public class AddAnstalld extends SettingsPanelFramework {
@@ -43,23 +44,16 @@ public class AddAnstalld extends SettingsPanelFramework {
 			String newLosenord = listRef.get(7);
 			String newDepartment = listRef.get(8);
 
-			boolean newDep = false;
-			try {
-				idb.fetchSingle("select * from avdelning where avdid = " + newDepartment + ";");
-				newDep = true;
-			} catch (Exception ex) {
-				System.out.println(ex);
-			}
 
 			if (n.epost(newEpost)
+				&& n.idNotExists(newAid, "aid", "anstalld")
 				&& n.firstName(newFornamn)
 				&& n.lastName(newEfternamn)
 				&& n.adress(newAdress)
-				&& n.epost(newEpost)
 				&& n.telefon(newTelefon)
 				&& n.date(newEmpDate)
 				&& n.pass(newLosenord)
-				&& newDep == true) {
+				&& n.idExists(newDepartment, "avdid", "avdelning")) {
 				try {
 
 					idb.insert("insert into anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, avdelning, losenord) "
@@ -74,6 +68,7 @@ public class AddAnstalld extends SettingsPanelFramework {
 						+ newLosenord + "')");
 
 					System.out.println("SAVED");
+					JOptionPane.showMessageDialog(null, "Saved!");
 				} catch (Exception ex) {
 					System.out.println(ex);
 				}
