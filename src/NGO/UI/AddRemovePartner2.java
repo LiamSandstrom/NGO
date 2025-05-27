@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package NGO.UI;
+/*package NGO.UI;
 
 import NGO.User;
 import java.awt.Color;
@@ -32,7 +32,7 @@ import oru.inf.InfException;
  *
  * @author rostykmalanchuk
  */
-public class AddRemovePartner2 extends SettingsPanelFramework {
+/*public class AddRemovePartner2 extends SettingsPanelFramework {
 
     private InfDB idb;
     private String id;
@@ -177,7 +177,7 @@ public class AddRemovePartner2 extends SettingsPanelFramework {
         }
         
     }
-}*/
+}
     
     
 
@@ -329,4 +329,4 @@ public class AddRemovePartner2 extends SettingsPanelFramework {
         }
     }
 
-}
+}*/
