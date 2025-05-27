@@ -31,6 +31,7 @@ public class ProjectsCost extends ContentPanelStructure {
     double totalCost;
     ArrayList<String> chefId;
     boolean kontroll;
+    
 
     public ProjectsCost(User user, UIStructure parentPanel) throws InfException {
         super(user, parentPanel);
@@ -58,7 +59,7 @@ public class ProjectsCost extends ContentPanelStructure {
                 double tot = Double.parseDouble(cost);
                 totalCost += tot;
             }
-            JLabel totalCostLabel = new JLabel("Total kostnad: " + totalCost + " kr");
+            JLabel totalCostLabel = new JLabel("Total cost: " + totalCost + " kr");
             totalCostLabel.setFont(new Font("Arial", Font.PLAIN, 42));
             gbc.gridx = 0;
             gbc.gridy = 0;
