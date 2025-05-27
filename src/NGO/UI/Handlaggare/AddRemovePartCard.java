@@ -45,3 +45,5 @@ public class AddRemovePartCard extends ContentPanelStructure{
     }
     
 }
+
+
