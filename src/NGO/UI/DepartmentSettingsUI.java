@@ -64,8 +64,7 @@ public class DepartmentSettingsUI extends SettingsPanelFramework{
 		}
 
 		setEditInfo();
-		JButton saveBtnRef = addSaveButtonAnstalld();
-		JButton deleteBtnRef = addDeleteButton();
+		JButton saveBtnRef = addSaveButton();
 
 		saveBtnRef.addActionListener(e -> {
 
@@ -96,21 +95,6 @@ public class DepartmentSettingsUI extends SettingsPanelFramework{
 				} catch (Exception ex) {
 				}
 			
-		});
-
-		deleteBtnRef.addActionListener(e -> {
-			try {
-				idb.update("update anstalld set avdelning = NULL where avdelning = " + id + ";");
-				idb.delete("delete from avd_hallbarhet where avdid = " + id + ";");
-
-				idb.delete("delete from anstalld where avdelning = " + id + ";");
-
-				idb.delete("delete from avdelning where avdid = " + id + ";");
-
-				JOptionPane.showMessageDialog(null, "Deleted!");
-			} catch (Exception ex) {
-				System.out.println(ex);
-			}
 		});
 
 		
