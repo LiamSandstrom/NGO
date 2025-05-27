@@ -5,44 +5,37 @@
 package NGO.UI.Cards;
 
 import NGO.UI.CardStructure;
-import NGO.UI.ProjektPartnerUI;
+import NGO.UI.Handlaggare.ProjectsCostInfoPanel;
 import NGO.UI.SettingsJFrameHandler;
 import NGO.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import oru.inf.InfDB;
 import oru.inf.InfException;
 
 /**
  *
- * @author david
+ * @author Pontus
  */
-public class ProjektPartnerCard extends CardStructure {
+public class ProjectHandlaggareCard extends CardStructure {
 
     private User user;
-    private InfDB idb;
 
-    public ProjektPartnerCard(int radie, User user) {
-        super(radie, user);
+    public ProjectHandlaggareCard(int radius, User user) {
+        super(radius, user);
         this.user = user;
-        this.idb = user.getDb();
     }
 
     @Override
     public void initCard(String id) {
         try {
-            //Projekt som jag är tilldelad
-            String projNamn = idb.fetchSingle("select projekt.projektnamn from projekt join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid where anstalld.aid = '" + id + "';");
-
-            JLabel cardRbr = new JLabel(projNamn);
-            cardRbr.setFont(new Font("Arial", Font.PLAIN, 20));
-            add(cardRbr, BorderLayout.CENTER);
+            String name = user.getDb().fetchSingle("select projektnamn from projekt where pid = " + id);
+            JLabel nameLabel = new JLabel(name);
+            nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+            add(nameLabel, BorderLayout.CENTER);
 
             JButton infoBtn = new JButton("Info");
             infoBtn.setPreferredSize(new Dimension(100, 33));
@@ -51,11 +44,15 @@ public class ProjektPartnerCard extends CardStructure {
             add(infoBtn, BorderLayout.EAST);
 
             infoBtn.addActionListener(e -> {
-                SettingsJFrameHandler.addPanel(new ProjektPartnerUI(user, id));
+                try {
+                    SettingsJFrameHandler.addPanel(new ProjectsCostInfoPanel(user, id));
+                } catch (InfException ex) {
+                    System.out.println("ProjectHandlaggareCard card fel");
+                }
             });
 
-        } catch (InfException e) {
-            e.printError();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
