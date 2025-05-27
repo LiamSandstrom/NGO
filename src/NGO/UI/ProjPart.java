@@ -31,6 +31,7 @@ public class ProjPart extends ContentPanelStructure{
         GridBagConstraints gbc = new GridBagConstraints();
         
         idb = user.getDb();
+
         try{
             ArrayList<String> projIdn = idb.fetchColumn("select projekt.pid from projekt "
                     + "join ans_proj on projekt.pid = ans_proj.pid "
