@@ -9,6 +9,7 @@ import NGO.User;
 import NGO.Validate;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 
 /**
@@ -90,6 +91,7 @@ public class addProject extends SettingsPanelFramework {
 					idb.insert(sql);
 
 					System.out.println("SAVED");
+					JOptionPane.showMessageDialog(null, "Saved!");
 				} catch (Exception ex) {
 					System.out.println("Uppdatering misslyckades: " + ex);
 				}

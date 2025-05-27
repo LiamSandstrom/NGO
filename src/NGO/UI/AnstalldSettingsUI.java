@@ -4,6 +4,7 @@ import NGO.User;
 import NGO.Validate;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import oru.inf.InfDB;
 
@@ -70,23 +71,15 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 			String newLosenord = listRef.get(6);
 			String newDepartment = listRef.get(7);
 
-			boolean newDep = false;
-			try {
-				idb.fetchSingle("select * from avdelning where avdid = " + newDepartment + ";");
-				newDep = true;
-			} catch (Exception ex) {
-				System.out.println(ex);
-			}
 
 			if (n.epost(newEpost)
 				&& n.firstName(newFornamn)
 				&& n.lastName(newEfternamn)
 				&& n.adress(newAdress)
-				&& n.epost(newEpost)
 				&& n.telefon(newTelefon)
 				&& n.date(newEmpDate)
 				&& n.pass(newLosenord)
-				&& newDep == true) {
+				&& n.idExists(newDepartment, "avdid", "avdelning")) {
 				try {
 					idb.update("update anstalld set fornamn = '"
 						+ newFornamn + "', efternamn = '"
@@ -99,6 +92,7 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 						+ newLosenord + "' where aid = '" + id + "'");
 
 				System.out.println("SAVED");
+				JOptionPane.showMessageDialog(null, "Saved!");
 				} catch (Exception ex) {
 				}
 			}
