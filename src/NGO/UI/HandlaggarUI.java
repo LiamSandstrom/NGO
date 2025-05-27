@@ -45,7 +45,7 @@ public class HandlaggarUI extends UIStructure {
                 addDirectLinkButton("MyInfo", myInfo);
                 
                 ProjectsCost costPanel = new ProjectsCost(user, this);
-                addButton("Show my projects", costPanel);
+                addButton("Department Projects", costPanel);
                 
                 ProjPart projektsPartners = new ProjPart(user, this);
                 addButton("Project Partners", projektsPartners);
