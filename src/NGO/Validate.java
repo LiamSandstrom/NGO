@@ -318,4 +318,12 @@ public class Validate {
 			return false;
 		}
 	}
+        
+        public static boolean goalName(String name){
+            boolean fitsFormat = false;
+            if(name.length() > 2 && name.length() <= 40){
+                fitsFormat = true;
+            }
+            return fitsFormat;
+        }
 }
