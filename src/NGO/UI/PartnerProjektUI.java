@@ -36,6 +36,7 @@ public class PartnerProjektUI extends SettingsPanelFramework{
                 
                 HashMap<String, String> partners = idb.fetchRow("select partner_pid, namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt.pid = projekt_partner.pid where projekt_partner.pid = '" + pid + "'");
                 
+                
             }
             
             
