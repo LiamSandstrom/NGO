@@ -38,7 +38,7 @@ public class Projects extends ContentPanelStructure {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.NONE;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.weightx = 0;
 
@@ -51,7 +51,7 @@ public class Projects extends ContentPanelStructure {
 
         addSearchComponents();
         if (kontroll) {
-            //addProjectManagerControls();
+            addProjectManagerControls();
         }
         
         createList(getQuery(false));
@@ -59,42 +59,56 @@ public class Projects extends ContentPanelStructure {
     }
 
     private void addSearchComponents() {
-        gbc.gridy = 0;
+        
         gbc.gridx = 0;
+        gbc.gridy = 0;
         JPanel spacer = new JPanel();
-        spacer.setPreferredSize(new Dimension(70, 1));
+        spacer.setPreferredSize(new Dimension(20, 1));
         spacer.setOpaque(false);
         add(spacer, gbc);
 
         JButton allProjBtn = new JButton("Section projects");
         allProjBtn.addActionListener(e -> createList(getQuery(false)));
         gbc.gridx = 1;
+        gbc.gridy = 0;
         add(allProjBtn, gbc);
 
         combo = new JComboBox<>(alternatives);
         gbc.gridx = 2;
+        gbc.gridy = 0;
         add(combo, gbc);
 
         gbc.gridx = 3;
+        gbc.gridy = 0;
         add(new JLabel("Date from:"), gbc);
-
         searchFieldFrom = new JTextField("Date", 10);
         removeTextOnClick(searchFieldFrom);
         gbc.gridx = 4;
+        gbc.gridy = 0;
         add(searchFieldFrom, gbc);
 
         gbc.gridx = 5;
-        add(new JLabel("To:"), gbc);
+        gbc.gridy = 0;
+        add(new JLabel("To date:"), gbc);
 
         searchFieldTo = new JTextField("Date", 10);
         removeTextOnClick(searchFieldTo);
         gbc.gridx = 6;
+        gbc.gridy = 0;
         add(searchFieldTo, gbc);
 
         JButton searchBtn = new JButton("Search");
         searchBtn.addActionListener(e -> createList(getQuery(true)));
         gbc.gridx = 7;
+        gbc.gridy = 0;
         add(searchBtn, gbc);
+        
+        gbc.gridx = 8;
+        gbc.gridy = 0;
+        JPanel spacer3 = new JPanel();
+        spacer3.setPreferredSize(new Dimension(20, 1));
+        spacer3.setOpaque(false);
+        add(spacer3, gbc);
     }
 
     private void addProjectManagerControls() {
@@ -102,35 +116,43 @@ public class Projects extends ContentPanelStructure {
 
         gbc.gridx = 0;
         JPanel spacer2 = new JPanel();
-        spacer2.setPreferredSize(new Dimension(70, 1));
+        spacer2.setPreferredSize(new Dimension(20, 1));
         spacer2.setOpaque(false);
         add(spacer2, gbc);
-
-        gbc.gridx = 1;
+        
+        
+        gbc.gridx = 2;
+        gbc.gridy = 1;
         addOrRemove = new JComboBox<>(alts);
         add(addOrRemove, gbc);
 
-        gbc.gridx = 2;
+        gbc.gridx = 3;
+        gbc.gridy = 1;
         add(new JLabel("person:"), gbc);
 
         alterPerson = new JTextField(10);
-        gbc.gridx = 3;
+        gbc.gridx = 4;
+        gbc.gridy = 1;
         add(alterPerson, gbc);
 
-        gbc.gridx = 4;
+        gbc.gridx = 5;
+        gbc.gridy = 1;
         add(new JLabel("For project:"), gbc);
 
         alterToField = new JTextField(10);
-        gbc.gridx = 5;
+        gbc.gridx = 6;
+        gbc.gridy = 1;
         add(alterToField, gbc);
 
         JButton executeBtn = new JButton("Execute");
         executeBtn.addActionListener(e -> chosenAction());
-        gbc.gridx = 6;
+        gbc.gridx = 7;
+        gbc.gridy = 1;
         add(executeBtn, gbc);
 
         feedbackLabel = new JLabel();
-        gbc.gridx = 7;
+        gbc.gridx = 8;
+        gbc.gridy = 1;
         add(feedbackLabel, gbc);
     }
 
