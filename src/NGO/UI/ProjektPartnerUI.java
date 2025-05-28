@@ -18,33 +18,48 @@ import oru.inf.InfException;
 public class ProjektPartnerUI extends SettingsPanelFramework{
     private User user;
     private InfDB idb;
+    private String id;
     public ProjektPartnerUI(User user, String id) {
         super(user, id);
         this.user = user;
         this.idb = user.getDb();
+        this.id = id;
         //infoDisplay();
-        showPartnerInfo();
+        showPartnerInfo(id);
+        
     }
 
-    private void showPartnerInfo() {// Med all info om partner
+    private void showPartnerInfo(String projID) {// Med all info om partner
         try {
 
+            /*
             String queryPartnerNamn = "select distinct partner.namn from projekt "
                     + "join ans_proj on projekt.pid = ans_proj.pid "
                     + "join anstalld on ans_proj.aid = anstalld.aid "
                     + "join projekt_partner on projekt.pid = projekt_partner.pid "
                     + "join partner on projekt_partner.partner_pid = partner.pid "
-                    + "where anstalld.avdelning = '" + user.getAvdelning() + "';";
-            String partnerNamn = idb.fetchSingle(queryPartnerNamn);
+                    + "where anstalld.avdelning = '" + user.getAvdelning() + "';";*/
+            String pids = "select projekt.pid from projekt "
+                    + "join ans_proj on projekt.pid = ans_proj.pid "
+                    + "join anstalld on ans_proj.aid = anstalld.aid "
+                    + "where anstalld.aid = '" + user.getId() +"'";
+            ArrayList<String> projIds = idb.fetchColumn(pids);
+            
+            
 
             String queryPartnerInfo = "";
-            HashMap<String, String> aPartnersInfo = idb.fetchRow("select * from partner where namn = '" + partnerNamn +"'");
             
-            for(String attribute : aPartnersInfo.keySet()){
-                addInfo(attribute, aPartnersInfo.get(attribute));
+            
+            ArrayList<HashMap<String, String>> partnersInfo = idb.fetchRows("select partner.pid, partner.namn, partner.kontaktperson, partner.kontaktepost, partner.telefon, partner.adress, partner.branch, partner.stad from partner "
+                    + "join projekt_partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projekt.pid = '" + projID +"'");
+            for(HashMap<String, String> partInfo: partnersInfo){
+            for (String apartnersInfo : partInfo.keySet()) {
+                addInfo("Partner","" );
+                addInfo(apartnersInfo, partInfo.get(apartnersInfo));
+                
             }
-            
             setInfo();
+            }
         } catch (InfException e) {
             e.printError();
         }

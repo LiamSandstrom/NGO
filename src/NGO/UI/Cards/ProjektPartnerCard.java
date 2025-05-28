@@ -12,6 +12,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -41,7 +42,6 @@ public class ProjektPartnerCard extends CardStructure {
             String projNamn = idb.fetchSingle("select projekt.projektnamn from projekt"
                     + " join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid "
                     + "where projekt.pid = '" + id + "';");
-            
             JLabel cardRbr = new JLabel(projNamn);
             cardRbr.setFont(new Font("Arial", Font.PLAIN, 20));
             add(cardRbr, BorderLayout.CENTER);
