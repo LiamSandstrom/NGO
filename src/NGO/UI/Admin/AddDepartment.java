@@ -24,7 +24,7 @@ public class AddDepartment extends SettingsPanelFramework {
         super(user, id);
         idb = user.getDb();
 
-        Validate n = new Validate(user);
+        Validate val = new Validate(user);
 
         addInfo("ID", "");
         addInfo("Name", "");
@@ -48,7 +48,8 @@ public class AddDepartment extends SettingsPanelFramework {
             String newPhone = listRef.get(5);
             String newCity = listRef.get(6);
             String newManager = listRef.get(7);
-
+            if (val.idNotExists(newID, "avdid", "avdelning") && val.partnerName(newName) && val.description(newDescription) && val.adress(newAddress) && val.epost(newEpost) && val.telefon(newPhone) && val.city(newCity) && val.id(newManager)){
+			
             try {
 
                 idb.insert("INSERT INTO avdelning (avdid, namn, beskrivning, adress, epost, telefon, stad, chef) "
@@ -65,6 +66,7 @@ public class AddDepartment extends SettingsPanelFramework {
                 JOptionPane.showMessageDialog(null, "Saved!");
             } catch (Exception ex) {
                 System.out.println(ex);
+            }
             }
         });
     }

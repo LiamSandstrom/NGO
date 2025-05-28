@@ -18,10 +18,9 @@ public class DepartmentSettingsUI extends SettingsPanelFramework {
 	public DepartmentSettingsUI(User user, String id) {
 		super(user, id);
 
-		Validate n = new Validate(user);
+		Validate val = new Validate(user);
 		idb = user.getDb();
 
-		String avdid = "";
 		String name = "";
 		String description = "";
 		String address = "";
@@ -31,8 +30,6 @@ public class DepartmentSettingsUI extends SettingsPanelFramework {
 		String manager = "";
 
 		try {
-			avdid = idb.fetchSingle("select avdid from avdelning where avdid = " + id + ";");
-			addInfo("ID", avdid);
 
 			name = idb.fetchSingle("select namn from avdelning where avdid = " + id + ";");
 			addInfo("Name", name);
@@ -64,18 +61,16 @@ public class DepartmentSettingsUI extends SettingsPanelFramework {
 
 		saveBtnRef.addActionListener(e -> {
 			ArrayList<String> listRef = getTextInTextfields();
-			String newID = listRef.get(0);
-			String newName = listRef.get(1);
-			String newDescription = listRef.get(2);
-			String newAddress = listRef.get(3);
-			String newEpost = listRef.get(4);
-			String newPhone = listRef.get(5);
-			String newCity = listRef.get(6);
-			String newManager = listRef.get(7);
-
+			String newName = listRef.get(0);
+			String newDescription = listRef.get(1);
+			String newAddress = listRef.get(2);
+			String newEpost = listRef.get(3);
+			String newPhone = listRef.get(4);
+			String newCity = listRef.get(5);
+			String newManager = listRef.get(6);
+                        if (val.partnerName(newName) && val.description(newDescription) && val.adress(newAddress) && val.epost(newEpost) && val.telefon(newPhone) && val.city(newCity) && val.id(newManager)){
 			try {
-				idb.update("update avdelning set avdid = '"
-					+ newID + "', namn = '"
+				idb.update("update avdelning set namn = '"
 					+ newName + "', beskrivning = '"
 					+ newDescription + "', adress = '"
 					+ newAddress + "', epost = '"
@@ -90,6 +85,7 @@ public class DepartmentSettingsUI extends SettingsPanelFramework {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Error saving changes:\n" + ex.getMessage());
 			}
+                        }
 		});
 
 	}
