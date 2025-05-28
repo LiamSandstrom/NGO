@@ -55,8 +55,8 @@ public class PartnerProjektUI extends SettingsPanelFramework{
                 deleteButton.addActionListener(e-> {
                     try{
                         JTextField field = textField();
-                        String ettPartID = field.getText();
-                        idb.delete("delete from projekt_partner where pid = '" + id + "' and partner_pid = '" + ettPartID + "'");
+                        //String ettPartID = field.getText();
+                        idb.delete("delete from projekt_partner where pid = '" + id + "' and partner_pid = '" + partID + "'");
                     }catch(InfException ex){
                         JOptionPane.showMessageDialog(null, ex);
                     }
