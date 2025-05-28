@@ -40,8 +40,8 @@ public class ProjektPartnerCard extends CardStructure {
             //Projekt som jag är tilldelad
             String projNamn = idb.fetchSingle("select projekt.projektnamn from projekt"
                     + " join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid "
-                    + "where anstalld.aid = '" + id + "';");
-
+                    + "where projekt.pid = '" + id + "';");
+            
             JLabel cardRbr = new JLabel(projNamn);
             cardRbr.setFont(new Font("Arial", Font.PLAIN, 20));
             add(cardRbr, BorderLayout.CENTER);
