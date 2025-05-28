@@ -326,4 +326,14 @@ public class Validate {
             }
             return fitsFormat;
         }
+        
+        public static boolean partnerName(String name){
+            boolean formatCorrect = false;
+            if(name.matches("^[A-Za-z0-9åäöÅÄÖ ]{3,35}$")){ //Tillåter flera 3-35 bokstäver och siffror, flera, siffror, mellanslag och stora bokstäver tillåtna
+                formatCorrect = true;
+            }else{
+                JOptionPane.showMessageDialog(null, "Wrong format!\nFormat must be 3-35 characters, only letters(lower and uppercase), numbers and spaces allowed.\n Ex: ''MyPartner Name1''");
+            }
+            return formatCorrect;
+        }
 }
