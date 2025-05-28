@@ -58,10 +58,9 @@ public class HandlaggarUI extends UIStructure {
                 if(kontroll){
                     
                     PartnerProjekt partProj = new PartnerProjekt(user, this);
-                    addButton("test", partProj);
+                    addButton("Add/Remove partner", partProj);
                     
-                    AddRemovePartner partnerInfo = new AddRemovePartner(user, this);
-                    addButton("Add/Remove partner", partnerInfo);
+                    
                     
                     
                 }

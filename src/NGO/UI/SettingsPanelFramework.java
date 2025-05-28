@@ -17,15 +17,18 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import oru.inf.InfDB;
+import oru.inf.InfException;
 
 public class SettingsPanelFramework extends SettingsPanelStructure {
 
@@ -34,6 +37,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 	private RoundedPanel contentPanel;
 	private LinkedHashMap<String, String> infoMap;
 	private  ArrayList<JTextField> textList;
+        
 
 	public SettingsPanelFramework(User user, String id) {
 		super(user, id);
@@ -253,7 +257,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 			repaint();
 		}
 	}
-        public void setEditInfo2() {
+        public void setEditInfo2(String query) {
 
 		for (String key : infoMap.keySet()) {
 
@@ -262,8 +266,8 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 			cPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 			cPanel.setPreferredSize(new Dimension(500, 70));
 
-			JTextField keyField = new JTextField(infoMap.get(key));
-                        keyField.setEditable(false);
+			JLabel keyField = new JLabel(infoMap.get(key));
+                        //keyField.setEditable(false);
 			keyField.setFont(new Font("Arial", Font.PLAIN, 20));
 			keyField.setHorizontalAlignment(JLabel.RIGHT);
 
@@ -271,8 +275,14 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
                         delete.setBackground(Color.red);
                         delete.setPreferredSize(new Dimension(100, 60));
                         delete.setFont(new Font("Arial", Font.PLAIN, 20));
-
-			textList.add(keyField);
+                        delete.addActionListener(e->{
+                            try{
+                            idb.delete(query + key + "'");
+                            JOptionPane.showMessageDialog(null, "Deleted!");
+                            }catch(InfException ee){
+                                JOptionPane.showMessageDialog(null, ee);
+                            }
+                        });
 
 			gbc.gridx = 0;
 			gbc.anchor = GridBagConstraints.WEST;
@@ -289,6 +299,8 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 			repaint();
 		}
 	}
+        
+        
 
 	public JButton addSaveButton() {
 		JButton btn = new JButton("Save");
@@ -304,7 +316,46 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		add(btn, knappGbc);
 		return btn;
 	}
-
+        
+        public JButton addPartButton() {
+		JButton btn = new JButton("Add partner");
+		GridBagConstraints knappGbc = new GridBagConstraints();
+		btn.setPreferredSize(new Dimension(100, 60));
+		btn.setFont(new Font("Arial", Font.PLAIN, 20));
+		knappGbc.gridx = 0;
+		knappGbc.gridy = 1;
+		knappGbc.gridwidth = 1;
+		knappGbc.anchor = GridBagConstraints.WEST;
+		knappGbc.fill = GridBagConstraints.HORIZONTAL;
+		knappGbc.insets = new Insets(20, 0, 10, 0);
+		add(btn, knappGbc);
+		return btn;
+	}
+        
+        public JComboBox getAllPartners(ArrayList<String> partners) {
+            GridBagConstraints knappGbc = new GridBagConstraints();
+            
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            for (String row : partners) {
+                model.addElement(row);
+            }
+            
+            JComboBox<String> comboBox = new JComboBox(model);
+            comboBox.setPreferredSize(new Dimension(100, 60));
+            comboBox.setFont(new Font("Arial", Font.PLAIN, 20));
+            
+            knappGbc.gridx = 2;
+            knappGbc.gridy = 1;
+            knappGbc.gridwidth = 1;
+            knappGbc.anchor = GridBagConstraints.EAST;
+            knappGbc.fill = GridBagConstraints.HORIZONTAL;
+            knappGbc.insets = new Insets(20, 0, 10, 0);
+            add(comboBox, knappGbc);
+            
+            return comboBox;
+        }
+        
+        
 	public JButton addSaveButtonAnstalld() {
 		JButton btn = new JButton("Save");
 		GridBagConstraints knappGbc = new GridBagConstraints();
