@@ -48,7 +48,7 @@ public class AddDepartment extends SettingsPanelFramework {
             String newPhone = listRef.get(5);
             String newCity = listRef.get(6);
             String newManager = listRef.get(7);
-            if (val.idNotExists(newID, "avdid", "avdelning") && val.partnerName(newName) && val.description(newDescription) && val.adress(newAddress) && val.epost(newEpost) && val.telefon(newPhone) && val.city(newCity) && val.id(newManager)){
+            if (val.idNotExists(newID, "avdid", "avdelning") && val.partnerName(newName) && val.description(newDescription) && val.validateAdress(newAddress) && val.validateEpost(newEpost) && val.validateTelefon(newPhone) && val.id(newCity) && val.id(newManager)){
 			
             try {
 
