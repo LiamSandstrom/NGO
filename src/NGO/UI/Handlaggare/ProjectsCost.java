@@ -5,6 +5,7 @@
 package NGO.UI.Handlaggare;
 
 import NGO.UI.Cards.CostCard;
+import NGO.UI.Cards.ProjectHandlaggareCard;
 import NGO.UI.ContentPanelStructure;
 import NGO.UI.ScrollListPanel;
 import NGO.UI.UIStructure;
@@ -73,7 +74,8 @@ public class ProjectsCost extends ContentPanelStructure {
             createList("select * from projekt where projektchef = " + id + ";");
         }
         else{
-        createList("select * from projekt where pid in (select pid from ans_proj where aid in (select aid from anstalld where avdelning = (select avdelning from anstalld where aid = '" + id + "')))");
+		
+        createInfoList("select * from projekt where pid in (select pid from ans_proj where aid = " + id + ")");
         }
     }
         
@@ -89,6 +91,26 @@ public class ProjectsCost extends ContentPanelStructure {
             cardList = new ScrollListPanel(
                     cost,
                     () -> new CostCard(20, user));
+            add(cardList, gbc);
+            revalidate();
+            repaint();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void createInfoList(String query) {
+        if (cardList != null) {
+            remove(cardList);
+            cardList = null;
+        }
+        try {
+
+            ArrayList<String> cost = idb.fetchColumn(query);
+
+            cardList = new ScrollListPanel(
+                    cost,
+                    () -> new ProjectHandlaggareCard(20, user));
             add(cardList, gbc);
             revalidate();
             repaint();
