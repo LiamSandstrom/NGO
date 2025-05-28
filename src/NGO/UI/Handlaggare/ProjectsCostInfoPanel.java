@@ -48,7 +48,7 @@ public class ProjectsCostInfoPanel extends SettingsPanelFramework{
         addInfo("Priority", priority);
 
         if (isProjChef(id)) {
-            setInfo();
+            setEditInfo();
             
             JButton savebtn = addSaveButton();
             savebtn.addActionListener(e -> {
