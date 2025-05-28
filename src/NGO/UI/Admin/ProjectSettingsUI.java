@@ -135,7 +135,11 @@ public class ProjectSettingsUI extends SettingsPanelFramework {
 
 		deleteBtnRef.addActionListener(e -> {
 			try {
+				idb.delete("DELETE FROM ans_proj where pid = " + id + ";");
+				idb.delete("DELETE FROM proj_hallbarhet where pid = " + id + ";");
+				idb.delete("DELETE FROM projekt_partner where pid = " + id + ";");
 				idb.delete("DELETE FROM projekt WHERE pid = " + id + ";");
+				JOptionPane.showMessageDialog(null, "Deleted!");
 				System.out.println("DELETED id: " + id);
 			} catch (Exception ex) {
 				System.out.println("Delete fail: " + ex);
