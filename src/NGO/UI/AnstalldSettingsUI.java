@@ -9,6 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import oru.inf.InfDB;
+import NGO.UI.DepartmentSettingsUI;
+import java.util.HashMap;
+import java.util.List;
 
 public class AnstalldSettingsUI extends SettingsPanelFramework {
 
@@ -28,6 +31,8 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 		String anstDatum = "";
 		String losenord = "";
 		String avdelning = "";
+		List<String> avdelningar = new ArrayList<>();
+
 
 		try {
 			fornamn = idb.fetchSingle("select fornamn from anstalld where aid = " + id + ";");
@@ -51,14 +56,24 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 			losenord = idb.fetchSingle("select losenord from anstalld where aid = " + id + ";");
 			addInfo("Password", losenord);
 
-			avdelning = idb.fetchSingle("select avdelning from anstalld where aid = " + id + ";");
-			addInfo("Department", avdelning);
+			avdelningar = idb.fetchColumn("SELECT avdid FROM avdelning");
+			HashMap idNamnMap = new HashMap<>();
+
+			for(String avdid : avdelningar){
+				String namn = idb.fetchSingle("SELECT namn FROM avdelning where avdid = " + avdid + ";"); 
+				idNamnMap.put(avdid, namn);
+			}
+			String avd = idb.fetchSingle("select avdelning from anstalld where aid = " + id + ";");
+
+			String förvaltNamn = idb.fetchSingle("select namn from avdelning where avdid = " + avd + ";");
+
+			setEditInfo();
+			addLinkEditInfo("Department", idNamnMap, idInput -> new DepartmentSettingsUI(user, idInput), förvaltNamn);
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
-		setEditInfo();
 		JButton saveBtnRef = addSaveButtonAnstalld();
 		JButton deleteBtnRef = addDeleteButton();
 		JButton passwordBtnRef = addPasswordButton();
@@ -74,6 +89,7 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 			String newEmpDate = listRef.get(5);
 			String newLosenord = listRef.get(6);
 			String newDepartment = listRef.get(7);
+			System.out.println(newDepartment);
 
 			if (n.epost(newEpost)
 				&& n.firstName(newFornamn)
@@ -105,11 +121,10 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 			try {
 				idb.update("update handlaggare set mentor = NULL where mentor = " + id + ";");
 				idb.update("update avdelning set chef = NULL where chef = " + id + ";");
+				idb.update("update projekt set projektchef = NULL where projektchef = " + id + ";");
 				idb.delete("delete from ans_proj where aid = " + id + ";");
-
 				idb.delete("delete from handlaggare where aid = " + id + ";");
 				idb.delete("delete from admin where aid = " + id + ";");
-
 				idb.delete("delete from anstalld where aid = " + id + ";");
 
 				JOptionPane.showMessageDialog(null, "Deleted!");

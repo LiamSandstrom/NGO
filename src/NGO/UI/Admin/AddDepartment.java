@@ -51,15 +51,15 @@ public class AddDepartment extends SettingsPanelFramework {
 
             try {
 
-                idb.insert("insert into avdelning (avdid, namn, beskrivning, adress, epost, telefon, stad, chef) "
-                        + "values (" + newID + ", '"
+                idb.insert("INSERT INTO avdelning (avdid, namn, beskrivning, adress, epost, telefon, stad, chef) "
+                        + "VALUES (" + newID + ", '"
                         + newName + "', '"
                         + newDescription + "', '"
                         + newAddress + "', '"
                         + newEpost + "', '"
-                        + newPhone + "', '"
-                        + newCity + "', "
-                        + newManager + ", '");
+                        + newPhone + "', "
+                        + newCity + ", "
+                        + newManager + ")");
 
                 System.out.println("SAVED");
                 JOptionPane.showMessageDialog(null, "Saved!");
@@ -69,5 +69,4 @@ public class AddDepartment extends SettingsPanelFramework {
         });
     }
 
-	
 }

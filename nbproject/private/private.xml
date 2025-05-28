@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/AdminUI.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/HandlaggarUI.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/AddRemovePartner.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/UIStructure.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/ContentPanelStructure.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/User.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/CardStructure.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/listeners/LoginListener.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/Start.java</file>
-            <file>file:/C:/Users/david/OneDrive/Dokument/NGO/src/NGO/UI/Handlaggare/AddRemoveHandläggareOnProject.java</file>
+            <file>file:/Users/liam/school-repos/NGO/src/NGO/UI/SettingsPanelFramework.java</file>
+            <file>file:/Users/liam/school-repos/NGO/src/NGO/UI/AnstalldSettingsUI.java</file>
+            <file>file:/Users/liam/school-repos/NGO/src/NGO/UI/DepartmentSettingsUI.java</file>
+            <file>file:/Users/liam/school-repos/NGO/src/NGO/User.java</file>
         </group>
     </open-files>
 </project-private>
