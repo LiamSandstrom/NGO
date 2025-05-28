@@ -298,6 +298,20 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		add(btn, knappGbc);
 		return btn;
 	}
+        
+        public JTextField textField(){
+            JTextField field = new JTextField();
+            field.setPreferredSize(new Dimension(250, 60));
+            field.setHorizontalAlignment(JTextField.LEFT);
+            field.setFont(new Font("Arial", Font.PLAIN, 20));
+            GridBagConstraints knappGbc = new GridBagConstraints();
+            knappGbc.gridx = 1;
+            knappGbc.gridy = 1;
+            knappGbc.anchor = GridBagConstraints.EAST;
+            //knappGbc.insets = new Insets(20, 0, 10, 0);
+            add(field, knappGbc);
+            
+        }
 
 	public JButton addPasswordButton() {
 		JButton btn = new JButton("Random Password");
