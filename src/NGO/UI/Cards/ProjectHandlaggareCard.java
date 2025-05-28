@@ -6,6 +6,7 @@ package NGO.UI.Cards;
 
 import NGO.UI.CardStructure;
 import NGO.UI.Handlaggare.ProjectsCostInfoPanel;
+import NGO.UI.Handlaggare.ProjectsInfoPanel;
 import NGO.UI.SettingsJFrameHandler;
 import NGO.User;
 import java.awt.BorderLayout;
@@ -45,8 +46,8 @@ public class ProjectHandlaggareCard extends CardStructure {
 
             infoBtn.addActionListener(e -> {
                 try {
-                    SettingsJFrameHandler.addPanel(new ProjectsCostInfoPanel(user, id));
-                } catch (InfException ex) {
+                    SettingsJFrameHandler.addPanel(new ProjectsInfoPanel(user, id));
+                } catch (Exception ex) {
                     System.out.println("ProjectHandlaggareCard card fel");
                 }
             });
