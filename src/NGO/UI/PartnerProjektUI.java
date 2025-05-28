@@ -27,8 +27,6 @@ public class PartnerProjektUI extends SettingsPanelFramework{
     private InfDB idb;
     private User user;
     private String id;
-    private JComboBox<String> comboBox;
-    private JButton btnAdd;
     private ArrayList<String> pid;
     private String deleteQuery;
     private String insertQuery;
@@ -69,7 +67,6 @@ public class PartnerProjektUI extends SettingsPanelFramework{
                 try {
                     String selectedPartner = (String) combo.getSelectedItem();
                     String choice = idb.fetchSingle("select pid from partner where namn = '" + selectedPartner + "'");
-                    String checkQuery = "select * from projekt_partner where pid = " + id + " and partner_pid = " + choice;
                     insertQuery = "insert into projekt_partner (pid, partner_pid) values (" + id + ", " + choice + ")";
                     idb.insert(insertQuery);
                 } catch (InfException error) {
