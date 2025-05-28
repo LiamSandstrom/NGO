@@ -139,6 +139,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 			gbc.anchor = GridBagConstraints.EAST;
 			cPanel.add(valueWrapper, BorderLayout.EAST);
 
+			gbc.anchor = GridBagConstraints.CENTER;
 			contentPanel.add(cPanel, gbc);
 			gbc.gridy = gbc.gridy + 1;
 
