@@ -351,7 +351,7 @@ public class Validate {
         if (namn.length() > 1 && namn.length() <= 25) {
             isCorrect = true;
         } else {
-            JOptionPane.showMessageDialog(null, "Name " + namn + "must be 2-25 character, ex ''Sweden 1''");
+            JOptionPane.showMessageDialog(null, namn + "must be 2-25 character, ex ''Sweden 1''");
         }
         return isCorrect;
     }
