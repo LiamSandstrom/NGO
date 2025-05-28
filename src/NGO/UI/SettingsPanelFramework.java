@@ -253,6 +253,42 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 			repaint();
 		}
 	}
+        public void setEditInfo2() {
+
+		for (String key : infoMap.keySet()) {
+
+			RoundedPanel cPanel = new RoundedPanel(10);
+			cPanel.setLayout(new BorderLayout());
+			cPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+			cPanel.setPreferredSize(new Dimension(500, 70));
+
+			JTextField keyField = new JTextField(infoMap.get(key));
+                        keyField.setEditable(false);
+			keyField.setFont(new Font("Arial", Font.PLAIN, 20));
+			keyField.setHorizontalAlignment(JLabel.RIGHT);
+
+                        JButton delete = new JButton("Delete");
+                        delete.setBackground(Color.red);
+                        delete.setPreferredSize(new Dimension(100, 60));
+                        delete.setFont(new Font("Arial", Font.PLAIN, 20));
+
+			textList.add(keyField);
+
+			gbc.gridx = 0;
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.insets = new Insets(10, 0, 0, 0);
+			cPanel.add(keyField, BorderLayout.WEST);
+
+			gbc.gridx = 1;
+			gbc.anchor = GridBagConstraints.EAST;
+			cPanel.add(delete, BorderLayout.EAST);
+			contentPanel.add(cPanel, gbc);
+			gbc.gridy = gbc.gridy + 1;
+
+			revalidate();
+			repaint();
+		}
+	}
 
 	public JButton addSaveButton() {
 		JButton btn = new JButton("Save");
@@ -310,7 +346,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
             knappGbc.anchor = GridBagConstraints.EAST;
             //knappGbc.insets = new Insets(20, 0, 10, 0);
             add(field, knappGbc);
-            
+            return field;
         }
 
 	public JButton addPasswordButton() {
