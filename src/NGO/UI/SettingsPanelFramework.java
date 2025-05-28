@@ -139,6 +139,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 			gbc.anchor = GridBagConstraints.EAST;
 			cPanel.add(valueWrapper, BorderLayout.EAST);
 
+			gbc.anchor = GridBagConstraints.CENTER;
 			contentPanel.add(cPanel, gbc);
 			gbc.gridy = gbc.gridy + 1;
 
@@ -310,7 +311,7 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
             knappGbc.anchor = GridBagConstraints.EAST;
             //knappGbc.insets = new Insets(20, 0, 10, 0);
             add(field, knappGbc);
-            
+            return field;
         }
 
 	public JButton addPasswordButton() {
