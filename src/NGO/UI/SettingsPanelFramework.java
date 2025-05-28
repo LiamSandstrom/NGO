@@ -43,7 +43,6 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
 		gbc = new GridBagConstraints();
 		gbc.gridy = 0;
 		gbc.gridx = 0;
-
 		contentPanel = new RoundedPanel(20);
 		contentPanel.setLayout(new GridBagLayout());
 		//contentPanel.setPreferredSize(new Dimension(550, 1000));
