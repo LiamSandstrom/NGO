@@ -4,7 +4,7 @@
  */
 package NGO.UI.Cards;
 
-import NGO.UI.AddRemovePartner2;
+
 import NGO.UI.CardStructure;
 import NGO.UI.PartnerProjektUI;
 import NGO.UI.ProjektPartnerUI;
