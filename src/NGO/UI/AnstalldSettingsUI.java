@@ -121,6 +121,7 @@ public class AnstalldSettingsUI extends SettingsPanelFramework {
 			try {
 				idb.update("update handlaggare set mentor = NULL where mentor = " + id + ";");
 				idb.update("update avdelning set chef = NULL where chef = " + id + ";");
+				idb.update("update projekt set projektchef = NULL where projektchef = " + id + ";");
 				idb.delete("delete from ans_proj where aid = " + id + ";");
 				idb.delete("delete from handlaggare where aid = " + id + ";");
 				idb.delete("delete from admin where aid = " + id + ";");
