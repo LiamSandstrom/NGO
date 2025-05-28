@@ -60,8 +60,9 @@ public class GlobalGoalsSettingsUI extends SettingsPanelFramework{
         
         deleteBtn.addActionListener(e -> {
             try{
-                idb.delete("delete from proj_hallbarhet where hid = '" + id +"'");//Radera relationer till projekt
-                idb.delete("delete from avd_hallbarhet where hid = '" + id +"'");//Radera relationer till avdelning
+                
+                idb.delete("delete from proj_hallbarhet where hid = '" + id +"'");//Radera alla relationer till projekt
+                idb.delete("delete from avd_hallbarhet where hid = '" + id +"'");//Radera alla relationer till avdelning
                 
                 idb.delete("delete from hallbarhetsmal where hid = '" + id + "'");//Radera hålbarhetsmålet i hallbarhetsmal
                 
