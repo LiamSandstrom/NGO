@@ -64,7 +64,7 @@ public class SearchHandlaggare extends ContentPanelStructure {
 
             if (!searchText.isEmpty()) {
                 if (searchText.contains("@")) {
-                    addition = " where epost like '" + searchText + "%'";
+                    addition = " where epost like '%" + searchText + "%'";
                 } else {
                     String[] name = searchText.split(" ");
                     if (name.length >= 2) {
