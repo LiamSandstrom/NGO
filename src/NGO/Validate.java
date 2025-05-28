@@ -302,12 +302,13 @@ public class Validate {
     }
 
     public static boolean validateTelefon(String nummer) {
-        if (nummer.matches("^(\\+\\d{7,15}|\\d{3}-\\d{3}-\\d{4})$")) {
-            return true;
+        boolean isCorrect = false;
+        if (nummer.matches("^(\\+\\d{7,15}|\\d{3}-\\d{3}-\\d{4}|\\d{7,15})$")) {
+            isCorrect = true;
         } else {
-            JOptionPane.showMessageDialog(null, "Wrong Phone number format! ex +1234567890 or 123-456-7890");
-            return false;
+            JOptionPane.showMessageDialog(null, "Wrong phone number format! Use +1234567890, 123-456-7890, or 0701122333");
         }
+        return isCorrect;
     }
 
     public static boolean validateAdress(String adress) {
@@ -329,10 +330,10 @@ public class Validate {
 
     public static boolean partnerName(String name) {
         boolean formatCorrect = false;
-        if (name.matches("^[A-Za-z0-9åäöÅÄÖ ]{3,35}$")) { //Tillåter flera 3-35 bokstäver och siffror, flera, siffror, mellanslag och stora bokstäver tillåtna
+        if (name.matches("^[A-Za-z0-9åäöÅÄÖ ]{3,128}$")) { //Tillåter flera 3-128 bokstäver och siffror, flera, siffror, mellanslag och stora bokstäver tillåtna
             formatCorrect = true;
         } else {
-            JOptionPane.showMessageDialog(null, "Wrong format!\nFormat must be 3-35 characters, only letters(lower and uppercase), numbers and spaces allowed.\n Ex: ''MyPartner Name1''");
+            JOptionPane.showMessageDialog(null, "Wrong format!\nFormat must be 3-128 characters, only letters(lower and uppercase), numbers and spaces allowed.\n Ex: ''MyPartner Name1''");
         }
         return formatCorrect;
     }
@@ -351,7 +352,7 @@ public class Validate {
         if (namn.length() > 1 && namn.length() <= 25) {
             isCorrect = true;
         } else {
-            JOptionPane.showMessageDialog(null, "Name " + namn + "must be 2-25 character, ex ''Sweden 1''");
+            JOptionPane.showMessageDialog(null, namn + "must be 2-25 character, ex ''Sweden 1''");
         }
         return isCorrect;
     }
