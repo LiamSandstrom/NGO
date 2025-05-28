@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package NGO.UI.Admin;
 
 import NGO.UI.Cards.LandCard;
 import NGO.UI.ContentPanelStructure;
 import NGO.UI.ScrollListPanel;
+import NGO.UI.SettingsJFrameHandler;
 import NGO.UI.UIStructure;
 import NGO.User;
 import java.awt.BorderLayout;
@@ -23,10 +20,6 @@ import javax.swing.JLabel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
-/**
- *
- * @author liam
- */
 public class EditLandUI extends ContentPanelStructure {
 
 	private InfDB idb;
@@ -37,13 +30,25 @@ public class EditLandUI extends ContentPanelStructure {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		idb = user.getDb();
+                JButton addBtn = new JButton("Add Country");
+		addBtn.setPreferredSize(new Dimension(200, 43));
+		gbc.anchor = GridBagConstraints.EAST;
+		gbc.insets = new Insets(0, 0, 0, 105);
+		add(addBtn, gbc);
+
+		gbc.insets = new Insets(0, 0, 0, 0);
+		gbc.gridy = 1;
+
+		addBtn.addActionListener(e -> {
+			SettingsJFrameHandler.addPanel(new AddLand(user, "none"));
+		});
 
 		try {
 			ArrayList<String> avdelningar = idb.fetchColumn("select lid from land;");
 
 			ScrollListPanel cardList = new ScrollListPanel(avdelningar
 			, () -> new LandCard(20, user));
-			add(cardList);
+			add(cardList, gbc);
 
 		} catch (Exception e) {
 		}
