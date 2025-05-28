@@ -29,38 +29,53 @@ public class PartnerProjektUI extends SettingsPanelFramework{
     private String id;
     private JComboBox<String> comboBox;
     private JButton btnAdd;
-    //private JPanel mainPanel;
+    
     
     public PartnerProjektUI(User user, String id) {
         super(user, id);
         this.user = user;
         this.idb = user.getDb();
         this.id = id;
-        //mainPanel = new JPanel();
-        //mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
-        //JScrollPane scrollPane = new JScrollPane(mainPanel);
-        //add(scrollPane);
-
-        //loadData();
         
-        getProjects(id);
-        
+        try {
+            addInfo("hej", "jj");
+            
+            ArrayList<String> projList = idb.fetchColumn("select pid from projekt where projektchef = '" + id + "'");
+            for (String pid : projList) {
+                //addInfo("Project ", pid);
+                //getPartners(pid);
+
+                ArrayList<String> partners = idb.fetchColumn("select namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projekt.pid = '" + pid + "'");
+                for (String part : partners) {
+                    addInfo("Name ", part);
+                    
+                    String partID = idb.fetchSingle("select pid from partner where namn = '" + part + "'");
+                    removeButton(pid, partID);
+                }
+                addButton(pid);
+                setInfo();
+            }
+            //getProjects(id);
+            
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+        setInfo();
     }
     
-    private void getProjects(String userid){
+    /*private void getProjects(String userid){
         try{
             ArrayList<String> projList = idb.fetchColumn("select pid from projekt where projektchef = '" + userid + "'");
             for(String pid : projList){
                 addInfo(" ", pid);
                 getPartners(pid);
             }
-            setInfo();
+            
         }catch(InfException e){
             JOptionPane.showMessageDialog(this, e);
         }
         
-        
+        setInfo();
     }
     
     private void getPartners(String pid){
@@ -76,7 +91,7 @@ public class PartnerProjektUI extends SettingsPanelFramework{
         }catch(InfException e){
             JOptionPane.showMessageDialog(this, e);
         }
-    }
+    }*/
     
     private void removeButton(String projId, String partId) {
         //JPanel partnerPanel = panel;

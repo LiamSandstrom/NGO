@@ -4,6 +4,7 @@
  */
 package NGO.UI.Cards;
 
+import NGO.UI.AddRemovePartner2;
 import NGO.UI.CardStructure;
 import NGO.UI.PartnerProjektUI;
 import NGO.UI.ProjektPartnerUI;
@@ -13,6 +14,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,15 +42,13 @@ public class CardProjektPartner extends CardStructure{
     @Override
     public void initCard(String id) {
         try{
-            //String projName = idb.fetchSingle("select projektnamn from projekt where projektchef = '" + id + "'");
-            String projNamn = idb.fetchSingle("select projekt.projektnamn from projekt"
-                    + " join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid "
-                    + "where anstalld.aid = '" + id + "';");
-            
-            JLabel cardRbr = new JLabel(projNamn);
+            ArrayList<String> projName = idb.fetchColumn("select projektnamn from projekt where projektchef = '" + id + "'");
+            //String projNamn = idb.fetchSingle("select projekt.projektnamn from projekt" + " join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid "  + "where anstalld.aid = '" + id + "';");
+            for(int i=0; i<projName.size();i++){
+            JLabel cardRbr = new JLabel(projName.get(i));
             cardRbr.setFont(new Font("Arial", Font.PLAIN, 20));
             add(cardRbr, BorderLayout.CENTER);
-
+            }
             JButton infoBtn = new JButton("Partners");
             infoBtn.setPreferredSize(new Dimension(100, 33));
             infoBtn.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -56,7 +56,7 @@ public class CardProjektPartner extends CardStructure{
             add(infoBtn, BorderLayout.EAST);
 
             infoBtn.addActionListener(e -> {
-                SettingsJFrameHandler.addPanel(new PartnerProjektUI(user, id));
+                SettingsJFrameHandler.addPanel(new AddRemovePartner2(user, id));
             });
         }catch(InfException e){
             JOptionPane.showMessageDialog(this, e);
