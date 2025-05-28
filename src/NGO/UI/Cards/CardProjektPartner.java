@@ -42,7 +42,7 @@ public class CardProjektPartner extends CardStructure{
     @Override
     public void initCard(String id) {
         try{
-            ArrayList<String> projName = idb.fetchColumn("select projektnamn from projekt where projektchef = '" + id + "'");
+            ArrayList<String> projName = idb.fetchColumn("select projektnamn from projekt where pid = '" + id + "'");
             //String projNamn = idb.fetchSingle("select projekt.projektnamn from projekt" + " join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid "  + "where anstalld.aid = '" + id + "';");
             for(int i=0; i<projName.size();i++){
             JLabel cardRbr = new JLabel(projName.get(i));
@@ -56,7 +56,7 @@ public class CardProjektPartner extends CardStructure{
             add(infoBtn, BorderLayout.EAST);
 
             infoBtn.addActionListener(e -> {
-                SettingsJFrameHandler.addPanel(new AddRemovePartner2(user, id));
+                SettingsJFrameHandler.addPanel(new PartnerProjektUI(user, id));
             });
         }catch(InfException e){
             JOptionPane.showMessageDialog(this, e);

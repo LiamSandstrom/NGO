@@ -29,6 +29,7 @@ public class PartnerProjektUI extends SettingsPanelFramework{
     private String id;
     private JComboBox<String> comboBox;
     private JButton btnAdd;
+    private ArrayList<String> pid;
     
     
     public PartnerProjektUI(User user, String id) {
@@ -37,7 +38,38 @@ public class PartnerProjektUI extends SettingsPanelFramework{
         this.idb = user.getDb();
         this.id = id;
         
+        getInfo(id);
+        
+        
+        System.out.println(id);
+        
+    
+    }
+
+    public void getInfo(String id) {
         try {
+            pid = idb.fetchColumn("select namn from projekt_partner join partner on partner_pid = partner.pid join projekt on projekt_partner.pid = projekt.pid where projekt.pid = '" + id + "'");
+            for(String proj : pid){
+                String partID = idb.fetchSingle("select pid from partner where namn = '" + proj + "'");
+                JButton deleteButton = addDeleteButton();
+                deleteButton.addActionListener(e-> {
+                    try{
+                        idb.delete("delete from projekt_partner where pid = '" + id + "' and partner_pid = '" + partID + "'");
+                    }catch(InfException ex){
+                        JOptionPane.showMessageDialog(null, ex);
+                    }
+                });
+                addInfo("Partner name ", proj);
+                setInfo();
+            }
+        } catch (InfException e) {
+            System.out.println(e);
+        }
+        
+
+    }
+
+       /* try {
             addInfo("hej", "jj");
             
             ArrayList<String> projList = idb.fetchColumn("select pid from projekt where projektchef = '" + id + "'");
