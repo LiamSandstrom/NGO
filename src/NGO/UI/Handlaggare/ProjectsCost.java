@@ -49,6 +49,7 @@ public class ProjectsCost extends ContentPanelStructure {
 
         for (String ettID : chefId) {
             if (ettID.equals(id)) {
+                System.out.println(ettID + " + " + id);
                 kontroll = true;
             }
         }
