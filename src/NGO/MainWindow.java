@@ -22,7 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import oru.inf.InfDB;
 import oru.inf.InfException;
-//HEJPONTUS
+
+//decides what UI to draw
 
 public class MainWindow extends JFrame implements LoginListener {
 

@@ -35,10 +35,12 @@ public class WelcomePanel extends ContentPanelStructure {
 	public void animateText(JLabel label) {
 		String text = label.getText();
 
+		//15 times before a change 
 		animTracker = -15;
 
 		Timer timer = new Timer(20, e -> {
 
+			//we move up 1 index per run 
 			String letters[] = text.split("");
 			String result = "";
 			for (int i = 0; i < letters.length; i++) {
