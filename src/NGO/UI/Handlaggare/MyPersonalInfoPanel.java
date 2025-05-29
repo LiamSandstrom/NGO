@@ -95,6 +95,7 @@ public class MyPersonalInfoPanel extends SettingsPanelFramework{
 						+ newEpost + "', telefon = '"
 						+ newTelefon + "', losenord = '"
 						+ newLosenord + "' where aid = '" + id + "'");
+                                        JOptionPane.showMessageDialog(null, "Your changes have been saved!");
 
 				System.out.println("SAVED");
 				} catch (Exception ex) {

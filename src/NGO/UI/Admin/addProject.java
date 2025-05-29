@@ -16,11 +16,11 @@ import oru.inf.InfDB;
  *
  * @author liam
  */
-public class addProject extends SettingsPanelFramework {
+public class AddProject extends SettingsPanelFramework {
 
 	InfDB idb;
 
-	public addProject(User user, String id) {
+	public AddProject(User user, String id) {
 		super(user, id);
 
 		Validate n = new Validate(user);
