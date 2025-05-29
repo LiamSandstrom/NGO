@@ -54,7 +54,7 @@ public class EditProjectUI extends ContentPanelStructure {
 		gbc.gridy = 1;
 
 		addBtn.addActionListener(e -> {
-			SettingsJFrameHandler.addPanel(new addProject(user, "none"));
+			SettingsJFrameHandler.addPanel(new AddProject(user, "none"));
 		});
 
 		try {

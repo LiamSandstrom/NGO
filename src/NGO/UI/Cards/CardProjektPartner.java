@@ -41,13 +41,13 @@ public class CardProjektPartner extends CardStructure{
     @Override
     public void initCard(String id) {
         try{
-            ArrayList<String> projName = idb.fetchColumn("select projektnamn from projekt where pid = '" + id + "'");
-            //String projNamn = idb.fetchSingle("select projekt.projektnamn from projekt" + " join ans_proj on projekt.pid = ans_proj.pid join anstalld on ans_proj.aid = anstalld.aid "  + "where anstalld.aid = '" + id + "';");
-            for(int i=0; i<projName.size();i++){
-            JLabel cardRbr = new JLabel(projName.get(i));
+            //väljer namnet där projekt id är den vi får som parameter
+            String projName = idb.fetchSingle("select projektnamn from projekt where pid = '" + id + "'");
+            //skapar en label med projektets namn
+            JLabel cardRbr = new JLabel(projName);
             cardRbr.setFont(new Font("Arial", Font.PLAIN, 20));
             add(cardRbr, BorderLayout.CENTER);
-            }
+            //och en knapp till höger för varje projekt
             JButton infoBtn = new JButton("Partners");
             infoBtn.setPreferredSize(new Dimension(100, 33));
             infoBtn.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -55,6 +55,7 @@ public class CardProjektPartner extends CardStructure{
             add(infoBtn, BorderLayout.EAST);
 
             infoBtn.addActionListener(e -> {
+                //lägger till en ny panel, PartnerProjektUI och skickar med användare och projekt id
                 SettingsJFrameHandler.addPanel(new PartnerProjektUI(user, id));
             });
         }catch(InfException e){
