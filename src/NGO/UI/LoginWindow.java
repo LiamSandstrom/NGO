@@ -142,6 +142,11 @@ public class LoginWindow extends JPanel {
 			}
 		});
 
+
+		add(content, gbc);
+	}
+}
+
 		/**JButton btnAdmin = new JButton("Login Admin");
 		btnAdmin.setFont(new Font("Arial", Font.PLAIN, textSize));
 		btnAdmin.setPreferredSize(new Dimension(inputWidth, 40));
@@ -167,7 +172,3 @@ public class LoginWindow extends JPanel {
 		btnHand.addActionListener(e -> {
 			loginListener.onLoginSucess("10");
 		});**/
-
-		add(content, gbc);
-	}
-}
