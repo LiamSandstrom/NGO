@@ -37,8 +37,9 @@ public class HandlaggarUI extends UIStructure {
 
 		changeContentPanel(new WelcomePanel(user, this));
 		
-                //ProjectWindow coolPanel = new ProjectWindow(user, this);
+                //skapar en klass 
                 Projects projects = new Projects(user, this);
+                //anropas metoden från UIStructure som lägger till en kanpp i toolbarPanel och öppnar en panel i contentPanel
                 addButton("Project", projects);
 
                 MyPersonalInfoPanel myInfo = new MyPersonalInfoPanel(user, id);
@@ -50,24 +51,19 @@ public class HandlaggarUI extends UIStructure {
                 ProjPart projektsPartners = new ProjPart(user, this);
                 addButton("Project Partners", projektsPartners);
                 
+                //sker en kontroll om användaren är projektchef, om den är det kan den se vissa knappar som övriga handläggare inte ska se
                 for(String ettID : chefId ){
                     if(ettID.equals(id)){
                         kontroll = true;
                     }
                 }
                 if(kontroll){
-                    
                     PartnerProjekt partProj = new PartnerProjekt(user, this);
                     addButton("Add/Remove partner", partProj);
-                    
-                    
-                    
-                    
                 }
             }catch(InfException e){
                 System.out.println(e);
             }   
-                
                 GlobalGoals globalGoals = new GlobalGoals(user, this);
                 addButton("Show Global Goals", globalGoals);
                 
@@ -75,6 +71,6 @@ public class HandlaggarUI extends UIStructure {
                 addButton("Search Handlaggare", searchHandlaggare);
                 
 		bottomMargin();
-               // addButton("Mina Uppgifter", minaUppgifter );
+               
 	}
 }

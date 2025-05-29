@@ -35,9 +35,13 @@ public class ShowMyProjects extends ContentPanelStructure{
             showProject.setEditable(false);
             
             String sqlQuery = "select * from projekt where projektchef = '" + id + "'";
+            // arraylist av hashmaps
             ArrayList<HashMap<String, String>> allProjects = idb.fetchRows(sqlQuery);
+            //skapar en strängbyggare
             StringBuilder result = new StringBuilder();
+            //loopar hashmapen 
             for(HashMap<String, String> row : allProjects){
+                //för varje row (projekt), hämtas och läggs till informationen i strängen
                 result.append("Project ID: ").append(row.get("pid"))
                         .append(", Name: ").append(row.get("projektnamn"))
                         .append(", Description: ").append(row.get("beskrivning"))
@@ -50,7 +54,7 @@ public class ShowMyProjects extends ContentPanelStructure{
                         .append(", Country: ").append(row.get("land"))
                         .append("\n \n");
             }
-            
+            //text area som sätter strängbyggaren till en string 
             showProject.setText(result.toString());
             JScrollPane scrollPane = new JScrollPane(showProject);
             setLayout(null);

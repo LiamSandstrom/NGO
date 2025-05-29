@@ -26,15 +26,16 @@ public class PartnerProjekt extends ContentPanelStructure{
     public PartnerProjekt(User user, UIStructure parentPanel) {
         super(user, parentPanel);
         setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        //GridBagConstraints gbc = new GridBagConstraints();
         
         this.user = user;
         idb = user.getDb();
         id = user.getId();
         
         try {
+            //lista med alla projekt id där användaren är projekt chef
             ArrayList<String> projID = idb.fetchColumn("select pid from projekt where projektchef = '" + id + "';");
-
+            //skapar en scrollListpanel och skickar med lista med id, samt skapar en kort för varje id
             ScrollListPanel cardList = new ScrollListPanel(projID, () -> new CardProjektPartner(20, user));
             add(cardList);
 
