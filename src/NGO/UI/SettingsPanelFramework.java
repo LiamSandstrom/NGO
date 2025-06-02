@@ -414,6 +414,20 @@ public class SettingsPanelFramework extends SettingsPanelStructure {
         add(btn, knappGbc);
         return btn;
     }
+    public JButton addSaveButtonLeft() {
+        JButton btn = new JButton("Save");
+        GridBagConstraints knappGbc = new GridBagConstraints();
+        btn.setPreferredSize(new Dimension(100, 60));
+        btn.setFont(new Font("Arial", Font.PLAIN, 20));
+        knappGbc.gridx = 0;
+        knappGbc.gridy = 1;
+        knappGbc.gridwidth = 1;
+        knappGbc.anchor = GridBagConstraints.CENTER;
+        knappGbc.fill = GridBagConstraints.HORIZONTAL;
+        knappGbc.insets = new Insets(20, 0, 10, 0);
+        add(btn, knappGbc);
+        return btn;
+    }
 
     public ArrayList<String> getTextInTextfields() {
         ArrayList<String> output = new ArrayList<>();

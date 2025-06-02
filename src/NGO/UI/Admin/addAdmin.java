@@ -9,11 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 
-public class AddAnstalld extends SettingsPanelFramework {
+public class addAdmin extends SettingsPanelFramework {
 
 	InfDB idb;
 
-	public AddAnstalld(User user, String id) {
+	public addAdmin(User user, String id) {
 		super(user, id);
 		idb = user.getDb();
 
@@ -29,7 +29,7 @@ public class AddAnstalld extends SettingsPanelFramework {
 		addInfo("Employed date", "");
 		addInfo("Password", "");
 		addInfo("Department", "");
-		addInfo("Area of Responsibility", "");
+		addInfo("Authorization level", "");
 
 		JButton passwordBtnRef = addPasswordButton();
 		JButton saveBtnRef = addSaveButtonLeft();
@@ -56,7 +56,7 @@ public class AddAnstalld extends SettingsPanelFramework {
 			String newEmpDate = listRef.get(6);
 			String newLosenord = listRef.get(7);
 			String newDepartment = listRef.get(8);
-			String newResponsibility = listRef.get(9);
+			String newAuth = listRef.get(9);
 
 
 			if (n.epost(newEpost)
@@ -67,7 +67,7 @@ public class AddAnstalld extends SettingsPanelFramework {
 				&& n.telefon(newTelefon)
 				&& n.date(newEmpDate)
 				&& n.pass(newLosenord)
-				&& n.responsibility(newResponsibility)
+				&& n.authority(newAuth)
 				&& n.idExists(newDepartment, "avdid", "avdelning")) {
 				try {
 
@@ -82,9 +82,9 @@ public class AddAnstalld extends SettingsPanelFramework {
 						+ newDepartment + ", '"
 						+ newLosenord + "')");
 
-					idb.insert("insert into handlaggare (aid, ansvarighetsomrade)" 
+					idb.insert("insert into admin (aid, behorighetsniva)" 
 					+ "values (" + newAid + ", '"
-					+ newResponsibility + "')");
+					+ newAuth + "')");
 
 					System.out.println("SAVED");
 					JOptionPane.showMessageDialog(null, "Saved!");
