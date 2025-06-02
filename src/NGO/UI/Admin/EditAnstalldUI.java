@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -40,17 +41,29 @@ public class EditAnstalldUI extends ContentPanelStructure {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 
-		JButton addBtn = new JButton("Add Employee");
+		JPanel btnPanel = new JPanel(new GridBagLayout());
+
+		JButton addBtn = new JButton("Add Handlaggare");
 		addBtn.setPreferredSize(new Dimension(200, 43));
 		gbc.anchor = GridBagConstraints.EAST;
-		gbc.insets = new Insets(0, 0, 0, 105);
-		add(addBtn, gbc);
+		btnPanel.add(addBtn, gbc);
+		
+		JButton addAdminBtn = new JButton("Add Admin");
+		addAdminBtn.setPreferredSize(new Dimension(200, 43));
+		gbc.anchor = GridBagConstraints.EAST;
+		gbc.insets = new Insets(0, 0, 0, 0);
+		btnPanel.add(addAdminBtn, gbc);
 
+		add(btnPanel);
 		gbc.insets = new Insets(0, 0, 0, 0);
 		gbc.gridy = 1;
 
 		addBtn.addActionListener(e -> {
 			SettingsJFrameHandler.addPanel(new AddAnstalld(user, "none"));
+		});
+
+		addAdminBtn.addActionListener(e -> {
+			SettingsJFrameHandler.addPanel(new addAdmin(user, "none"));
 		});
 
 		idb = user.getDb();
