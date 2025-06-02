@@ -1,5 +1,6 @@
 package NGO.UI.Admin;
 
+import NGO.Admin;
 import NGO.UI.SettingsPanelFramework;
 import NGO.User;
 import NGO.Validate;
@@ -29,8 +30,19 @@ public class AddAnstalld extends SettingsPanelFramework {
 		addInfo("Password", "");
 		addInfo("Department", "");
 
+		JButton passwordBtnRef = addPasswordButton();
+		JButton saveBtnRef = addSaveButtonLeft();
+
 		setEditInfo();
-		JButton saveBtnRef = addSaveButton();
+
+
+		passwordBtnRef.addActionListener(e -> {
+
+			Admin admin = (Admin) user;
+			String rand = admin.generateRandomPassword(10);
+			getTextField(7).setText(rand);
+		});
+
 		saveBtnRef.addActionListener(e -> {
 
 			ArrayList<String> listRef = getTextInTextfields();
