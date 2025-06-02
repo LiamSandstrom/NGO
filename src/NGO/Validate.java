@@ -257,6 +257,19 @@ public class Validate {
 		JOptionPane.showMessageDialog(null, "Enter a valid " + table + "!");
 		return false;
 	}
+        
+        public static boolean idExistsExcludeMessage(String id, String idName, String table) {
+		try {
+			String val = idb.fetchSingle("select " + idName + " from " + table + " where " + idName + " = '" + id + "';");
+			if (val != null && val.equals(id)) {
+				return true;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		//JOptionPane.showMessageDialog(null, "Enter a valid " + table + "!");
+		return false;
+	}
 
 	public static boolean idNotExists(String id, String idName, String table) {
 		try {
