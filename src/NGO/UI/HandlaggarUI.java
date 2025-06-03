@@ -40,13 +40,13 @@ public class HandlaggarUI extends UIStructure {
                 //skapar en klass 
                 Projects projects = new Projects(user, this);
                 //anropas metoden från UIStructure som lägger till en kanpp i toolbarPanel och öppnar en panel i contentPanel
-                addButton("Project", projects);
+                addButton("Projects/department", projects);
 
                 MyPersonalInfoPanel myInfo = new MyPersonalInfoPanel(user, id);
                 addDirectLinkButton("MyInfo", myInfo);
                 
                 ProjectsCost costPanel = new ProjectsCost(user, this);
-                addButton("Department Projects", costPanel);
+                addButton("My Projects", costPanel);
                 
                 ProjPart projektsPartners = new ProjPart(user, this);
                 addButton("Project Partners", projektsPartners);
