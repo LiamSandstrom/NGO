@@ -24,7 +24,7 @@ public class MyPersonalInfoPanel extends SettingsPanelFramework{
     
     public MyPersonalInfoPanel(User user, String id){
         super(user, id);
-        Validate n = new Validate(user);
+        Validate val = new Validate(user);
 		idb = user.getDb();
 
 		String fornamn = "";
@@ -71,22 +71,14 @@ public class MyPersonalInfoPanel extends SettingsPanelFramework{
 			String newEpost = listRef.get(3);
 			String newTelefon = listRef.get(4);
 			String newLosenord = listRef.get(5);
-			
-                        boolean newDep = false;
-			try {
-				newDep = true;
-			} catch (Exception ex) {
-				System.out.println(ex);
-			}
 
-			if (n.epost(newEpost)
-				&& n.firstName(newFornamn)
-				&& n.lastName(newEfternamn)
-				&& n.adress(newAdress)
-				&& n.epost(newEpost)
-				&& n.telefon(newTelefon)
-				&& n.pass(newLosenord)
-				&& newDep == true) {
+			if (val.epost(newEpost)
+				&& val.firstName(newFornamn)
+				&& val.lastName(newEfternamn)
+				&& val.adress(newAdress)
+				&& val.epost(newEpost)
+				&& val.telefon(newTelefon)
+				&& val.pass(newLosenord)) {
 				try {
 					idb.update("update anstalld set fornamn = '"
 						+ newFornamn + "', efternamn = '"
