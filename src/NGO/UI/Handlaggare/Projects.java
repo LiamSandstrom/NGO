@@ -224,26 +224,15 @@ public class Projects extends ContentPanelStructure {
 
     private void chosenAction() {
         String aid = alterPerson.getText();
-        String projName = alterToField.getText();
-        String pid = "";
+        String pid = alterToField.getText();
 
-        if (val.id(aid) && val.projectName(projName)) {
-            //Sätta värde på string pid
-            try {
-                pid = idb.fetchSingle("select pid from projekt where projektnamn = '" + projName + "'");
-            } catch (InfException ex) {
-                ex.printError();
-            }
-            if (val.idExistsExcludeMessage(pid, "pid", "projekt")) {
-                if (val.isInMyAuthority(pid)) {
-                    if (((String) addOrRemove.getSelectedItem()).equals("add")) {
-                        addPerson(aid, pid);
-                    } else {
-                        removePerson(aid, pid);
-                    }
+        if (val.id(aid) && val.id(pid)) {
+            if (val.isInMyAuthority(pid)) {
+                if (((String) addOrRemove.getSelectedItem()).equals("add")) {
+                    addPerson(aid, pid);
+                } else {
+                    removePerson(aid, pid);
                 }
-            }else{
-                JOptionPane.showMessageDialog(null, "There is no projet by that name");
             }
         }
     }
