@@ -57,23 +57,17 @@ public class AddProject extends SettingsPanelFramework {
 			String newProjektchef = listRef.get(8);
 			String newLand = listRef.get(9);
 
-			boolean projektFinns = true;
 
-			try {
-				idb.fetchSingle("SELECT * FROM anstalld WHERE aid = " + newProjektchef + ";");
-				projektFinns = true;
-			} catch (Exception ex) {
-				System.out.println("Projekt finns inte: " + ex);
-			}
-
-			if (n.projName(newNamn)
+			if (n.idNotExists(newPid, "pid", "projekt")
+				&& n.projName(newNamn) 
 				&& n.description(newBeskrivning)
 				&& n.date(newStartdatum)
 				&& n.date(newSlutdatum)
 				&& n.cost(newKostnad)
 				&& n.status(newStatus)
 				&& n.prio(newPrioritet)
-				&& projektFinns) {
+				&& n.idExists(newProjektchef, "aid", "handlaggare")
+				&& n.idExists(newLand, "lid", "land")) {
 				try {
 					String sql = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet, projektchef, land) "
 						+ "VALUES (" + newPid + ", '"

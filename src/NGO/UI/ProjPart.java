@@ -36,6 +36,8 @@ public class ProjPart extends ContentPanelStructure{
             ArrayList<String> projIdn = idb.fetchColumn("select projekt.pid from projekt "
                     + "join ans_proj on projekt.pid = ans_proj.pid "
                     + "join anstalld on ans_proj.aid = anstalld.aid where anstalld.aid = '" + user.getId() +"';");
+	    ArrayList<String> chefProjIdn = idb.fetchColumn("select pid from projekt where projektchef = '" + user.getId() + "';");
+	    projIdn.addAll(chefProjIdn);
             if (projIdn.size() > 0) {
                 ScrollListPanel cardList = new ScrollListPanel(
                         projIdn,

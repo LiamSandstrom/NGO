@@ -68,7 +68,7 @@ public class DepartmentSettingsUI extends SettingsPanelFramework {
 			String newPhone = listRef.get(4);
 			String newCity = listRef.get(5);
 			String newManager = listRef.get(6);
-                        if (val.partnerName(newName) && val.description(newDescription) && val.validateAdress(newAddress) && val.validateEpost(newEpost) && val.validateTelefon(newPhone) && val.id(newCity) && val.id(newManager)){
+                        if (val.partnerName(newName) && val.description(newDescription) && val.validateAdress(newAddress) && val.validateEpost(newEpost) && val.validateTelefon(newPhone) && val.idExists(newCity, "sid", "stad") && val.idExists(newManager, "aid", "handlaggare")){
 			try {
 				idb.update("update avdelning set namn = '"
 					+ newName + "', beskrivning = '"
