@@ -40,7 +40,7 @@ public class CostCard extends CardStructure {
             String name = user.getDb().fetchSingle("select projektnamn from projekt where pid = " + id + ";");
             String projektChef = user.getDb().fetchSingle("select projektchef from projekt where pid = " + id + ";");
 
-            JLabel nameLabel = new JLabel(name);
+            JLabel nameLabel = new JLabel("pid: " + id + " name: " + name);
             nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
             add(nameLabel, BorderLayout.CENTER);
             
