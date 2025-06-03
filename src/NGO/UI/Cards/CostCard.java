@@ -5,6 +5,7 @@
 package NGO.UI.Cards;
 
 import NGO.UI.Admin.ProjectSettingsUI;
+import NGO.UI.Admin.ProjectSettingsUIHand;
 import NGO.UI.AnstalldSettingsUI;
 import NGO.UI.CardStructure;
 import NGO.UI.Handlaggare.ProjectsCostInfoPanel;
@@ -59,7 +60,7 @@ public class CostCard extends CardStructure {
 
             infoBtn.addActionListener(e -> {
                 try{
-                    SettingsJFrameHandler.addPanel(new ProjectSettingsUI(user, id));
+                    SettingsJFrameHandler.addPanel(new ProjectSettingsUIHand(user, id));
                 }catch(Exception ex){
                 }
             });

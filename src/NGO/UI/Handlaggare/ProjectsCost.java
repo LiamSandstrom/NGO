@@ -24,99 +24,101 @@ import oru.inf.InfException;
  */
 public class ProjectsCost extends ContentPanelStructure {
 
-    String id;
-    InfDB idb;
-    User user;
-    ScrollListPanel cardList;
-    GridBagConstraints gbc;
-    double totalCost;
-    ArrayList<String> chefId;
-    boolean kontroll;
-    
+	String id;
+	InfDB idb;
+	User user;
+	ScrollListPanel cardList;
+	GridBagConstraints gbc;
+	double totalCost;
+	ArrayList<String> chefId;
+	boolean kontroll;
 
-    public ProjectsCost(User user, UIStructure parentPanel) throws InfException {
-        super(user, parentPanel);
-        this.user = user;
-        id = user.getId();
-        idb = user.getDb();
-        cardList = null;
-        chefId = new ArrayList<>();
-        chefId = idb.fetchColumn("select projektchef from projekt");
-        
+	public ProjectsCost(User user, UIStructure parentPanel) throws InfException {
+		super(user, parentPanel);
+		this.user = user;
+		try {
 
-        totalCost = 0;
-        setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
+			id = user.getId();
+			idb = user.getDb();
+			cardList = null;
+			chefId = new ArrayList<>();
+			chefId = idb.fetchColumn("select projektchef from projekt");
 
-        for (String ettID : chefId) {
-            if (ettID.equals(id)) {
-                System.out.println(ettID + " + " + id);
-                kontroll = true;
-            }
-        }
-        if (kontroll) {
+			totalCost = 0;
+			setLayout(new GridBagLayout());
+			gbc = new GridBagConstraints();
 
-            ArrayList<String> sqlQuery = idb.fetchColumn("select kostnad from projekt where projektchef = '" + id + "'");
-            for (String cost : sqlQuery) {
-                double tot = Double.parseDouble(cost);
-                totalCost += tot;
-            }
-            JLabel totalCostLabel = new JLabel("Total cost: " + totalCost + " kr");
-            totalCostLabel.setFont(new Font("Arial", Font.PLAIN, 42));
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            gbc.gridwidth = 1;
-            gbc.fill = GridBagConstraints.NONE;
-            gbc.anchor = GridBagConstraints.CENTER;
-            add(totalCostLabel, gbc);
+			for (String ettID : chefId) {
+				if (ettID.equals(id)) {
+					System.out.println(ettID + " + " + id);
+					kontroll = true;
+				}
+			}
+			if (kontroll) {
 
-            gbc.gridy = 1;
-            gbc.fill = GridBagConstraints.BOTH;
-            createList("select * from projekt where projektchef = " + id + ";");
-        }
-        else{
-		
-        createInfoList("select * from projekt where pid in (select pid from ans_proj where aid = " + id + ")");
-        }
-    }
-        
-    public void createList(String query) {
-        if (cardList != null) {
-            remove(cardList);
-            cardList = null;
-        }
-        try {
+				ArrayList<String> sqlQuery = idb.fetchColumn("select kostnad from projekt where projektchef = '" + id + "'");
+				for (String cost : sqlQuery) {
+					double tot = Double.parseDouble(cost);
+					totalCost += tot;
+				}
+				JLabel totalCostLabel = new JLabel("Total cost: " + totalCost + " kr");
+				totalCostLabel.setFont(new Font("Arial", Font.PLAIN, 42));
+				gbc.gridx = 0;
+				gbc.gridy = 0;
+				gbc.gridwidth = 1;
+				gbc.fill = GridBagConstraints.NONE;
+				gbc.anchor = GridBagConstraints.CENTER;
+				add(totalCostLabel, gbc);
 
-            ArrayList<String> cost = idb.fetchColumn(query);
+				gbc.gridy = 1;
+				gbc.fill = GridBagConstraints.BOTH;
+				createList("select * from projekt where projektchef = " + id + ";");
+			} else {
 
-            cardList = new ScrollListPanel(
-                    cost,
-                    () -> new CostCard(20, user));
-            add(cardList, gbc);
-            revalidate();
-            repaint();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
+				createInfoList("select * from projekt where pid in (select pid from ans_proj where aid = " + id + ")");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 
-    public void createInfoList(String query) {
-        if (cardList != null) {
-            remove(cardList);
-            cardList = null;
-        }
-        try {
+	public void createList(String query) {
+		if (cardList != null) {
+			remove(cardList);
+			cardList = null;
+		}
+		try {
 
-            ArrayList<String> cost = idb.fetchColumn(query);
+			ArrayList<String> cost = idb.fetchColumn(query);
 
-            cardList = new ScrollListPanel(
-                    cost,
-                    () -> new ProjectHandlaggareCard(20, user));
-            add(cardList, gbc);
-            revalidate();
-            repaint();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
+			cardList = new ScrollListPanel(
+				cost,
+				() -> new CostCard(20, user));
+			add(cardList, gbc);
+			revalidate();
+			repaint();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void createInfoList(String query) {
+		if (cardList != null) {
+			remove(cardList);
+			cardList = null;
+		}
+		try {
+
+			ArrayList<String> cost = idb.fetchColumn(query);
+
+			cardList = new ScrollListPanel(
+				cost,
+				() -> new ProjectHandlaggareCard(20, user));
+			add(cardList, gbc);
+			revalidate();
+			repaint();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }
